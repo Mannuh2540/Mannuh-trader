@@ -1,29 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mannuh Trader</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#071018;color:white}
-header{padding:20px;background:#0c1821;border-bottom:1px solid #263744}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#071018;
+ color:white
+}
+header{
+ padding:18px;
+ background:#0c1821;
+ border-bottom:1px solid #263744
+}
 h1{margin:0;color:#6ee7a0}
-nav{display:flex;gap:8px;padding:12px;background:#0b151e;overflow:auto}
-button{padding:12px 16px;border:0;border-radius:8px;background:#172832;color:white}
-button.active,button:hover{background:#35c979;color:#06100a}
-main{padding:18px;max-width:1100px;margin:auto}
-.card{background:#0c1821;border:1px solid #1d303c;border-radius:14px;padding:18px;margin-bottom:16px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.big{font-size:26px;font-weight:bold;margin-top:8px}
+nav{
+ display:flex;
+ gap:8px;
+ padding:10px;
+ background:#0b151e;
+ overflow:auto
+}
+button,select{
+ padding:12px;
+ border:0;
+ border-radius:8px;
+ background:#172832;
+ color:white
+}
+button:hover,.active{
+ background:#35c979;
+ color:#06100a
+}
+main{
+ max-width:1100px;
+ margin:auto;
+ padding:15px
+}
+.card{
+ background:#0c1821;
+ border:1px solid #1d303c;
+ border-radius:14px;
+ padding:16px;
+ margin-bottom:15px
+}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:10px
+}
+.big{
+ font-size:25px;
+ font-weight:bold;
+ margin-top:7px
+}
 .green{color:#6ee7a0}
-.muted{color:#8b9aa3;font-size:13px}
-.digits{display:flex;flex-wrap:wrap;gap:8px}
-.digit{width:48px;height:48px;background:#162630;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.hot{border:1px solid #6ee7a0;color:#6ee7a0}
+.red{color:#ff7777}
+.muted{
+ color:#8b9aa3;
+ font-size:13px
+}
+.digits{
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px
+}
+.digit{
+ width:48px;
+ height:48px;
+ background:#162630;
+ border-radius:9px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:18px
+}
+.hot{
+ border:1px solid #6ee7a0;
+ color:#6ee7a0
+}
 .section{display:none}
 .section.active{display:block}
-input,select{width:100%;padding:12px;background:#071018;color:white;border:1px solid #30434e;border-radius:8px;margin:8px 0 15px}
-@media(max-width:700px){.grid{grid-template-columns:1fr 1fr}}
+select{
+ width:100%;
+ margin:5px 0 15px;
+ border:1px solid #30434e
+}
+.status{
+ padding:10px;
+ border-radius:8px;
+ background:#162630;
+ margin-bottom:12px
+}
+.recent{
+ font-size:22px;
+ letter-spacing:5px;
+ word-break:break-all
+}
+.bar{
+ height:8px;
+ background:#172832;
+ border-radius:5px;
+ overflow:hidden;
+ margin-top:5px
+}
+.fill{
+ height:100%;
+ background:#35c979
+}
+@media(max-width:700px){
+ .grid{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 
@@ -31,7 +122,7 @@ input,select{width:100%;padding:12px;background:#071018;color:white;border:1px s
 
 <header>
 <h1>★ Mannuh Trader</h1>
-<p class="muted">Digits Analysis & Trading Workspace</p>
+<p class="muted">Live Digits Analysis</p>
 </header>
 
 <nav>
@@ -43,63 +134,72 @@ input,select{width:100%;padding:12px;background:#071018;color:white;border:1px s
 
 <main>
 
+<!-- DASHBOARD -->
+
 <section id="dashboard" class="section active">
+
+<div class="card">
+
+<h2>Live Market</h2>
+
+<select id="symbol" onchange="changeMarket()">
+<option value="R_100">Volatility 100</option>
+<option value="R_75">Volatility 75</option>
+<option value="R_50">Volatility 50</option>
+<option value="R_25">Volatility 25</option>
+<option value="R_10">Volatility 10</option>
+</select>
+
+<div id="status" class="status">
+Connecting to Deriv...
+</div>
+
+</div>
 
 <div class="grid">
 
 <div class="card">
 <div class="muted">Market</div>
-<div class="big">Digits</div>
-<div class="muted">Over / Under</div>
+<div class="big" id="market">R_100</div>
 </div>
 
 <div class="card">
-<div class="muted">Signal</div>
-<div class="big green">WAIT</div>
-<div class="muted">No entry</div>
+<div class="muted">Last Price</div>
+<div class="big" id="price">--</div>
 </div>
 
 <div class="card">
-<div class="muted">Stake</div>
-<div class="big">$20</div>
-<div class="muted">Demo setting</div>
+<div class="muted">Last Digit</div>
+<div class="big green" id="lastDigit">--</div>
 </div>
 
 <div class="card">
-<div class="muted">Trades</div>
-<div class="big">0</div>
-<div class="muted">Session</div>
+<div class="muted">Ticks</div>
+<div class="big" id="ticks">0</div>
 </div>
 
 </div>
 
 <div class="card">
+
+<h2>Recent Digits</h2>
+
+<div id="recent" class="recent">Waiting...</div>
+
+</div>
+
+<div class="card">
+
 <h2>Digit Distribution</h2>
 
-<div class="digits">
-<div class="digit hot">0</div>
-<div class="digit hot">1</div>
-<div class="digit hot">2</div>
-<div class="digit">3</div>
-<div class="digit">4</div>
-<div class="digit">5</div>
-<div class="digit">6</div>
-<div class="digit">7</div>
-<div class="digit">8</div>
-<div class="digit">9</div>
-</div>
+<div id="distribution" class="digits"></div>
 
-</div>
-
-<div class="card">
-<h2>About Mannuh Trader</h2>
-<p class="muted">
-A personal trading analysis workspace for studying Digit markets,
-Over 2, Under 7 and Even/Odd conditions.
-</p>
 </div>
 
 </section>
+
+
+<!-- DIGITS -->
 
 <section id="digits" class="section">
 
@@ -109,37 +209,73 @@ Over 2, Under 7 and Even/Odd conditions.
 
 <label class="muted">Strategy</label>
 
-<select>
+<select id="strategy">
 <option>Over 2</option>
 <option>Under 7</option>
 <option>Even</option>
 <option>Odd</option>
 </select>
 
-<h3>Current Digits</h3>
+<div class="grid">
 
-<div class="digits">
-<div class="digit">0</div>
-<div class="digit">1</div>
-<div class="digit">2</div>
-<div class="digit">3</div>
-<div class="digit">4</div>
-<div class="digit">5</div>
-<div class="digit">6</div>
-<div class="digit">7</div>
-<div class="digit">8</div>
-<div class="digit">9</div>
+<div class="card">
+<div class="muted">0</div>
+<div class="big" id="p0">0%</div>
 </div>
 
-<br>
+<div class="card">
+<div class="muted">1</div>
+<div class="big" id="p1">0%</div>
+</div>
 
-<button onclick="alert('Analysis refreshed')">
-Refresh Analysis
-</button>
+<div class="card">
+<div class="muted">2</div>
+<div class="big" id="p2">0%</div>
+</div>
+
+<div class="card">
+<div class="muted">3</div>
+<div class="big" id="p3">0%</div>
+</div>
+
+<div class="card">
+<div class="muted">4</div>
+<div class="big" id="p4">0%</div>
+</div>
+
+<div class="card">
+<div class="muted">5</div>
+<div class="big" id="p5">0%</div>
+</div>
+
+<div class="card">
+<div class="muted">6</div>
+<div class="big" id="p6">0%</div>
+</div>
+
+<div class="card">
+<div class="muted">7</div>
+<div class="big" id="p7">0%</div>
+</div>
+
+<div class="card">
+<div class="muted">8</div>
+<div class="big" id="p8">0%</div>
+</div>
+
+<div class="card">
+<div class="muted">9</div>
+<div class="big" id="p9">0%</div>
+</div>
+
+</div>
 
 </div>
 
 </section>
+
+
+<!-- BOT -->
 
 <section id="bot" class="section">
 
@@ -148,9 +284,10 @@ Refresh Analysis
 <h2>Bot Builder</h2>
 
 <label class="muted">Bot Name</label>
-<input placeholder="Mannuh Digits Bot">
+<input style="width:100%;padding:12px;margin:8px 0 15px;background:#071018;color:white;border:1px solid #30434e;border-radius:8px" placeholder="Mannuh Digits Bot">
 
 <label class="muted">Strategy</label>
+
 <select>
 <option>Over 2</option>
 <option>Under 7</option>
@@ -159,18 +296,24 @@ Refresh Analysis
 </select>
 
 <label class="muted">Stake</label>
-<input type="number" value="20">
 
-<label class="muted">Maximum Trades</label>
-<input type="number" value="10">
+<input type="number" value="20"
+style="width:100%;padding:12px;margin:8px 0 15px;background:#071018;color:white;border:1px solid #30434e;border-radius:8px">
 
-<button onclick="alert('Bot configuration saved')">
+<button onclick="alert('Bot configuration saved locally')">
 Save Bot
 </button>
+
+<p class="muted">
+Analysis only. No real trade is placed by this page.
+</p>
 
 </div>
 
 </section>
+
+
+<!-- MANUAL -->
 
 <section id="manual" class="section">
 
@@ -188,7 +331,9 @@ Save Bot
 </select>
 
 <label class="muted">Stake</label>
-<input type="number" value="20">
+
+<input type="number" value="20"
+style="width:100%;padding:12px;margin:8px 0 15px;background:#071018;color:white;border:1px solid #30434e;border-radius:8px">
 
 <button onclick="alert('Demo only — no real trade was placed.')">
 Record Demo Trade
@@ -200,15 +345,25 @@ Record Demo Trade
 
 </main>
 
+
 <script>
+
+let socket;
+let selectedSymbol="R_100";
+
+let counts=[0,0,0,0,0,0,0,0,0,0];
+let totalTicks=0;
+let recent=[];
+
+
+/* NAVIGATION */
 
 function show(id,button){
 
 document.querySelectorAll('.section')
 .forEach(x=>x.classList.remove('active'));
 
-document.getElementById(id)
-.classList.add('active');
+document.getElementById(id).classList.add('active');
 
 document.querySelectorAll('nav button')
 .forEach(x=>x.classList.remove('active'));
@@ -216,6 +371,184 @@ document.querySelectorAll('nav button')
 button.classList.add('active');
 
 }
+
+
+/* DERIV CONNECTION */
+
+function connect(){
+
+if(socket){
+try{socket.close()}catch(e){}
+}
+
+document.getElementById("status").innerText=
+"Connecting to Deriv...";
+
+socket=new WebSocket(
+"wss://ws.derivws.com/websockets/v3?app_id=1089"
+);
+
+socket.onopen=function(){
+
+document.getElementById("status").innerText=
+"🟢 LIVE — Connected to Deriv";
+
+socket.send(JSON.stringify({
+ticks:selectedSymbol,
+subscribe:1
+}));
+
+};
+
+socket.onmessage=function(event){
+
+let data=JSON.parse(event.data);
+
+if(data.tick){
+
+processTick(data.tick);
+
+}
+
+if(data.error){
+
+document.getElementById("status").innerText=
+"❌ "+data.error.message;
+
+}
+
+};
+
+socket.onerror=function(){
+
+document.getElementById("status").innerText=
+"❌ Connection error";
+
+};
+
+socket.onclose=function(){
+
+document.getElementById("status").innerText=
+"Connection closed — reconnecting...";
+
+setTimeout(connect,3000);
+
+};
+
+}
+
+
+/* PROCESS TICK */
+
+function processTick(tick){
+
+let price=Number(tick.quote);
+
+document.getElementById("price").innerText=
+price.toFixed(tick.pip_size || 2);
+
+let text=price.toFixed(tick.pip_size || 2);
+
+let digit=Number(text.slice(-1));
+
+document.getElementById("lastDigit").innerText=digit;
+
+counts[digit]++;
+totalTicks++;
+
+document.getElementById("ticks").innerText=totalTicks;
+
+recent.unshift(digit);
+
+if(recent.length>30){
+recent.pop();
+}
+
+document.getElementById("recent").innerText=
+recent.join(" ");
+
+updateDistribution();
+updatePercentages();
+
+}
+
+
+/* DISTRIBUTION */
+
+function updateDistribution(){
+
+let box=document.getElementById("distribution");
+
+box.innerHTML="";
+
+for(let i=0;i<10;i++){
+
+let pct=totalTicks ?
+(counts[i]/totalTicks*100).toFixed(1):"0.0";
+
+let d=document.createElement("div");
+
+d.className="digit";
+
+d.innerHTML=
+i+"<br><small>"+pct+"%</small>";
+
+box.appendChild(d);
+
+}
+
+}
+
+
+/* PERCENTAGES */
+
+function updatePercentages(){
+
+for(let i=0;i<10;i++){
+
+let pct=totalTicks ?
+(counts[i]/totalTicks*100).toFixed(1):"0.0";
+
+document.getElementById("p"+i).innerText=
+pct+"%";
+
+}
+
+}
+
+
+/* CHANGE MARKET */
+
+function changeMarket(){
+
+selectedSymbol=
+document.getElementById("symbol").value;
+
+document.getElementById("market").innerText=
+selectedSymbol;
+
+counts=[0,0,0,0,0,0,0,0,0,0];
+
+recent=[];
+
+totalTicks=0;
+
+document.getElementById("ticks").innerText="0";
+
+document.getElementById("recent").innerText=
+"Waiting...";
+
+updateDistribution();
+updatePercentages();
+
+connect();
+
+}
+
+
+/* START */
+
+connect();
 
 </script>
 
