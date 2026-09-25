@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mannuh Trader</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#071018;color:white}
+header{padding:20px;background:#0c1821;border-bottom:1px solid #263744}
+h1{margin:0;color:#6ee7a0}
+nav{display:flex;gap:8px;padding:12px;background:#0b151e;overflow:auto}
+button{padding:12px 16px;border:0;border-radius:8px;background:#172832;color:white}
+button.active,button:hover{background:#35c979;color:#06100a}
+main{padding:18px;max-width:1100px;margin:auto}
+.card{background:#0c1821;border:1px solid #1d303c;border-radius:14px;padding:18px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.big{font-size:26px;font-weight:bold;margin-top:8px}
+.green{color:#6ee7a0}
+.muted{color:#8b9aa3;font-size:13px}
+.digits{display:flex;flex-wrap:wrap;gap:8px}
+.digit{width:48px;height:48px;background:#162630;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.hot{border:1px solid #6ee7a0;color:#6ee7a0}
+.section{display:none}
+.section.active{display:block}
+input,select{width:100%;padding:12px;background:#071018;color:white;border:1px solid #30434e;border-radius:8px;margin:8px 0 15px}
+@media(max-width:700px){.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>★ Mannuh Trader</h1>
+<p class="muted">Digits Analysis & Trading Workspace</p>
+</header>
+
+<nav>
+<button class="active" onclick="show('dashboard',this)">Dashboard</button>
+<button onclick="show('digits',this)">Digits</button>
+<button onclick="show('bot',this)">Bot Builder</button>
+<button onclick="show('manual',this)">Manual</button>
+</nav>
+
+<main>
+
+<section id="dashboard" class="section active">
+
+<div class="grid">
+
+<div class="card">
+<div class="muted">Market</div>
+<div class="big">Digits</div>
+<div class="muted">Over / Under</div>
+</div>
+
+<div class="card">
+<div class="muted">Signal</div>
+<div class="big green">WAIT</div>
+<div class="muted">No entry</div>
+</div>
+
+<div class="card">
+<div class="muted">Stake</div>
+<div class="big">$20</div>
+<div class="muted">Demo setting</div>
+</div>
+
+<div class="card">
+<div class="muted">Trades</div>
+<div class="big">0</div>
+<div class="muted">Session</div>
+</div>
+
+</div>
+
+<div class="card">
+<h2>Digit Distribution</h2>
+
+<div class="digits">
+<div class="digit hot">0</div>
+<div class="digit hot">1</div>
+<div class="digit hot">2</div>
+<div class="digit">3</div>
+<div class="digit">4</div>
+<div class="digit">5</div>
+<div class="digit">6</div>
+<div class="digit">7</div>
+<div class="digit">8</div>
+<div class="digit">9</div>
+</div>
+
+</div>
+
+<div class="card">
+<h2>About Mannuh Trader</h2>
+<p class="muted">
+A personal trading analysis workspace for studying Digit markets,
+Over 2, Under 7 and Even/Odd conditions.
+</p>
+</div>
+
+</section>
+
+<section id="digits" class="section">
+
+<div class="card">
+
+<h2>Digits Analysis</h2>
+
+<label class="muted">Strategy</label>
+
+<select>
+<option>Over 2</option>
+<option>Under 7</option>
+<option>Even</option>
+<option>Odd</option>
+</select>
+
+<h3>Current Digits</h3>
+
+<div class="digits">
+<div class="digit">0</div>
+<div class="digit">1</div>
+<div class="digit">2</div>
+<div class="digit">3</div>
+<div class="digit">4</div>
+<div class="digit">5</div>
+<div class="digit">6</div>
+<div class="digit">7</div>
+<div class="digit">8</div>
+<div class="digit">9</div>
+</div>
+
+<br>
+
+<button onclick="alert('Analysis refreshed')">
+Refresh Analysis
+</button>
+
+</div>
+
+</section>
+
+<section id="bot" class="section">
+
+<div class="card">
+
+<h2>Bot Builder</h2>
+
+<label class="muted">Bot Name</label>
+<input placeholder="Mannuh Digits Bot">
+
+<label class="muted">Strategy</label>
+<select>
+<option>Over 2</option>
+<option>Under 7</option>
+<option>Even</option>
+<option>Odd</option>
+</select>
+
+<label class="muted">Stake</label>
+<input type="number" value="20">
+
+<label class="muted">Maximum Trades</label>
+<input type="number" value="10">
+
+<button onclick="alert('Bot configuration saved')">
+Save Bot
+</button>
+
+</div>
+
+</section>
+
+<section id="manual" class="section">
+
+<div class="card">
+
+<h2>Manual Trade</h2>
+
+<label class="muted">Contract</label>
+
+<select>
+<option>Over 2</option>
+<option>Under 7</option>
+<option>Even</option>
+<option>Odd</option>
+</select>
+
+<label class="muted">Stake</label>
+<input type="number" value="20">
+
+<button onclick="alert('Demo only — no real trade was placed.')">
+Record Demo Trade
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+<script>
+
+function show(id,button){
+
+document.querySelectorAll('.section')
+.forEach(x=>x.classList.remove('active'));
+
+document.getElementById(id)
+.classList.add('active');
+
+document.querySelectorAll('nav button')
+.forEach(x=>x.classList.remove('active'));
+
+button.classList.add('active');
+
+}
+
+</script>
+
+</body>
+</html>
