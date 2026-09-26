@@ -416,12 +416,9 @@ This website:
    CONNECTION
 ------------------------------------------------------- */
 
-const APP_ID = 1089;
-
+const APP_ID = null;
 const WS_URL =
-    "wss://ws.derivws.com/websockets/v3?app_id=" + APP_ID;
-
-
+    "wss://api.derivws.com/trading/v1/options/ws/public";
 /* -------------------------------------------------------
    CONFIGURATION
 ------------------------------------------------------- */
@@ -1435,13 +1432,6 @@ function connect() {
 
         startPing();
 
-
-        /*
-           Request the latest 3,000 REAL ticks.
-
-           This is historical data.
-           We do NOT animate it.
-        */
 
         ws.send(
             JSON.stringify({
