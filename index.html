@@ -1,552 +1,496 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mannuh Trader</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mannuh Trader</title>
 
-<style>
-*{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#071018;
- color:white
-}
-header{
- padding:18px;
- background:#0c1821;
- border-bottom:1px solid #263744
-}
-h1{margin:0;color:#6ee7a0}
-nav{
- display:flex;
- gap:8px;
- padding:10px;
- background:#0b151e;
- overflow:auto
-}
-button,select{
- padding:12px;
- border:0;
- border-radius:8px;
- background:#172832;
- color:white
-}
-button:hover,.active{
- background:#35c979;
- color:#06100a
-}
-main{
- max-width:1100px;
- margin:auto;
- padding:15px
-}
-.card{
- background:#0c1821;
- border:1px solid #1d303c;
- border-radius:14px;
- padding:16px;
- margin-bottom:15px
-}
-.grid{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:10px
-}
-.big{
- font-size:25px;
- font-weight:bold;
- margin-top:7px
-}
-.green{color:#6ee7a0}
-.red{color:#ff7777}
-.muted{
- color:#8b9aa3;
- font-size:13px
-}
-.digits{
- display:flex;
- flex-wrap:wrap;
- gap:8px
-}
-.digit{
- width:48px;
- height:48px;
- background:#162630;
- border-radius:9px;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:18px
-}
-.hot{
- border:1px solid #6ee7a0;
- color:#6ee7a0
-}
-.section{display:none}
-.section.active{display:block}
-select{
- width:100%;
- margin:5px 0 15px;
- border:1px solid #30434e
-}
-.status{
- padding:10px;
- border-radius:8px;
- background:#162630;
- margin-bottom:12px
-}
-.recent{
- font-size:22px;
- letter-spacing:5px;
- word-break:break-all
-}
-.bar{
- height:8px;
- background:#172832;
- border-radius:5px;
- overflow:hidden;
- margin-top:5px
-}
-.fill{
- height:100%;
- background:#35c979
-}
-@media(max-width:700px){
- .grid{grid-template-columns:1fr 1fr}
-}
-</style>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #07111f;
+      color: white;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00e5ff;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #9ca9b8;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: #0d1b2a;
+      border: 1px solid #20364d;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #aebdca;
+    }
+
+    select {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      background: #07111f;
+      color: white;
+      border: 1px solid #35506b;
+      font-size: 16px;
+    }
+
+    .status {
+      text-align: center;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      background: #15283b;
+    }
+
+    .connected {
+      color: #00ff9d;
+    }
+
+    .disconnected {
+      color: #ff5964;
+    }
+
+    .price {
+      text-align: center;
+      font-size: 42px;
+      font-weight: bold;
+      color: #00e5ff;
+      margin: 15px 0;
+    }
+
+    .digit {
+      text-align: center;
+      font-size: 70px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .time {
+      text-align: center;
+      color: #8798aa;
+      margin-bottom: 15px;
+    }
+
+    .digits {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 7px;
+      margin-top: 15px;
+    }
+
+    .digit-box {
+      background: #142538;
+      border-radius: 8px;
+      padding: 12px 3px;
+      text-align: center;
+    }
+
+    .digit-number {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .percentage {
+      font-size: 12px;
+      color: #9fb0c1;
+      margin-top: 4px;
+    }
+
+    .history {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 15px;
+    }
+
+    .history span {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #1c3248;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .signal {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #122338;
+    }
+
+    .note {
+      color: #8fa2b5;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+
+      .digits {
+        gap: 4px;
+      }
+
+      .digit-box {
+        padding: 9px 2px;
+      }
+
+      .price {
+        font-size: 32px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-<h1>★ Mannuh Trader</h1>
-<p class="muted">Live Digits Analysis</p>
-</header>
+<div class="container">
 
-<nav>
-<button class="active" onclick="show('dashboard',this)">Dashboard</button>
-<button onclick="show('digits',this)">Digits</button>
-<button onclick="show('bot',this)">Bot Builder</button>
-<button onclick="show('manual',this)">Manual</button>
-</nav>
+  <h1>⚡ MANNuh TRADER</h1>
+  <div class="subtitle">Live Deriv Digits Analysis</div>
 
-<main>
+  <div class="card">
 
-<!-- DASHBOARD -->
+    <label for="market">Select Market</label>
 
-<section id="dashboard" class="section active">
+    <select id="market">
+      <option value="R_10">Volatility 10</option>
+      <option value="R_25">Volatility 25</option>
+      <option value="R_50">Volatility 50</option>
+      <option value="R_75">Volatility 75</option>
+      <option value="R_100" selected>Volatility 100</option>
+    </select>
 
-<div class="card">
+  </div>
 
-<h2>Live Market</h2>
+  <div class="card">
 
-<select id="symbol" onchange="changeMarket()">
-<option value="R_100">Volatility 100</option>
-<option value="R_75">Volatility 75</option>
-<option value="R_50">Volatility 50</option>
-<option value="R_25">Volatility 25</option>
-<option value="R_10">Volatility 10</option>
-</select>
+    <div id="status" class="status disconnected">
+      🔴 Connecting...
+    </div>
 
-<div id="status" class="status">
-Connecting to Deriv...
-</div>
+    <div class="price" id="price">--</div>
 
-</div>
+    <div class="digit" id="lastDigit">-</div>
 
-<div class="grid">
+    <div class="time" id="tickTime">Waiting for ticks...</div>
 
-<div class="card">
-<div class="muted">Market</div>
-<div class="big" id="market">R_100</div>
-</div>
+  </div>
 
-<div class="card">
-<div class="muted">Last Price</div>
-<div class="big" id="price">--</div>
-</div>
+  <div class="card">
 
-<div class="card">
-<div class="muted">Last Digit</div>
-<div class="big green" id="lastDigit">--</div>
-</div>
+    <h3>Digit Distribution</h3>
 
-<div class="card">
-<div class="muted">Ticks</div>
-<div class="big" id="ticks">0</div>
-</div>
+    <div class="digits" id="digitStats"></div>
 
-</div>
+  </div>
 
-<div class="card">
+  <div class="card">
 
-<h2>Recent Digits</h2>
+    <h3>Recent Digits</h3>
 
-<div id="recent" class="recent">Waiting...</div>
+    <div class="history" id="history"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h3>Analysis</h3>
+
+    <div class="signal" id="signal">
+      Waiting for enough data...
+    </div>
+
+    <div class="note">
+      This dashboard displays live market data and statistical information.
+      It does not guarantee trade outcomes.
+    </div>
+
+  </div>
 
 </div>
-
-<div class="card">
-
-<h2>Digit Distribution</h2>
-
-<div id="distribution" class="digits"></div>
-
-</div>
-
-</section>
-
-
-<!-- DIGITS -->
-
-<section id="digits" class="section">
-
-<div class="card">
-
-<h2>Digits Analysis</h2>
-
-<label class="muted">Strategy</label>
-
-<select id="strategy">
-<option>Over 2</option>
-<option>Under 7</option>
-<option>Even</option>
-<option>Odd</option>
-</select>
-
-<div class="grid">
-
-<div class="card">
-<div class="muted">0</div>
-<div class="big" id="p0">0%</div>
-</div>
-
-<div class="card">
-<div class="muted">1</div>
-<div class="big" id="p1">0%</div>
-</div>
-
-<div class="card">
-<div class="muted">2</div>
-<div class="big" id="p2">0%</div>
-</div>
-
-<div class="card">
-<div class="muted">3</div>
-<div class="big" id="p3">0%</div>
-</div>
-
-<div class="card">
-<div class="muted">4</div>
-<div class="big" id="p4">0%</div>
-</div>
-
-<div class="card">
-<div class="muted">5</div>
-<div class="big" id="p5">0%</div>
-</div>
-
-<div class="card">
-<div class="muted">6</div>
-<div class="big" id="p6">0%</div>
-</div>
-
-<div class="card">
-<div class="muted">7</div>
-<div class="big" id="p7">0%</div>
-</div>
-
-<div class="card">
-<div class="muted">8</div>
-<div class="big" id="p8">0%</div>
-</div>
-
-<div class="card">
-<div class="muted">9</div>
-<div class="big" id="p9">0%</div>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- BOT -->
-
-<section id="bot" class="section">
-
-<div class="card">
-
-<h2>Bot Builder</h2>
-
-<label class="muted">Bot Name</label>
-<input style="width:100%;padding:12px;margin:8px 0 15px;background:#071018;color:white;border:1px solid #30434e;border-radius:8px" placeholder="Mannuh Digits Bot">
-
-<label class="muted">Strategy</label>
-
-<select>
-<option>Over 2</option>
-<option>Under 7</option>
-<option>Even</option>
-<option>Odd</option>
-</select>
-
-<label class="muted">Stake</label>
-
-<input type="number" value="20"
-style="width:100%;padding:12px;margin:8px 0 15px;background:#071018;color:white;border:1px solid #30434e;border-radius:8px">
-
-<button onclick="alert('Bot configuration saved locally')">
-Save Bot
-</button>
-
-<p class="muted">
-Analysis only. No real trade is placed by this page.
-</p>
-
-</div>
-
-</section>
-
-
-<!-- MANUAL -->
-
-<section id="manual" class="section">
-
-<div class="card">
-
-<h2>Manual Trade</h2>
-
-<label class="muted">Contract</label>
-
-<select>
-<option>Over 2</option>
-<option>Under 7</option>
-<option>Even</option>
-<option>Odd</option>
-</select>
-
-<label class="muted">Stake</label>
-
-<input type="number" value="20"
-style="width:100%;padding:12px;margin:8px 0 15px;background:#071018;color:white;border:1px solid #30434e;border-radius:8px">
-
-<button onclick="alert('Demo only — no real trade was placed.')">
-Record Demo Trade
-</button>
-
-</div>
-
-</section>
-
-</main>
-
 
 <script>
 
+const APP_ID = "1089";
+
 let socket;
-let selectedSymbol="R_100";
+let currentSymbol = "R_100";
 
-let counts=[0,0,0,0,0,0,0,0,0,0];
-let totalTicks=0;
-let recent=[];
+let digits = [];
+let digitCounts = [0,0,0,0,0,0,0,0,0,0];
 
-
-/* NAVIGATION */
-
-function show(id,button){
-
-document.querySelectorAll('.section')
-.forEach(x=>x.classList.remove('active'));
-
-document.getElementById(id).classList.add('active');
-
-document.querySelectorAll('nav button')
-.forEach(x=>x.classList.remove('active'));
-
-button.classList.add('active');
-
-}
+const market = document.getElementById("market");
+const priceElement = document.getElementById("price");
+const lastDigitElement = document.getElementById("lastDigit");
+const timeElement = document.getElementById("tickTime");
+const statusElement = document.getElementById("status");
+const historyElement = document.getElementById("history");
+const statsElement = document.getElementById("digitStats");
+const signalElement = document.getElementById("signal");
 
 
-/* DERIV CONNECTION */
+function connect() {
 
-function connect(){
+  if (socket) {
+    socket.close();
+  }
 
-if(socket){
-try{socket.close()}catch(e){}
-}
+  statusElement.textContent = "🟡 Connecting...";
+  statusElement.className = "status";
 
-document.getElementById("status").innerText=
-"Connecting to Deriv...";
+  socket = new WebSocket(
+    "wss://ws.derivws.com/websockets/v3?app_id=" + APP_ID
+  );
 
-socket=new WebSocket(
-"wss://ws.derivws.com/websockets/v3?app_id=1089"
-);
+  socket.onopen = function() {
 
-socket.onopen=function(){
+    statusElement.textContent = "🟢 LIVE — Connected";
+    statusElement.className = "status connected";
 
-document.getElementById("status").innerText=
-"🟢 LIVE — Connected to Deriv";
+    subscribe();
 
-socket.send(JSON.stringify({
-ticks:selectedSymbol,
-subscribe:1
-}));
+  };
 
-};
 
-socket.onmessage=function(event){
+  socket.onmessage = function(event) {
 
-let data=JSON.parse(event.data);
+    const data = JSON.parse(event.data);
 
-if(data.tick){
+    if (data.tick) {
 
-processTick(data.tick);
+      processTick(data.tick);
 
-}
+    }
 
-if(data.error){
+  };
 
-document.getElementById("status").innerText=
-"❌ "+data.error.message;
 
-}
+  socket.onerror = function() {
 
-};
+    statusElement.textContent = "🔴 Connection error";
+    statusElement.className = "status disconnected";
 
-socket.onerror=function(){
+  };
 
-document.getElementById("status").innerText=
-"❌ Connection error";
 
-};
+  socket.onclose = function() {
 
-socket.onclose=function(){
+    statusElement.textContent = "🔴 Disconnected";
+    statusElement.className = "status disconnected";
 
-document.getElementById("status").innerText=
-"Connection closed — reconnecting...";
-
-setTimeout(connect,3000);
-
-};
+  };
 
 }
 
 
-/* PROCESS TICK */
+function subscribe() {
 
-function processTick(tick){
+  socket.send(JSON.stringify({
 
-let price=Number(tick.quote);
+    ticks: currentSymbol,
+    subscribe: 1
 
-document.getElementById("price").innerText=
-price.toFixed(tick.pip_size || 2);
-
-let text=price.toFixed(tick.pip_size || 2);
-
-let digit=Number(text.slice(-1));
-
-document.getElementById("lastDigit").innerText=digit;
-
-counts[digit]++;
-totalTicks++;
-
-document.getElementById("ticks").innerText=totalTicks;
-
-recent.unshift(digit);
-
-if(recent.length>30){
-recent.pop();
-}
-
-document.getElementById("recent").innerText=
-recent.join(" ");
-
-updateDistribution();
-updatePercentages();
+  }));
 
 }
 
 
-/* DISTRIBUTION */
+function processTick(tick) {
 
-function updateDistribution(){
+  const quote = Number(tick.quote);
 
-let box=document.getElementById("distribution");
+  const price = quote.toFixed(
+    tick.pip_size !== undefined ? tick.pip_size : 2
+  );
 
-box.innerHTML="";
+  const lastCharacter = price[price.length - 1];
 
-for(let i=0;i<10;i++){
+  const digit = parseInt(lastCharacter);
 
-let pct=totalTicks ?
-(counts[i]/totalTicks*100).toFixed(1):"0.0";
-
-let d=document.createElement("div");
-
-d.className="digit";
-
-d.innerHTML=
-i+"<br><small>"+pct+"%</small>";
-
-box.appendChild(d);
-
-}
-
-}
+  if (isNaN(digit)) return;
 
 
-/* PERCENTAGES */
+  priceElement.textContent = price;
 
-function updatePercentages(){
+  lastDigitElement.textContent = digit;
 
-for(let i=0;i<10;i++){
-
-let pct=totalTicks ?
-(counts[i]/totalTicks*100).toFixed(1):"0.0";
-
-document.getElementById("p"+i).innerText=
-pct+"%";
-
-}
-
-}
+  timeElement.textContent =
+    new Date(tick.epoch * 1000).toLocaleTimeString();
 
 
-/* CHANGE MARKET */
+  digits.push(digit);
 
-function changeMarket(){
+  digitCounts[digit]++;
 
-selectedSymbol=
-document.getElementById("symbol").value;
 
-document.getElementById("market").innerText=
-selectedSymbol;
+  if (digits.length > 1000) {
 
-counts=[0,0,0,0,0,0,0,0,0,0];
+    const oldDigit = digits.shift();
 
-recent=[];
+    digitCounts[oldDigit]--;
 
-totalTicks=0;
+  }
 
-document.getElementById("ticks").innerText="0";
 
-document.getElementById("recent").innerText=
-"Waiting...";
+  updateHistory();
 
-updateDistribution();
-updatePercentages();
+  updateStats();
 
-connect();
+  updateSignal();
 
 }
 
 
-/* START */
+function updateHistory() {
+
+  historyElement.innerHTML = "";
+
+  const recent = digits.slice(-40).reverse();
+
+  recent.forEach(function(digit) {
+
+    const span = document.createElement("span");
+
+    span.textContent = digit;
+
+    historyElement.appendChild(span);
+
+  });
+
+}
+
+
+function updateStats() {
+
+  statsElement.innerHTML = "";
+
+  const total = digits.length;
+
+  for (let i = 0; i <= 9; i++) {
+
+    const box = document.createElement("div");
+
+    box.className = "digit-box";
+
+    const percentage =
+      total > 0
+      ? ((digitCounts[i] / total) * 100).toFixed(1)
+      : "0.0";
+
+    box.innerHTML =
+      '<div class="digit-number">' + i + '</div>' +
+      '<div class="percentage">' + percentage + '%</div>';
+
+    statsElement.appendChild(box);
+
+  }
+
+}
+
+
+function updateSignal() {
+
+  if (digits.length < 20) {
+
+    signalElement.textContent =
+      "Collecting data... " + digits.length + "/20";
+
+    return;
+
+  }
+
+
+  const recent = digits.slice(-20);
+
+  const over2 =
+    recent.filter(d => d > 2).length;
+
+  const under7 =
+    recent.filter(d => d < 7).length;
+
+
+  if (over2 >= 16) {
+
+    signalElement.textContent =
+      "📊 Recent data: HIGH Over 2 frequency";
+
+  }
+
+  else if (under7 >= 16) {
+
+    signalElement.textContent =
+      "📊 Recent data: HIGH Under 7 frequency";
+
+  }
+
+  else {
+
+    signalElement.textContent =
+      "⏳ No strong statistical condition";
+
+  }
+
+}
+
+
+market.addEventListener("change", function() {
+
+  currentSymbol = market.value;
+
+  digits = [];
+
+  digitCounts =
+    [0,0,0,0,0,0,0,0,0,0];
+
+  historyElement.innerHTML = "";
+
+  statsElement.innerHTML = "";
+
+  signalElement.textContent =
+    "Collecting new market data...";
+
+  connect();
+
+});
+
 
 connect();
 
