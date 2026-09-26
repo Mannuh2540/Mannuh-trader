@@ -277,7 +277,7 @@ function connect() {
   statusElement.className = "status";
 
   socket = new WebSocket(
-  "wss://ws.deriv.com/websockets/v3?app_id=" + APP_ID
+  "wss://api.derivws.com/trading/v1/options/ws/public"
 );
 
   socket.onopen = function() {
