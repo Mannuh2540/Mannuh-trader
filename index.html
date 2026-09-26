@@ -277,8 +277,8 @@ function connect() {
   statusElement.className = "status";
 
   socket = new WebSocket(
-    "wss://ws.derivws.com/websockets/v3?app_id=" + APP_ID
-  );
+  "wss://ws.deriv.com/websockets/v3?app_id=" + APP_ID
+);
 
   socket.onopen = function() {
 
