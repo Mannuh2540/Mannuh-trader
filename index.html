@@ -6,7 +6,11 @@
 <title>Mannuh Trader</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+box-sizing:border-box;
+margin:0;
+padding:0
+}
 
 body{
 font-family:Arial,sans-serif;
@@ -16,7 +20,10 @@ min-height:100vh;
 padding:12px
 }
 
-.container{max-width:1000px;margin:auto}
+.container{
+max-width:1000px;
+margin:auto
+}
 
 h1{
 text-align:center;
@@ -38,7 +45,9 @@ padding:16px;
 margin-bottom:14px
 }
 
-h3{margin-bottom:12px}
+h3{
+margin-bottom:12px
+}
 
 label{
 display:block;
@@ -69,8 +78,13 @@ background:#15283b;
 margin-bottom:15px
 }
 
-.connected{color:#00ff9d}
-.disconnected{color:#ff5964}
+.connected{
+color:#00ff9d
+}
+
+.disconnected{
+color:#ff5964
+}
 
 .price{
 text-align:center;
@@ -116,13 +130,19 @@ color:#9fb0c1;
 margin-top:4px
 }
 
-.red{color:#ff5964}
-.green{color:#00ff9d}
+.red{
+color:#ff5964
+}
+
+.green{
+color:#00ff9d
+}
 
 .history{
 display:flex;
 flex-wrap:wrap;
-gap:6px
+gap:6px;
+margin-top:10px
 }
 
 .history span{
@@ -143,12 +163,6 @@ font-weight:bold;
 padding:14px;
 border-radius:10px;
 background:#122338
-}
-
-.analyzer{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px
 }
 
 .metric{
@@ -218,16 +232,39 @@ margin-top:10px
 color:#8fa2b5;
 font-size:13px;
 text-align:center;
-margin-top:12px;
+margin-top:8px;
 line-height:1.5
 }
 
+.loading{
+text-align:center;
+padding:15px;
+color:#ffc857
+}
+
 @media(max-width:600px){
-body{padding:8px}
-.analyzer,.trade-grid{grid-template-columns:1fr}
-.digits{gap:4px}
-.price{font-size:32px}
-.digit{font-size:55px}
+
+body{
+padding:8px
+}
+
+.digits{
+gap:4px
+}
+
+.price{
+font-size:32px
+}
+
+.digit{
+font-size:55px
+}
+
+.history span{
+width:30px;
+height:30px
+}
+
 }
 </style>
 </head>
@@ -237,19 +274,30 @@ body{padding:8px}
 <div class="container">
 
 <h1>⚡ MANNuh TRADER</h1>
+
 <div class="subtitle">
 Live Deriv Market & Digits Analysis
 </div>
 
+
+<!-- MARKET -->
+
 <div class="card">
 
-<label for="market">Select Market</label>
+<label for="market">
+Select Market
+</label>
 
 <select id="market">
-<option value="">Loading markets...</option>
+<option value="">
+Loading markets...
+</option>
 </select>
 
 </div>
+
+
+<!-- LIVE MARKET -->
 
 <div class="card">
 
@@ -257,9 +305,13 @@ Live Deriv Market & Digits Analysis
 🔴 Connecting...
 </div>
 
-<div class="price" id="price">--</div>
+<div class="price" id="price">
+--
+</div>
 
-<div class="digit" id="lastDigit">-</div>
+<div class="digit" id="lastDigit">
+-
+</div>
 
 <div class="time" id="tickTime">
 Waiting for ticks...
@@ -268,32 +320,39 @@ Waiting for ticks...
 </div>
 
 
-<!-- 1000 / 100 ANALYZER -->
+<!-- MAIN ANALYZER -->
 
 <div class="card">
 
-<h3>📊 Tick Analyzer</h3>
+<h3>
+📊 DIGIT ANALYZER
+</h3>
 
-<div class="analyzer">
+<label for="analysisWindow">
+Analysis Window
+</label>
 
-<div class="metric">
-<h4>1000-Tick Analysis</h4>
-<div id="count1000">0 / 1000</div>
-<br>
-<div id="analysis1000" class="metric-value waiting">
-Collecting data...
-</div>
+<select id="analysisWindow">
+
+<option value="1000">
+1,000 ticks — Main
+</option>
+
+<option value="100">
+100 ticks — Confirmation
+</option>
+
+<option value="25">
+25 ticks — Confirmation
+</option>
+
+</select>
+
+<div class="digits" id="mainAnalyzer">
 </div>
 
-<div class="metric">
-<h4>100-Tick Analysis</h4>
-<div id="count100">0 / 100</div>
-<br>
-<div id="analysis100" class="metric-value waiting">
-Collecting data...
-</div>
-</div>
-
+<div class="confirmation" id="analysisStatus">
+⏳ Loading previous 1,000 ticks...
 </div>
 
 </div>
@@ -303,23 +362,27 @@ Collecting data...
 
 <div class="card">
 
-<h3>🔴 OVER 2 ANALYZER</h3>
+<h3>
+🔴 OVER 2 ANALYZER
+</h3>
 
 <div class="metric over2">
 
-<h4>Target digits</h4>
+<h4>
+Target digits
+</h4>
 
-<div class="digits" id="over2Digits"></div>
+<div class="digits" id="over2Digits">
+</div>
 
 </div>
 
 <div class="confirmation" id="over2Confirmation">
-Collecting 1000 and 100 tick data...
+⏳ Loading previous 1,000 ticks...
 </div>
 
 <div class="note">
-Your Over 2 filter checks digits 0, 1 and 2.
-The analyzer does not guarantee the next tick.
+Over 2 filter: digits 0, 1 and 2 are monitored.
 </div>
 
 </div>
@@ -329,9 +392,12 @@ The analyzer does not guarantee the next tick.
 
 <div class="card">
 
-<h3>Digit Distribution</h3>
+<h3>
+Digit Distribution
+</h3>
 
-<div class="digits" id="digitStats"></div>
+<div class="digits" id="digitStats">
+</div>
 
 </div>
 
@@ -340,21 +406,30 @@ The analyzer does not guarantee the next tick.
 
 <div class="card">
 
-<h3>Recent Digits</h3>
+<h3>
+Recent Digits
+</h3>
 
-<div class="history" id="history"></div>
+<div class="note">
+Latest digit appears first • 0–2 red • 3–9 green
+</div>
+
+<div class="history" id="history">
+</div>
 
 </div>
 
 
-<!-- GENERAL ANALYSIS -->
+<!-- MARKET SIGNAL -->
 
 <div class="card">
 
-<h3>Market Signal</h3>
+<h3>
+Market Signal
+</h3>
 
 <div class="signal" id="signal">
-Waiting for enough data...
+⏳ Loading historical data...
 </div>
 
 </div>
@@ -364,7 +439,9 @@ Waiting for enough data...
 
 <div class="card">
 
-<h3>⚡ Trade Controls</h3>
+<h3>
+⚡ Trade Controls
+</h3>
 
 <div class="trade-grid">
 
@@ -408,7 +485,11 @@ disabled
 </div>
 
 <div class="warning">
-The market analyzer is live, but real trade execution requires an authenticated Deriv account connection. The public market-data connection cannot place trades.
+
+The public market-data connection can analyze live markets,
+but it cannot place real trades.
+Real trade execution requires an authenticated Deriv account.
+
 </div>
 
 </div>
@@ -417,8 +498,13 @@ The market analyzer is live, but real trade execution requires an authenticated 
 <div class="card">
 
 <div class="note">
+
 Mannuh Trader — live market statistics and digit analysis.
+
+<br>
+
 Trading involves risk. Statistical conditions are not guarantees.
+
 </div>
 
 </div>
@@ -431,6 +517,7 @@ Trading involves risk. Statistical conditions are not guarantees.
 const socketURL =
 "wss://api.derivws.com/trading/v1/options/ws/public";
 
+
 let socket = null;
 
 let currentSymbol = "1HZ100V";
@@ -440,6 +527,12 @@ let digits = [];
 let digitCounts =
 [0,0,0,0,0,0,0,0,0,0];
 
+let analysisWindow = 1000;
+
+let loadingHistoryFor = null;
+
+
+/* ELEMENTS */
 
 const market =
 document.getElementById("market");
@@ -465,17 +558,14 @@ document.getElementById("digitStats");
 const signalElement =
 document.getElementById("signal");
 
-const count1000 =
-document.getElementById("count1000");
+const mainAnalyzer =
+document.getElementById("mainAnalyzer");
 
-const count100 =
-document.getElementById("count100");
+const analysisWindowElement =
+document.getElementById("analysisWindow");
 
-const analysis1000 =
-document.getElementById("analysis1000");
-
-const analysis100 =
-document.getElementById("analysis100");
+const analysisStatus =
+document.getElementById("analysisStatus");
 
 const over2Digits =
 document.getElementById("over2Digits");
@@ -530,11 +620,18 @@ socket.onmessage = function(event){
 let data;
 
 try{
-data = JSON.parse(event.data);
+
+data =
+JSON.parse(event.data);
+
 }catch(e){
+
 return;
+
 }
 
+
+/* MARKETS */
 
 if(
 data.msg_type === "active_symbols" &&
@@ -547,6 +644,42 @@ data.active_symbols
 
 }
 
+
+/* HISTORICAL DATA */
+
+if(
+data.msg_type === "history" &&
+data.history
+){
+
+processHistoricalTicks(
+data.history
+);
+
+}
+
+
+/* API ERROR */
+
+if(
+data.error &&
+loadingHistoryFor
+){
+
+const symbol =
+loadingHistoryFor;
+
+loadingHistoryFor = null;
+
+analysisStatus.textContent =
+"⚠️ Historical data unavailable — starting live ticks.";
+
+subscribeToMarket(symbol);
+
+}
+
+
+/* LIVE TICK */
 
 if(data.tick){
 
@@ -584,23 +717,287 @@ statusElement.className =
 
 
 /* =========================
-   MARKETS
+   REQUEST MARKETS
 ========================= */
 
 function requestMarkets(){
 
 socket.send(
+
 JSON.stringify({
 
-active_symbols:"full",
+active_symbols:
+"full",
 
-req_id:1
+req_id:
+1
 
 })
+
 );
 
 }
 
+
+/* =========================
+   LOAD HISTORICAL DATA
+========================= */
+
+function loadMarketData(symbol){
+
+if(
+!socket ||
+socket.readyState !== WebSocket.OPEN ||
+!symbol
+){
+
+return;
+
+}
+
+
+/* RESET DATA */
+
+digits = [];
+
+digitCounts =
+[0,0,0,0,0,0,0,0,0,0];
+
+
+historyElement.innerHTML =
+"";
+
+statsElement.innerHTML =
+"";
+
+mainAnalyzer.innerHTML =
+"";
+
+
+priceElement.textContent =
+"--";
+
+lastDigitElement.textContent =
+"-";
+
+timeElement.textContent =
+"Loading previous 1,000 ticks...";
+
+signalElement.textContent =
+"⏳ Loading historical market data...";
+
+analysisStatus.textContent =
+"⏳ Loading previous 1,000 ticks...";
+
+over2Confirmation.textContent =
+"⏳ Loading previous 1,000 ticks...";
+
+
+loadingHistoryFor =
+symbol;
+
+
+/*
+REQUEST THE PREVIOUS
+1,000 TICKS
+*/
+
+socket.send(
+
+JSON.stringify({
+
+ticks_history:
+symbol,
+
+end:
+"latest",
+
+style:
+"ticks",
+
+count:
+1000,
+
+subscribe:
+0,
+
+req_id:
+10
+
+})
+
+);
+
+}
+
+
+/* =========================
+   PROCESS HISTORICAL TICKS
+========================= */
+
+function processHistoricalTicks(history){
+
+if(
+!Array.isArray(history.prices) ||
+history.prices.length === 0
+){
+
+const symbol =
+loadingHistoryFor;
+
+loadingHistoryFor =
+null;
+
+analysisStatus.textContent =
+"⚠️ No historical ticks returned — starting live ticks.";
+
+if(symbol){
+
+subscribeToMarket(
+symbol
+);
+
+}
+
+return;
+
+}
+
+
+/*
+GET DECIMAL/PIP SIZE
+*/
+
+const pip =
+Number(
+history.pip_size
+);
+
+const decimals =
+Number.isInteger(pip) &&
+pip >= 0 &&
+pip <= 10
+?
+pip
+:
+2;
+
+
+/*
+CONVERT HISTORICAL
+PRICES INTO DIGITS
+*/
+
+digits =
+history.prices
+.slice(-1000)
+.map(function(value){
+
+const number =
+Number(value);
+
+if(
+!Number.isFinite(number)
+){
+
+return NaN;
+
+}
+
+const fixed =
+number.toFixed(
+decimals
+);
+
+const lastCharacter =
+fixed.charAt(
+fixed.length - 1
+);
+
+return parseInt(
+lastCharacter,
+10
+);
+
+})
+.filter(function(digit){
+
+return (
+Number.isInteger(digit) &&
+digit >= 0 &&
+digit <= 9
+);
+
+});
+
+
+/*
+REBUILD COUNTS
+*/
+
+digitCounts =
+[0,0,0,0,0,0,0,0,0,0];
+
+
+digits.forEach(function(digit){
+
+digitCounts[digit]++;
+
+});
+
+
+/*
+DISPLAY HISTORICAL DATA
+*/
+
+updateHistory();
+
+updateStats();
+
+updateAnalyzer();
+
+updateSignal();
+
+
+analysisStatus.textContent =
+"🟢 Previous 1,000 ticks loaded";
+
+analysisStatus.className =
+"confirmation";
+
+
+over2Confirmation.textContent =
+"🟢 Historical data loaded — watching live confirmation";
+
+
+timeElement.textContent =
+"Previous 1,000 ticks loaded — live stream starting...";
+
+
+/*
+NOW START LIVE STREAM
+*/
+
+const symbol =
+loadingHistoryFor;
+
+loadingHistoryFor =
+null;
+
+if(symbol){
+
+subscribeToMarket(
+symbol
+);
+
+}
+
+}
+
+
+/* =========================
+   SUBSCRIBE LIVE
+========================= */
 
 function subscribeToMarket(symbol){
 
@@ -615,34 +1012,57 @@ return;
 }
 
 
+/*
+REMOVE OLD TICK
+SUBSCRIPTIONS
+*/
+
 socket.send(
+
 JSON.stringify({
 
-forget_all:"ticks"
+forget_all:
+"ticks"
 
 })
+
 );
 
 
+/*
+START NEW LIVE TICK
+STREAM
+*/
+
 socket.send(
+
 JSON.stringify({
 
-ticks:symbol,
+ticks:
+symbol,
 
-subscribe:1
+subscribe:
+1
 
 })
+
 );
 
 }
 
+
+/* =========================
+   MARKETS
+========================= */
 
 function loadMarkets(markets){
 
 const previous =
 currentSymbol;
 
-market.innerHTML = "";
+market.innerHTML =
+"";
+
 
 const groups = {};
 
@@ -659,25 +1079,37 @@ item.underlying_symbol_name ||
 symbol;
 
 
-if(!symbol || !name){
+if(
+!symbol ||
+!name
+){
+
 return;
+
 }
 
 
 const searchText =
+
 (
-name + " " +
-symbol + " " +
-(item.market || "") + " " +
+name +
+" " +
+symbol +
+" " +
+(item.market || "") +
+" " +
 (item.submarket || "")
-).toLowerCase();
+)
+.toLowerCase();
 
 
 let group =
 "Other Markets";
 
 
-if(searchText.includes("volatility")){
+if(
+searchText.includes("volatility")
+){
 
 if(
 searchText.includes("1s") ||
@@ -750,16 +1182,22 @@ group =
 }
 
 
-if(!groups[group]){
+if(
+!groups[group]
+){
+
 groups[group] = [];
+
 }
 
 
 groups[group].push({
 
-symbol:symbol,
+symbol:
+symbol,
 
-name:name
+name:
+name
 
 });
 
@@ -789,19 +1227,26 @@ const order = [
 
 order.forEach(function(groupName){
 
-if(!groups[groupName]){
+if(
+!groups[groupName]
+){
+
 return;
+
 }
 
 
 const optgroup =
-document.createElement("optgroup");
+document.createElement(
+"optgroup"
+);
 
 optgroup.label =
 groupName;
 
 
 groups[groupName]
+
 .sort(function(a,b){
 
 return a.name.localeCompare(
@@ -809,20 +1254,16 @@ b.name
 );
 
 })
+
 .forEach(function(item){
 
 const option =
-document.createElement("option");
+document.createElement(
+"option"
+);
 
 option.value =
 item.symbol;
-
-/*
-IMPORTANT:
-Only the clean market name is displayed.
-No old-version text.
-No symbol in brackets.
-*/
 
 option.textContent =
 item.name;
@@ -841,12 +1282,13 @@ optgroup
 });
 
 
-let found = false;
+let found =
+false;
 
 
 for(
-let i=0;
-i<market.options.length;
+let i = 0;
+i < market.options.length;
 i++
 ){
 
@@ -858,7 +1300,8 @@ previous
 market.value =
 previous;
 
-found = true;
+found =
+true;
 
 break;
 
@@ -887,7 +1330,12 @@ currentSymbol;
 }
 
 
-subscribeToMarket(
+/*
+IMPORTANT:
+HISTORICAL DATA FIRST
+*/
+
+loadMarketData(
 currentSymbol
 );
 
@@ -895,7 +1343,7 @@ currentSymbol
 
 
 /* =========================
-   CHANGE MARKET
+   MARKET CHANGE
 ========================= */
 
 market.addEventListener(
@@ -905,33 +1353,7 @@ function(){
 currentSymbol =
 this.value;
 
-
-digits = [];
-
-digitCounts =
-[0,0,0,0,0,0,0,0,0,0];
-
-
-historyElement.innerHTML =
-"";
-
-statsElement.innerHTML =
-"";
-
-signalElement.textContent =
-"Collecting new market data...";
-
-analysis1000.textContent =
-"Collecting data...";
-
-analysis100.textContent =
-"Collecting data...";
-
-over2Confirmation.textContent =
-"Collecting 1000 and 100 tick data...";
-
-
-subscribeToMarket(
+loadMarketData(
 currentSymbol
 );
 
@@ -940,7 +1362,7 @@ currentSymbol
 
 
 /* =========================
-   PROCESS TICK
+   PROCESS LIVE TICK
 ========================= */
 
 function processTick(tick){
@@ -948,8 +1370,13 @@ function processTick(tick){
 const quote =
 Number(tick.quote);
 
-if(!Number.isFinite(quote)){
+
+if(
+!Number.isFinite(quote)
+){
+
 return;
+
 }
 
 
@@ -963,13 +1390,16 @@ decimals < 0 ||
 decimals > 10
 ){
 
-decimals = 2;
+decimals =
+2;
 
 }
 
 
 const price =
-quote.toFixed(decimals);
+quote.toFixed(
+decimals
+);
 
 
 const lastCharacter =
@@ -985,10 +1415,18 @@ lastCharacter,
 );
 
 
-if(Number.isNaN(digit)){
+if(
+Number.isNaN(digit)
+){
+
 return;
+
 }
 
+
+/*
+UPDATE LIVE PRICE
+*/
 
 priceElement.textContent =
 price;
@@ -1007,12 +1445,25 @@ tick.epoch * 1000
 }
 
 
-digits.push(digit);
+/*
+ADD LIVE DIGIT
+TO HISTORICAL DATA
+*/
+
+digits.push(
+digit
+);
 
 digitCounts[digit]++;
 
 
-if(digits.length > 1000){
+/*
+KEEP MAXIMUM 1,000
+*/
+
+if(
+digits.length > 1000
+){
 
 const old =
 digits.shift();
@@ -1021,6 +1472,10 @@ digitCounts[old]--;
 
 }
 
+
+/*
+UPDATE EVERYTHING
+*/
 
 updateHistory();
 
@@ -1034,7 +1489,7 @@ updateSignal();
 
 
 /* =========================
-   HISTORY
+   RECENT DIGITS
 ========================= */
 
 function updateHistory(){
@@ -1043,16 +1498,39 @@ historyElement.innerHTML =
 "";
 
 
+/*
+LATEST FIRST
+*/
+
 digits
+
 .slice(-40)
+
 .reverse()
+
 .forEach(function(digit){
 
 const span =
-document.createElement("span");
+document.createElement(
+"span"
+);
 
 span.textContent =
 digit;
+
+
+/*
+0,1,2 RED
+3-9 GREEN
+*/
+
+span.className =
+digit <= 2
+?
+"red"
+:
+"green";
+
 
 historyElement.appendChild(
 span
@@ -1078,34 +1556,42 @@ digits.length;
 
 
 for(
-let i=0;
-i<=9;
+let i = 0;
+i <= 9;
 i++
 ){
 
 const box =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 box.className =
 "digit-box";
 
 
-const percentage =
+const percentageValue =
 total > 0
 
-? (
+?
+
+(
 digitCounts[i] /
 total *
 100
 ).toFixed(1)
 
-: "0.0";
+:
+
+"0.0";
 
 
 const colour =
 i <= 2
-? "red"
-: "green";
+?
+"red"
+:
+"green";
 
 
 box.innerHTML =
@@ -1115,8 +1601,8 @@ i+
 '</div>'+
 
 '<div class="percentage">'+
-percentage+
-'%'+
+percentageValue+
+'%' +
 '</div>';
 
 
@@ -1138,29 +1624,147 @@ array,
 digit
 ){
 
-if(!array.length){
+if(
+!array.length
+){
+
 return 0;
+
 }
 
 
 return (
+
 array.filter(
-function(x){
-return x === digit;
+function(value){
+
+return value === digit;
+
 }
 ).length /
+
 array.length *
+
 100
+
 );
 
 }
 
 
 /* =========================
-   1000 / 100 ANALYZER
+   MAIN ANALYZER
 ========================= */
 
 function updateAnalyzer(){
+
+const windowData =
+digits.slice(
+-analysisWindow
+);
+
+
+/*
+CLEAR OLD ANALYZER
+*/
+
+mainAnalyzer.innerHTML =
+"";
+
+
+/*
+DISPLAY 0-9
+*/
+
+for(
+let i = 0;
+i <= 9;
+i++
+){
+
+const box =
+document.createElement(
+"div"
+);
+
+box.className =
+"digit-box";
+
+
+const p =
+percentage(
+windowData,
+i
+);
+
+
+const colour =
+i <= 2
+?
+"red"
+:
+"green";
+
+
+box.innerHTML =
+
+'<div class="digit-number '+colour+'">'+
+i+
+'</div>'+
+
+'<div class="percentage">'+
+p.toFixed(1)+
+'%' +
+'</div>';
+
+
+mainAnalyzer.appendChild(
+box
+);
+
+}
+
+
+/*
+ANALYZER STATUS
+*/
+
+if(
+windowData.length <
+analysisWindow
+){
+
+analysisStatus.textContent =
+"⏳ " +
+windowData.length +
+" / " +
+analysisWindow +
+" ticks available";
+
+analysisStatus.className =
+"confirmation";
+
+}else{
+
+analysisStatus.textContent =
+"🟢 " +
+analysisWindow.toLocaleString() +
+"-tick analysis ready";
+
+analysisStatus.className =
+"confirmation";
+
+}
+
+
+/*
+OVER 2 DATA
+USES:
+
+1,000 TICKS
++
+100 TICKS
+*/
 
 const last1000 =
 digits.slice(-1000);
@@ -1169,112 +1773,24 @@ const last100 =
 digits.slice(-100);
 
 
-count1000.textContent =
-last1000.length +
-" / 1000";
-
-
-count100.textContent =
-last100.length +
-" / 100";
-
-
-/* 1000 */
-
-if(last1000.length < 100){
-
-analysis1000.textContent =
-"Need more data";
-
-analysis1000.className =
-"metric-value waiting";
-
-}else{
-
-const p0 =
-percentage(last1000,0);
-
-const p1 =
-percentage(last1000,1);
-
-const p2 =
-percentage(last1000,2);
-
-
-const ready =
-p0 < 9.5 &&
-p1 < 9.5 &&
-p2 < 9.5;
-
-
-analysis1000.innerHTML =
-"0: "+p0.toFixed(1)+"% &nbsp; "+
-"1: "+p1.toFixed(1)+"% &nbsp; "+
-"2: "+p2.toFixed(1)+"%";
-
-
-analysis1000.className =
-"metric-value " +
-(ready ? "ready" : "waiting");
-
-}
-
-
-/* 100 */
-
-if(last100.length < 20){
-
-analysis100.textContent =
-"Need more data";
-
-analysis100.className =
-"metric-value waiting";
-
-}else{
-
-const p0 =
-percentage(last100,0);
-
-const p1 =
-percentage(last100,1);
-
-const p2 =
-percentage(last100,2);
-
-
-const ready =
-p0 < 10 &&
-p1 < 10 &&
-p2 < 10;
-
-
-analysis100.innerHTML =
-"0: "+p0.toFixed(1)+"% &nbsp; "+
-"1: "+p1.toFixed(1)+"% &nbsp; "+
-"2: "+p2.toFixed(1)+"%";
-
-
-analysis100.className =
-"metric-value " +
-(ready ? "ready" : "waiting");
-
-}
-
-
-/* OVER 2 DIGIT DISPLAY */
+/*
+DISPLAY OVER 2 DIGITS
+*/
 
 over2Digits.innerHTML =
 "";
 
 
 for(
-let i=0;
-i<10;
+let i = 0;
+i <= 9;
 i++
 ){
 
 const box =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 box.className =
 "digit-box";
@@ -1282,21 +1798,45 @@ box.className =
 
 const p =
 last100.length
-? percentage(last100,i)
-: 0;
+
+?
+
+percentage(
+last100,
+i
+)
+
+:
+
+0;
 
 
 box.innerHTML =
 
 '<div class="digit-number '+
-(i <= 2 ? "red" : "green")+
+
+(
+i <= 2
+?
+"red"
+:
+"green"
+
+)+
+
 '">'+
+
 i+
+
 '</div>'+
 
 '<div class="percentage">'+
+
 p.toFixed(1)+
-'%</div>';
+
+'%' +
+
+'</div>';
 
 
 over2Digits.appendChild(
@@ -1306,7 +1846,9 @@ box
 }
 
 
-/* FINAL OVER 2 FILTER */
+/*
+OVER 2 FILTER
+*/
 
 if(
 last1000.length >= 100 &&
@@ -1314,35 +1856,68 @@ last100.length >= 20
 ){
 
 const long0 =
-percentage(last1000,0);
+percentage(
+last1000,
+0
+);
 
 const long1 =
-percentage(last1000,1);
+percentage(
+last1000,
+1
+);
 
 const long2 =
-percentage(last1000,2);
+percentage(
+last1000,
+2
+);
+
 
 const short0 =
-percentage(last100,0);
+percentage(
+last100,
+0
+);
 
 const short1 =
-percentage(last100,1);
+percentage(
+last100,
+1
+);
 
 const short2 =
-percentage(last100,2);
+percentage(
+last100,
+2
+);
 
+
+/*
+YOUR 1000-TICK CONDITION
+*/
 
 const longReady =
+
 long0 < 9.5 &&
 long1 < 9.5 &&
 long2 < 9.5;
 
 
+/*
+YOUR 100-TICK CONDITION
+*/
+
 const shortReady =
+
 short0 < 10 &&
 short1 < 10 &&
 short2 < 10;
 
+
+/*
+BOTH CONDITIONS
+*/
 
 if(
 longReady &&
@@ -1350,6 +1925,7 @@ shortReady
 ){
 
 over2Confirmation.textContent =
+
 "🔴 OVER 2 FILTER PASSED — WAIT FOR YOUR FINAL CONFIRMATION";
 
 over2Confirmation.className =
@@ -1358,6 +1934,7 @@ over2Confirmation.className =
 }else{
 
 over2Confirmation.textContent =
+
 "⏳ OVER 2 FILTER NOT READY";
 
 over2Confirmation.className =
@@ -1368,11 +1945,34 @@ over2Confirmation.className =
 }else{
 
 over2Confirmation.textContent =
-"Collecting enough ticks...";
+
+"⏳ Collecting enough ticks...";
+
+over2Confirmation.className =
+"confirmation";
 
 }
 
 }
+
+
+/* =========================
+   ANALYZER WINDOW CHANGE
+========================= */
+
+analysisWindowElement.addEventListener(
+"change",
+function(){
+
+analysisWindow =
+Number(
+this.value
+);
+
+updateAnalyzer();
+
+}
+);
 
 
 /* =========================
@@ -1381,11 +1981,16 @@ over2Confirmation.textContent =
 
 function updateSignal(){
 
-if(digits.length < 20){
+if(
+digits.length < 20
+){
 
 signalElement.textContent =
-"Collecting data... "+
-digits.length+
+
+"⏳ Collecting data... " +
+
+digits.length +
+
 "/20";
 
 return;
@@ -1399,30 +2004,40 @@ digits.slice(-20);
 
 const over2 =
 recent.filter(
-function(d){
-return d > 2;
+function(digit){
+
+return digit > 2;
+
 }
 ).length;
 
 
 const under7 =
 recent.filter(
-function(d){
-return d < 7;
+function(digit){
+
+return digit < 7;
+
 }
 ).length;
 
 
-if(over2 >= 16){
+if(
+over2 >= 16
+){
 
 signalElement.textContent =
+
 "📊 Recent data: HIGH Over 2 frequency";
 
 }
 
-else if(under7 >= 16){
+else if(
+under7 >= 16
+){
 
 signalElement.textContent =
+
 "📊 Recent data: HIGH Under 7 frequency";
 
 }
@@ -1430,6 +2045,7 @@ signalElement.textContent =
 else{
 
 signalElement.textContent =
+
 "⏳ No strong recent statistical condition";
 
 }
@@ -1446,7 +2062,9 @@ tradeButton.addEventListener(
 function(){
 
 alert(
+
 "Real trade execution requires an authenticated Deriv account connection. The current public connection is for live market analysis only."
+
 );
 
 });
