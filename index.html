@@ -12,13 +12,12 @@
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
   background: #07111f;
-  color: #ffffff;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .container {
-  width: 100%;
   max-width: 1100px;
   margin: auto;
   padding: 14px;
@@ -32,7 +31,6 @@ header {
 header h1 {
   margin: 0;
   font-size: 28px;
-  font-weight: 800;
 }
 
 header p {
@@ -60,7 +58,7 @@ button {
   width: 100%;
   border: 1px solid #29415b;
   background: #101f31;
-  color: white;
+  color: #fff;
   border-radius: 9px;
   padding: 11px;
   font-size: 14px;
@@ -74,7 +72,6 @@ button {
 .mode-buttons button {
   flex: 1;
   font-weight: 800;
-  cursor: pointer;
 }
 
 .mode-buttons button.active {
@@ -117,16 +114,25 @@ button {
   color: #b8c5d5;
 }
 
-.market-info {
-  font-size: 13px;
-  color: #aebed0;
+.market-info,
+.mode-description {
+  font-size: 12px;
+  color: #91a5ba;
+}
+
+.big-price {
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.last-digit {
+  color: #00e676;
 }
 
 .analyzer-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
   margin-bottom: 12px;
 }
 
@@ -136,8 +142,8 @@ button {
 }
 
 .tick-count {
-  font-size: 12px;
   color: #8fa5bb;
+  font-size: 12px;
 }
 
 .digit-grid {
@@ -147,7 +153,6 @@ button {
 }
 
 .digit-box {
-  min-width: 0;
   background: #101f31;
   border: 1px solid #263d55;
   border-radius: 10px;
@@ -158,12 +163,12 @@ button {
 .digit-number {
   font-size: 20px;
   font-weight: 900;
-  margin-bottom: 4px;
 }
 
 .digit-percent {
   font-size: 16px;
   font-weight: 800;
+  margin-top: 4px;
 }
 
 .digit-count {
@@ -172,6 +177,7 @@ button {
   margin-top: 3px;
 }
 
+/* ORIGINAL RANKING COLORS */
 .rank-most {
   background: #123b26;
   border-color: #00d66b;
@@ -231,29 +237,30 @@ button {
 
 /* RECENT DIGITS */
 .recent-wrap {
+  width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  width: 100%;
-  padding-bottom: 4px;
+  padding-bottom: 5px;
 }
 
 .recent-digits {
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: 7px;
   min-width: max-content;
 }
 
 .recent-digit {
-  width: 42px;
-  height: 42px;
-  flex: 0 0 42px;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
   border-radius: 9px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 900;
+
   background: #12351f;
   border: 1px solid #00c966;
   color: #00e676;
@@ -269,21 +276,6 @@ button {
   font-size: 12px;
   color: #8fa5bb;
   margin-bottom: 9px;
-}
-
-.mode-description {
-  margin-top: 8px;
-  font-size: 12px;
-  color: #91a5ba;
-}
-
-.big-price {
-  font-size: 26px;
-  font-weight: 900;
-}
-
-.last-digit {
-  color: #00e676;
 }
 
 @media (max-width: 500px) {
@@ -318,10 +310,7 @@ button {
   .digit-count {
     font-size: 10px;
   }
-
-  .legend {
-    gap: 8px;
-  }
+}
 </style>
 </head>
 
@@ -329,139 +318,210 @@ button {
 
 <div class="container">
 
-  <header>
-    <h1>MANNUH TRADER</h1>
-    <p>Live Deriv Digit Analysis</p>
-  </header>
+<header>
+  <h1>MANNUH TRADER</h1>
+  <p>Live Deriv Digit Analysis</p>
+</header>
 
-  <!-- MARKET -->
-  <div class="card">
-    <div class="section-title">Market</div>
+<!-- MARKET -->
+<div class="card">
+  <div class="section-title">Market</div>
 
-    <select id="marketSelect">
-      <option value="1HZ10V">Volatility 10 (1s) Index</option>
-      <option value="1HZ25V">Volatility 25 (1s) Index</option>
-      <option value="1HZ50V">Volatility 50 (1s) Index</option>
-      <option value="1HZ75V">Volatility 75 (1s) Index</option>
-      <option value="1HZ100V">Volatility 100 (1s) Index</option>
-      <option value="R_10">Volatility 10 Index</option>
-      <option value="R_25">Volatility 25 Index</option>
-      <option value="R_50">Volatility 50 Index</option>
-      <option value="R_75">Volatility 75 Index</option>
-      <option value="R_100">Volatility 100 Index</option>
-    </select>
-  </div>
+  <select id="marketSelect">
+    <option value="1HZ10V">Volatility 10 (1s) Index</option>
+    <option value="1HZ25V">Volatility 25 (1s) Index</option>
+    <option value="1HZ50V">Volatility 50 (1s) Index</option>
+    <option value="1HZ75V">Volatility 75 (1s) Index</option>
+    <option value="1HZ100V">Volatility 100 (1s) Index</option>
+    <option value="R_10">Volatility 10 Index</option>
+    <option value="R_25">Volatility 25 Index</option>
+    <option value="R_50">Volatility 50 Index</option>
+    <option value="R_75">Volatility 75 Index</option>
+    <option value="R_100">Volatility 100 Index</option>
+  </select>
+</div>
 
-  <!-- LIVE STATUS -->
-  <div class="card">
-    <div class="status">
+<!-- CONNECTION -->
+<div class="card">
+  <div class="status">
 
-      <div class="status-left">
-        <span id="statusDot" class="dot"></span>
-        <span id="statusText">Connecting...</span>
-      </div>
-
-      <div class="market-info">
-        Stored ticks: <strong id="storedCount">0</strong> / 3000
-      </div>
-
+    <div class="status-left">
+      <span id="statusDot" class="dot"></span>
+      <span id="statusText">Connecting...</span>
     </div>
-  </div>
-
-  <!-- LIVE PRICE -->
-  <div class="card">
-    <div class="section-title">Live Market</div>
-
-    <div class="big-price" id="livePrice">--</div>
 
     <div class="market-info">
-      Last digit:
-      <strong id="liveDigit" class="last-digit">--</strong>
-    </div>
-  </div>
-
-  <!-- MODE -->
-  <div class="card">
-
-    <div class="section-title">Analysis Mode</div>
-
-    <div class="mode-buttons">
-      <button id="overBtn" class="active" onclick="setMode('OVER2')">
-        OVER 2
-      </button>
-
-      <button id="underBtn" onclick="setMode('UNDER7')">
-        UNDER 7
-      </button>
-    </div>
-
-    <div id="modeDescription" class="mode-description">
-      Digits 0, 1 and 2 will appear RED in Recent Digits.
+      Stored history:
+      <strong id="storedCount">0</strong>
     </div>
 
   </div>
+</div>
 
-  <!-- 1000 ANALYZER -->
-  <div class="card">
+<!-- LIVE MARKET -->
+<div class="card">
 
-    <div class="analyzer-header">
-      <h2>1,000 TICK ANALYZER</h2>
-      <div class="tick-count" id="count1000">0 / 1000 ticks</div>
-    </div>
+  <div class="section-title">Live Market</div>
 
-    <div id="grid1000" class="digit-grid"></div>
+  <div class="big-price" id="livePrice">--</div>
 
-    <div class="legend">
-      <span><i class="legend-dot green"></i> Most appearing</span>
-      <span><i class="legend-dot blue"></i> 2nd most</span>
-      <span><i class="legend-dot yellow"></i> 2nd least</span>
-      <span><i class="legend-dot red"></i> Least appearing</span>
+  <div class="market-info">
+    Last digit:
+    <strong id="liveDigit" class="last-digit">--</strong>
+  </div>
+
+</div>
+
+<!-- MODE -->
+<div class="card">
+
+  <div class="section-title">Analysis Mode</div>
+
+  <div class="mode-buttons">
+
+    <button id="overBtn"
+            class="active"
+            onclick="setMode('OVER2')">
+      OVER 2
+    </button>
+
+    <button id="underBtn"
+            onclick="setMode('UNDER7')">
+      UNDER 7
+    </button>
+
+  </div>
+
+  <div id="modeDescription"
+       class="mode-description">
+    Digits 0, 1 and 2 are RED in Recent Digits.
+  </div>
+
+</div>
+
+<!-- 1000 TICK ANALYZER -->
+<div class="card">
+
+  <div class="analyzer-header">
+
+    <h2>1,000 TICK ANALYZER</h2>
+
+    <div id="count1000"
+         class="tick-count">
+      0 / 1000 ticks
     </div>
 
   </div>
 
-  <!-- 100 ANALYZER -->
-  <div class="card">
+  <div id="grid1000"
+       class="digit-grid">
+  </div>
 
-    <div class="analyzer-header">
-      <h2>100 TICK ANALYZER</h2>
-      <div class="tick-count" id="count100">0 / 100 ticks</div>
-    </div>
+  <div class="legend">
 
-    <div id="grid100" class="digit-grid"></div>
+    <span>
+      <i class="legend-dot green"></i>
+      Most appearing
+    </span>
 
-    <div class="legend">
-      <span><i class="legend-dot green"></i> Most appearing</span>
-      <span><i class="legend-dot blue"></i> 2nd most</span>
-      <span><i class="legend-dot yellow"></i> 2nd least</span>
-      <span><i class="legend-dot red"></i> Least appearing</span>
+    <span>
+      <i class="legend-dot blue"></i>
+      2nd most
+    </span>
+
+    <span>
+      <i class="legend-dot yellow"></i>
+      2nd least
+    </span>
+
+    <span>
+      <i class="legend-dot red"></i>
+      Least appearing
+    </span>
+
+  </div>
+
+</div>
+
+<!-- 100 TICK ANALYZER -->
+<div class="card">
+
+  <div class="analyzer-header">
+
+    <h2>100 TICK ANALYZER</h2>
+
+    <div id="count100"
+         class="tick-count">
+      0 / 100 ticks
     </div>
 
   </div>
 
-  <!-- RECENT DIGITS -->
-  <div class="card">
+  <div id="grid100"
+       class="digit-grid">
+  </div>
 
-    <div class="section-title">Recent Digits</div>
+  <div class="legend">
 
-    <div class="recent-label">
-      Newest ← left &nbsp;&nbsp; | &nbsp;&nbsp; Oldest → right
-    </div>
+    <span>
+      <i class="legend-dot green"></i>
+      Most appearing
+    </span>
 
-    <div class="recent-wrap">
-      <div id="recentDigits" class="recent-digits"></div>
+    <span>
+      <i class="legend-dot blue"></i>
+      2nd most
+    </span>
+
+    <span>
+      <i class="legend-dot yellow"></i>
+      2nd least
+    </span>
+
+    <span>
+      <i class="legend-dot red"></i>
+      Least appearing
+    </span>
+
+  </div>
+
+</div>
+
+<!-- RECENT DIGITS -->
+<div class="card">
+
+  <div class="section-title">
+    Recent Digits
+  </div>
+
+  <div class="recent-label">
+    Newest ← left &nbsp; | &nbsp; Oldest → right
+  </div>
+
+  <div class="recent-wrap">
+
+    <div id="recentDigits"
+         class="recent-digits">
     </div>
 
   </div>
 
 </div>
 
+</div>
+
 <script>
+
+/* =====================================================
+   SETTINGS
+===================================================== */
 
 const WS_URL =
   "wss://api.derivws.com/trading/v1/options/ws/public";
 
-const MAX_HISTORY = 3000;
+const HISTORY_SIZE = 3000;
+
+const RECENT_SIZE = 50;
 
 let socket = null;
 
@@ -476,53 +536,61 @@ let currentMode = "OVER2";
 let reconnectTimer = null;
 
 
-/* =========================
+/* =====================================================
    PIP SIZE
-========================= */
+===================================================== */
 
 function setPipSize(value) {
 
-  const n = Number(value);
+  const number = Number(value);
 
-  if (Number.isInteger(n) && n >= 0 && n <= 10) {
-    pipSize = n;
+  if (
+    Number.isInteger(number) &&
+    number >= 0 &&
+    number <= 10
+  ) {
+    pipSize = number;
   }
 }
 
 
-/* =========================
-   GET DIGIT
-========================= */
+/* =====================================================
+   CONVERT PRICE TO LAST DIGIT
+===================================================== */
 
 function getDigitFromQuote(price) {
 
-  if (price === undefined || price === null) {
+  if (
+    price === undefined ||
+    price === null
+  ) {
     return null;
   }
 
   const formatted =
     Number(price).toFixed(pipSize);
 
-  const digitsOnly =
+  const digits =
     formatted.replace(/\D/g, "");
 
-  if (!digitsOnly.length) {
+  if (!digits.length) {
     return null;
   }
 
   return Number(
-    digitsOnly[digitsOnly.length - 1]
+    digits[digits.length - 1]
   );
 }
 
 
-/* =========================
-   COUNTS
-========================= */
+/* =====================================================
+   COUNT DIGITS
+===================================================== */
 
 function getCounts(history) {
 
-  const counts = Array(10).fill(0);
+  const counts =
+    Array(10).fill(0);
 
   for (const digit of history) {
 
@@ -540,21 +608,22 @@ function getCounts(history) {
 }
 
 
-/* =========================
-   RENDER ANALYZER
-========================= */
+/* =====================================================
+   RENDER ONE ANALYZER
+===================================================== */
 
 function renderAnalyzer(
-  elementId,
-  countElementId,
-  history
+  gridId,
+  countId,
+  history,
+  expectedSize
 ) {
 
   const grid =
-    document.getElementById(elementId);
+    document.getElementById(gridId);
 
-  const countElement =
-    document.getElementById(countElementId);
+  const countLabel =
+    document.getElementById(countId);
 
   const counts =
     getCounts(history);
@@ -562,174 +631,259 @@ function renderAnalyzer(
   const total =
     history.length;
 
-  countElement.textContent =
-    `${total} / ${elementId === "grid1000" ? 1000 : 100} ticks`;
-
   /*
     IMPORTANT:
-    Ranking is ONLY based on this analyzer's
-    own window.
 
-    Highest = GREEN
-    2nd highest = BLUE
-    Lowest = RED
-    2nd lowest = YELLOW
+    This analyzer uses ONLY its own
+    rolling window.
+
+    1000 analyzer = last 1000
+    100 analyzer  = last 100
   */
 
-  const rankedDigits =
-    Array.from({ length: 10 }, (_, digit) => digit)
-      .sort((a, b) => {
+  countLabel.textContent =
+    `${total} / ${expectedSize} ticks`;
 
-        if (counts[b] !== counts[a]) {
-          return counts[b] - counts[a];
-        }
 
-        return a - b;
-      });
+  /*
+    Ranking:
+
+    Most appearing      = GREEN
+    Second most         = BLUE
+    Least appearing     = RED
+    Second least        = YELLOW
+  */
+
+  const ranked =
+    Array.from(
+      { length: 10 },
+      (_, digit) => digit
+    ).sort((a, b) => {
+
+      if (counts[b] !== counts[a]) {
+        return counts[b] - counts[a];
+      }
+
+      return a - b;
+    });
+
 
   const most =
-    rankedDigits[0];
+    ranked[0];
 
   const secondMost =
-    rankedDigits[1];
+    ranked[1];
 
   const least =
-    rankedDigits[9];
+    ranked[9];
 
   const secondLeast =
-    rankedDigits[8];
+    ranked[8];
+
 
   grid.innerHTML = "";
 
-  for (let digit = 0; digit <= 9; digit++) {
+
+  for (
+    let digit = 0;
+    digit <= 9;
+    digit++
+  ) {
 
     const box =
       document.createElement("div");
 
-    box.className = "digit-box";
+    box.className =
+      "digit-box";
+
 
     if (digit === most) {
-      box.classList.add("rank-most");
+
+      box.classList.add(
+        "rank-most"
+      );
+
     }
 
     else if (digit === secondMost) {
-      box.classList.add("rank-second-most");
+
+      box.classList.add(
+        "rank-second-most"
+      );
+
     }
 
     else if (digit === least) {
-      box.classList.add("rank-least");
+
+      box.classList.add(
+        "rank-least"
+      );
+
     }
 
     else if (digit === secondLeast) {
-      box.classList.add("rank-second-least");
+
+      box.classList.add(
+        "rank-second-least"
+      );
+
     }
+
 
     const percentage =
       total > 0
         ? (counts[digit] / total) * 100
         : 0;
 
+
     box.innerHTML = `
-      <div class="digit-number">${digit}</div>
+
+      <div class="digit-number">
+        ${digit}
+      </div>
+
       <div class="digit-percent">
         ${percentage.toFixed(1)}%
       </div>
+
       <div class="digit-count">
         ${counts[digit]} ticks
       </div>
+
     `;
+
 
     grid.appendChild(box);
   }
 }
 
 
-/* =========================
-   RECENT DIGITS
-========================= */
+/* =====================================================
+   RENDER RECENT 50 DIGITS
+===================================================== */
 
 function renderRecentDigits() {
 
   const container =
-    document.getElementById("recentDigits");
+    document.getElementById(
+      "recentDigits"
+    );
+
 
   /*
-    THIS IS THE IMPORTANT PART:
+    History is stored:
 
-    digitHistory stores:
-    oldest ---------------- newest
-      [0] ... [last]
+    OLD ---------------- NEW
+    [0] ................ [last]
 
-    We reverse the last 20 so display becomes:
-    newest ---------------- oldest
-      LEFT ---------------- RIGHT
+    We take the latest 50,
+    then reverse them:
+
+    NEW ---------------- OLD
+    LEFT ---------------- RIGHT
   */
 
   const recent =
     digitHistory
-      .slice(-20)
+      .slice(-RECENT_SIZE)
       .reverse();
 
+
   container.innerHTML = "";
+
 
   for (const digit of recent) {
 
     const element =
       document.createElement("div");
 
-    element.className = "recent-digit";
+    element.className =
+      "recent-digit";
+
 
     /*
+      Recent Digit colors are separate
+      from analyzer ranking colors.
+
       OVER 2:
       0,1,2 = RED
 
       UNDER 7:
       7,8,9 = RED
 
-      Everything else = GREEN
+      Other digits = GREEN
     */
 
-    const isTarget =
+    const target =
       currentMode === "OVER2"
-        ? [0, 1, 2].includes(digit)
-        : [7, 8, 9].includes(digit);
+        ? (
+            digit === 0 ||
+            digit === 1 ||
+            digit === 2
+          )
+        : (
+            digit === 7 ||
+            digit === 8 ||
+            digit === 9
+          );
 
-    if (isTarget) {
+
+    if (target) {
       element.classList.add("target");
     }
 
-    element.textContent = digit;
 
-    container.appendChild(element);
+    element.textContent =
+      digit;
+
+
+    container.appendChild(
+      element
+    );
   }
 }
 
 
-/* =========================
-   RENDER EVERYTHING
-========================= */
+/* =====================================================
+   RENDER ALL
+===================================================== */
 
 function renderAll() {
 
-  const history1000 =
+  /*
+    EXACTLY 1000 FOR 1000 ANALYZER
+  */
+
+  const last1000 =
     digitHistory.slice(-1000);
 
-  const history100 =
+
+  /*
+    EXACTLY 100 FOR 100 ANALYZER
+  */
+
+  const last100 =
     digitHistory.slice(-100);
+
 
   renderAnalyzer(
     "grid1000",
     "count1000",
-    history1000
+    last1000,
+    1000
   );
+
 
   renderAnalyzer(
     "grid100",
     "count100",
-    history100
+    last100,
+    100
   );
 
+
   renderRecentDigits();
+
 
   document.getElementById(
     "storedCount"
@@ -738,9 +892,9 @@ function renderAll() {
 }
 
 
-/* =========================
-   ADD DIGIT
-========================= */
+/* =====================================================
+   ADD NEW LIVE DIGIT
+===================================================== */
 
 function addDigit(digit) {
 
@@ -752,72 +906,155 @@ function addDigit(digit) {
     return;
   }
 
-  digitHistory.push(digit);
 
   /*
-    Keep only the latest 3000 ticks.
-    This creates the rolling history.
+    Add newest tick to the END.
   */
 
-  if (digitHistory.length > MAX_HISTORY) {
+  digitHistory.push(digit);
+
+
+  /*
+    Keep only latest 3000
+    in background.
+  */
+
+  if (
+    digitHistory.length >
+    HISTORY_SIZE
+  ) {
+
     digitHistory.shift();
+
   }
+
+
+  /*
+    IMPORTANT:
+
+    We do NOT build the 1000 analyzer
+    from zero.
+
+    renderAll() always takes:
+
+    last 1000
+    last 100
+
+    Therefore:
+
+    New tick enters
+    +1 newest
+
+    Oldest leaves
+    -1 oldest
+
+    Window remains fixed.
+  */
 
   renderAll();
 }
 
 
-/* =========================
-   LOAD HISTORY
-========================= */
+/* =====================================================
+   LOAD REAL HISTORICAL TICKS
+===================================================== */
 
 function loadHistory(data) {
 
   if (
     !data.history ||
-    !Array.isArray(data.history.prices)
+    !Array.isArray(
+      data.history.prices
+    )
   ) {
     return;
   }
 
-  if (data.pip_size !== undefined) {
-    setPipSize(data.pip_size);
+
+  if (
+    data.pip_size !== undefined
+  ) {
+
+    setPipSize(
+      data.pip_size
+    );
+
   }
+
 
   const prices =
     data.history.prices;
 
-  digitHistory = [];
 
-  for (const price of prices) {
+  /*
+    IMPORTANT:
+
+    Load the REAL historical ticks
+    all at once.
+
+    We do NOT display:
+
+    1
+    2
+    3
+    4
+    ...
+
+    We immediately create the
+    historical digit list.
+  */
+
+  const loadedDigits = [];
+
+
+  for (
+    const price of prices
+  ) {
 
     const digit =
-      getDigitFromQuote(price);
+      getDigitFromQuote(
+        price
+      );
+
 
     if (digit !== null) {
-      digitHistory.push(digit);
+
+      loadedDigits.push(
+        digit
+      );
+
     }
 
   }
 
+
   /*
-    Keep the latest 3000 only.
+    Keep latest 3000 only.
   */
 
-  if (digitHistory.length > MAX_HISTORY) {
+  digitHistory =
+    loadedDigits.slice(
+      -HISTORY_SIZE
+    );
 
-    digitHistory =
-      digitHistory.slice(-MAX_HISTORY);
 
-  }
+  /*
+    NOW the analyzers immediately
+    receive:
+
+    latest 1000
+    latest 100
+
+    before live ticks continue.
+  */
 
   renderAll();
 }
 
 
-/* =========================
+/* =====================================================
    LIVE TICK
-========================= */
+===================================================== */
 
 function handleTick(data) {
 
@@ -825,23 +1062,41 @@ function handleTick(data) {
     return;
   }
 
-  if (data.tick.pip_size !== undefined) {
-    setPipSize(data.tick.pip_size);
+
+  if (
+    data.tick.pip_size !== undefined
+  ) {
+
+    setPipSize(
+      data.tick.pip_size
+    );
+
   }
+
 
   const price =
     data.tick.quote;
 
-  const digit =
-    getDigitFromQuote(price);
 
-  if (price !== undefined) {
+  const digit =
+    getDigitFromQuote(
+      price
+    );
+
+
+  if (
+    price !== undefined
+  ) {
 
     document.getElementById(
       "livePrice"
     ).textContent =
-      Number(price).toFixed(pipSize);
+      Number(price).toFixed(
+        pipSize
+      );
+
   }
+
 
   if (digit !== null) {
 
@@ -850,67 +1105,102 @@ function handleTick(data) {
     ).textContent =
       digit;
 
+
+    /*
+      This is the ONLY place where
+      the rolling history receives
+      a new tick.
+    */
+
     addDigit(digit);
+
   }
 }
 
 
-/* =========================
-   SEND HISTORY REQUEST
-========================= */
+/* =====================================================
+   REQUEST REAL LAST 3000
+===================================================== */
 
 function requestHistory() {
 
   if (
     !socket ||
-    socket.readyState !== WebSocket.OPEN
+    socket.readyState !==
+      WebSocket.OPEN
   ) {
     return;
   }
 
+
   socket.send(
     JSON.stringify({
-      ticks_history: currentSymbol,
-      end: "latest",
-      style: "ticks",
-      count: MAX_HISTORY,
-      subscribe: 0,
-      req_id: 100
+
+      ticks_history:
+        currentSymbol,
+
+      end:
+        "latest",
+
+      style:
+        "ticks",
+
+      count:
+        HISTORY_SIZE,
+
+      subscribe:
+        0,
+
+      req_id:
+        100
+
     })
   );
 }
 
 
-/* =========================
-   SUBSCRIBE LIVE TICKS
-========================= */
+/* =====================================================
+   SUBSCRIBE LIVE
+===================================================== */
 
 function subscribeTicks() {
 
   if (
     !socket ||
-    socket.readyState !== WebSocket.OPEN
+    socket.readyState !==
+      WebSocket.OPEN
   ) {
     return;
   }
 
+
   socket.send(
     JSON.stringify({
-      ticks: currentSymbol,
-      subscribe: 1,
-      req_id: 101
+
+      ticks:
+        currentSymbol,
+
+      subscribe:
+        1,
+
+      req_id:
+        101
+
     })
   );
 }
 
 
-/* =========================
+/* =====================================================
    CONNECT
-========================= */
+===================================================== */
 
 function connect() {
 
-  clearTimeout(reconnectTimer);
+  clearTimeout(
+    reconnectTimer
+  );
+
 
   if (socket) {
 
@@ -920,204 +1210,272 @@ function connect() {
 
   }
 
+
   document.getElementById(
     "statusText"
   ).textContent =
     "Connecting...";
+
 
   document.getElementById(
     "statusDot"
   ).className =
     "dot";
 
+
   socket =
-    new WebSocket(WS_URL);
+    new WebSocket(
+      WS_URL
+    );
 
 
-  socket.onopen = function() {
-
-    document.getElementById(
-      "statusText"
-    ).textContent =
-      "Connected — loading latest 3,000 ticks...";
-
-    document.getElementById(
-      "statusDot"
-    ).className =
-      "dot connected";
-
-    /*
-      First load the actual latest history.
-      We do NOT start at 1,2,3...
-    */
-
-    requestHistory();
-
-    /*
-      Then subscribe to new ticks.
-    */
-
-    setTimeout(() => {
-      subscribeTicks();
-    }, 300);
-
-  };
-
-
-  socket.onmessage = function(event) {
-
-    let data;
-
-    try {
-      data =
-        JSON.parse(event.data);
-    }
-
-    catch (error) {
-      return;
-    }
-
-
-    /*
-      Ignore non-data messages.
-    */
-
-    if (data.error) {
-
-      console.error(
-        "Deriv error:",
-        data.error
-      );
+  socket.onopen =
+    function() {
 
       document.getElementById(
         "statusText"
       ).textContent =
-        "Connection error: " +
-        (data.error.message || "Unknown error");
+        "Connected — loading history...";
+
+
+      document.getElementById(
+        "statusDot"
+      ).className =
+        "dot connected";
+
+
+      /*
+        FIRST:
+
+        Get actual historical ticks.
+      */
+
+      requestHistory();
+
+
+      /*
+        THEN:
+
+        Continue with live ticks.
+      */
+
+      setTimeout(
+        () => {
+          subscribeTicks();
+        },
+        300
+      );
+
+    };
+
+
+  socket.onmessage =
+    function(event) {
+
+      let data;
+
+
+      try {
+
+        data =
+          JSON.parse(
+            event.data
+          );
+
+      }
+
+      catch (error) {
+
+        return;
+
+      }
+
+
+      if (data.error) {
+
+        console.error(
+          data.error
+        );
+
+
+        document.getElementById(
+          "statusText"
+        ).textContent =
+          "Connection error";
+
+
+        document.getElementById(
+          "statusDot"
+        ).className =
+          "dot error";
+
+
+        return;
+      }
+
+
+      /*
+        HISTORICAL DATA
+      */
+
+      if (
+        data.msg_type ===
+        "history"
+      ) {
+
+        loadHistory(
+          data
+        );
+
+
+        document.getElementById(
+          "statusText"
+        ).textContent =
+          "Live — historical 1000/100 loaded";
+
+
+        return;
+      }
+
+
+      /*
+        LIVE DATA
+      */
+
+      if (
+        data.msg_type ===
+        "tick"
+      ) {
+
+        handleTick(
+          data
+        );
+
+
+        document.getElementById(
+          "statusText"
+        ).textContent =
+          "Live — receiving ticks";
+
+      }
+
+    };
+
+
+  socket.onerror =
+    function() {
+
+      document.getElementById(
+        "statusText"
+      ).textContent =
+        "Connection error";
+
 
       document.getElementById(
         "statusDot"
       ).className =
         "dot error";
 
-      return;
-    }
+    };
 
 
-    if (data.msg_type === "history") {
-
-      loadHistory(data);
+  socket.onclose =
+    function() {
 
       document.getElementById(
         "statusText"
       ).textContent =
-        "Live — latest history loaded";
+        "Disconnected — reconnecting...";
 
-      return;
-    }
-
-
-    if (data.msg_type === "tick") {
-
-      handleTick(data);
 
       document.getElementById(
-        "statusText"
-      ).textContent =
-        "Live — receiving ticks";
-
-      return;
-    }
-
-  };
+        "statusDot"
+      ).className =
+        "dot error";
 
 
-  socket.onerror = function() {
+      reconnectTimer =
+        setTimeout(
+          () => {
+            connect();
+          },
+          3000
+        );
 
-    document.getElementById(
-      "statusText"
-    ).textContent =
-      "Connection error";
-
-    document.getElementById(
-      "statusDot"
-    ).className =
-      "dot error";
-  };
-
-
-  socket.onclose = function() {
-
-    document.getElementById(
-      "statusText"
-    ).textContent =
-      "Disconnected — reconnecting...";
-
-    document.getElementById(
-      "statusDot"
-    ).className =
-      "dot error";
-
-    reconnectTimer =
-      setTimeout(() => {
-        connect();
-      }, 3000);
-  };
-
+    };
 }
 
 
-/* =========================
-   MODE
-========================= */
+/* =====================================================
+   OVER 2 / UNDER 7
+===================================================== */
 
 function setMode(mode) {
 
   currentMode =
     mode;
 
-  const overBtn =
-    document.getElementById("overBtn");
 
-  const underBtn =
-    document.getElementById("underBtn");
+  const overButton =
+    document.getElementById(
+      "overBtn"
+    );
+
+  const underButton =
+    document.getElementById(
+      "underBtn"
+    );
 
   const description =
-    document.getElementById("modeDescription");
+    document.getElementById(
+      "modeDescription"
+    );
 
 
-  if (mode === "OVER2") {
+  if (
+    mode === "OVER2"
+  ) {
 
-    overBtn.classList.add("active");
-    underBtn.classList.remove("active");
+    overButton.classList.add(
+      "active"
+    );
+
+    underButton.classList.remove(
+      "active"
+    );
 
     description.textContent =
-      "Digits 0, 1 and 2 will appear RED in Recent Digits.";
+      "Digits 0, 1 and 2 are RED in Recent Digits.";
 
   }
 
   else {
 
-    underBtn.classList.add("active");
-    overBtn.classList.remove("active");
+    underButton.classList.add(
+      "active"
+    );
+
+    overButton.classList.remove(
+      "active"
+    );
 
     description.textContent =
-      "Digits 7, 8 and 9 will appear RED in Recent Digits.";
+      "Digits 7, 8 and 9 are RED in Recent Digits.";
 
   }
 
+
   /*
-    Analyzer colors are NOT changed here.
-    Their colors remain based ONLY on ranking.
+    Do NOT touch analyzer ranking.
   */
 
   renderRecentDigits();
 }
 
 
-/* =========================
+/* =====================================================
    MARKET CHANGE
-========================= */
+===================================================== */
 
 document.getElementById(
   "marketSelect"
@@ -1128,24 +1486,24 @@ document.getElementById(
     currentSymbol =
       this.value;
 
+
     digitHistory = [];
+
 
     renderAll();
 
+
     connect();
+
   }
 );
 
 
-/* =========================
-   INITIAL DISPLAY
-========================= */
+/* =====================================================
+   START
+===================================================== */
 
 renderAll();
-
-/*
-  Start immediately.
-*/
 
 connect();
 
