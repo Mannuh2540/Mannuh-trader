@@ -6,265 +6,46 @@
 <title>Mannuh Trader</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        background: #05070b;
-        color: #f2f2f2;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .container {
-        width: 100%;
-        max-width: 1100px;
-        margin: auto;
-        padding: 15px;
-    }
-
-    h1 {
-        text-align: center;
-        margin: 5px 0 15px;
-        font-size: 27px;
-    }
-
-    .top-panel,
-    .panel {
-        background: #0d1118;
-        border: 1px solid #202734;
-        border-radius: 12px;
-        padding: 15px;
-        margin-bottom: 14px;
-    }
-
-    .market-row {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
-    select {
-        background: #151b24;
-        color: white;
-        border: 1px solid #303947;
-        border-radius: 8px;
-        padding: 10px;
-        font-size: 15px;
-        flex: 1;
-        min-width: 180px;
-    }
-
-    .status-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 12px;
-        font-size: 14px;
-    }
-
-    .status {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-    }
-
-    .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #777;
-    }
-
-    .dot.green {
-        background: #00d084;
-        box-shadow: 0 0 8px #00d084;
-    }
-
-    .dot.red {
-        background: #ff3b30;
-        box-shadow: 0 0 8px #ff3b30;
-    }
-
-    .dot.yellow {
-        background: #ffd60a;
-        box-shadow: 0 0 8px #ffd60a;
-    }
-
-    .market-info {
-        text-align: center;
-        padding: 10px 0;
-    }
-
-    .market-name {
-        font-size: 15px;
-        color: #9aa4b2;
-    }
-
-    .price {
-        font-size: 30px;
-        font-weight: bold;
-        margin-top: 5px;
-    }
-
-    .last-digit {
-        margin-top: 3px;
-        font-size: 16px;
-        color: #9aa4b2;
-    }
-
-    .modes {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 15px;
-    }
-
-    .mode-btn {
-        flex: 1;
-        padding: 11px;
-        border-radius: 8px;
-        border: 1px solid #343d4d;
-        background: #141a23;
-        color: #ddd;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .mode-btn.active {
-        background: #222b38;
-        border-color: #7d8796;
-        color: white;
-    }
-
-    .analyzers {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-    }
-
-    @media (max-width: 750px) {
-        .analyzers {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    .panel-title {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 4px;
-    }
-
-    .window-size {
-        color: #8993a3;
-        font-size: 13px;
-        margin-bottom: 12px;
-    }
-
-    .digit-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 8px;
-    }
-
-    .digit-card {
-        background: #151a22;
-        border: 1px solid #252d39;
-        border-radius: 9px;
-        padding: 9px 4px;
-        text-align: center;
-    }
-
-    .digit-number {
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    .digit-percent {
-        margin-top: 4px;
-        font-size: 14px;
-        color: #b9c1cc;
-    }
-
-    .rank-green {
-        border-color: #00d084;
-        box-shadow: inset 0 0 0 1px #00d084;
-    }
-
-    .rank-blue {
-        border-color: #2196f3;
-        box-shadow: inset 0 0 0 1px #2196f3;
-    }
-
-    .rank-red {
-        border-color: #ff3b30;
-        box-shadow: inset 0 0 0 1px #ff3b30;
-    }
-
-    .rank-yellow {
-        border-color: #ffd60a;
-        box-shadow: inset 0 0 0 1px #ffd60a;
-    }
-
-    .recent-title {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .recent-grid {
-        display: grid;
-        grid-template-columns: repeat(9, 1fr);
-        gap: 6px;
-    }
-
-    @media (max-width: 700px) {
-        .recent-grid {
-            grid-template-columns: repeat(9, 1fr);
-            gap: 4px;
-        }
-    }
-
-    .recent-digit {
-        background: #151a22;
-        border: 1px solid #252d39;
-        border-radius: 7px;
-        text-align: center;
-        padding: 7px 2px;
-        font-size: 15px;
-        font-weight: bold;
-    }
-
-    .recent-target {
-        background: #39171b;
-        border-color: #ff3b30;
-        color: #ff6259;
-    }
-
-    .recent-normal {
-        color: #00d084;
-    }
-
-    .small {
-        color: #7f8997;
-        font-size: 12px;
-        margin-top: 8px;
-    }
-
-    .error-text {
-        color: #ff6259;
-        font-size: 13px;
-        margin-top: 7px;
-        word-break: break-word;
-    }
-
-    .loading-text {
-        color: #9aa4b2;
-        font-size: 14px;
-        padding: 10px 0;
-    }
+*{box-sizing:border-box}
+body{margin:0;background:#05070b;color:#f2f2f2;font-family:Arial,Helvetica,sans-serif}
+.container{width:100%;max-width:1100px;margin:auto;padding:15px}
+h1{text-align:center;margin:5px 0 15px;font-size:27px}
+.top-panel,.panel{background:#0d1118;border:1px solid #202734;border-radius:12px;padding:15px;margin-bottom:14px}
+.market-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+select{background:#151b24;color:white;border:1px solid #303947;border-radius:8px;padding:10px;font-size:15px;flex:1;min-width:180px}
+.status-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:14px}
+.status{display:flex;align-items:center;gap:7px}
+.dot{width:10px;height:10px;border-radius:50%;background:#777}
+.dot.green{background:#00d084;box-shadow:0 0 8px #00d084}
+.dot.red{background:#ff3b30;box-shadow:0 0 8px #ff3b30}
+.dot.yellow{background:#ffd60a;box-shadow:0 0 8px #ffd60a}
+.market-info{text-align:center;padding:10px 0}
+.market-name{font-size:15px;color:#9aa4b2}
+.price{font-size:30px;font-weight:bold;margin-top:5px}
+.last-digit{margin-top:3px;font-size:16px;color:#9aa4b2}
+.modes{display:flex;gap:10px;margin-bottom:15px}
+.mode-btn{flex:1;padding:11px;border-radius:8px;border:1px solid #343d4d;background:#141a23;color:#ddd;font-weight:bold;cursor:pointer}
+.mode-btn.active{background:#222b38;border-color:#7d8796;color:white}
+.analyzers{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:750px){.analyzers{grid-template-columns:1fr}}
+.panel-title{font-size:18px;font-weight:bold;margin-bottom:4px}
+.window-size{color:#8993a3;font-size:13px;margin-bottom:12px}
+.digit-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.digit-card{background:#151a22;border:1px solid #252d39;border-radius:9px;padding:9px 4px;text-align:center}
+.digit-number{font-size:18px;font-weight:bold}
+.digit-percent{margin-top:4px;font-size:14px;color:#b9c1cc}
+.rank-green{border-color:#00d084;box-shadow:inset 0 0 0 1px #00d084}
+.rank-blue{border-color:#2196f3;box-shadow:inset 0 0 0 1px #2196f3}
+.rank-red{border-color:#ff3b30;box-shadow:inset 0 0 0 1px #ff3b30}
+.rank-yellow{border-color:#ffd60a;box-shadow:inset 0 0 0 1px #ffd60a}
+.recent-title{font-size:18px;font-weight:bold;margin-bottom:10px}
+.recent-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:6px}
+@media(max-width:700px){.recent-grid{grid-template-columns:repeat(9,1fr);gap:4px}}
+.recent-digit{background:#151a22;border:1px solid #252d39;border-radius:7px;text-align:center;padding:7px 2px;font-size:15px;font-weight:bold}
+.recent-target{background:#39171b;border-color:#ff3b30;color:#ff6259}
+.recent-normal{color:#00d084}
+.small{color:#7f8997;font-size:12px;margin-top:8px}
+.error-text{color:#ff6259;font-size:13px;margin-top:7px;word-break:break-word}
 </style>
 </head>
 
@@ -272,167 +53,143 @@
 
 <div class="container">
 
-    <h1>MANNUH TRADER</h1>
+<h1>MANNUH TRADER</h1>
 
-    <div class="top-panel">
+<div class="top-panel">
 
-        <div class="market-row">
-            <select id="marketSelect">
-                <option value="1HZ10V">Volatility 10 (1s) Index</option>
-                <option value="1HZ25V">Volatility 25 (1s) Index</option>
-                <option value="1HZ50V">Volatility 50 (1s) Index</option>
-                <option value="1HZ75V">Volatility 75 (1s) Index</option>
-                <option value="1HZ100V" selected>Volatility 100 (1s) Index</option>
-                <option value="R_10">Volatility 10 Index</option>
-                <option value="R_25">Volatility 25 Index</option>
-                <option value="R_50">Volatility 50 Index</option>
-                <option value="R_75">Volatility 75 Index</option>
-                <option value="R_100">Volatility 100 Index</option>
-            </select>
-        </div>
+<div class="market-row">
 
-        <div class="status-row">
+<select id="marketSelect">
+<option value="1HZ10V">Volatility 10 (1s) Index</option>
+<option value="1HZ25V">Volatility 25 (1s) Index</option>
+<option value="1HZ50V">Volatility 50 (1s) Index</option>
+<option value="1HZ75V">Volatility 75 (1s) Index</option>
+<option value="1HZ100V" selected>Volatility 100 (1s) Index</option>
+<option value="R_10">Volatility 10 Index</option>
+<option value="R_25">Volatility 25 Index</option>
+<option value="R_50">Volatility 50 Index</option>
+<option value="R_75">Volatility 75 Index</option>
+<option value="R_100">Volatility 100 Index</option>
+</select>
 
-            <div class="status">
-                <span id="statusDot" class="dot yellow"></span>
-                <span id="statusText">Connecting to Deriv...</span>
-            </div>
+</div>
 
-            <div>
-                Stored ticks: <strong>3,000</strong>
-            </div>
+<div class="status-row">
 
-        </div>
+<div class="status">
+<span id="statusDot" class="dot yellow"></span>
+<span id="statusText">Connecting to Deriv...</span>
+</div>
 
-        <div id="errorText" class="error-text"></div>
+<div>
+Stored ticks: <strong>3,000</strong>
+</div>
 
-        <div class="market-info">
-            <div class="market-name" id="marketName">
-                Volatility 100 (1s) Index
-            </div>
+</div>
 
-            <div class="price" id="livePrice">--</div>
+<div id="errorText" class="error-text"></div>
 
-            <div class="last-digit">
-                Last digit: <strong id="lastDigit">--</strong>
-            </div>
-        </div>
+<div class="market-info">
 
-    </div>
+<div class="market-name" id="marketName">
+Volatility 100 (1s) Index
+</div>
 
+<div class="price" id="livePrice">--</div>
 
-    <div class="panel">
+<div class="last-digit">
+Last digit: <strong id="lastDigit">--</strong>
+</div>
 
-        <div class="modes">
+</div>
 
-            <button id="over2Btn" class="mode-btn active">
-                OVER 2
-            </button>
-
-            <button id="under7Btn" class="mode-btn">
-                UNDER 7
-            </button>
-
-        </div>
-
-    </div>
+</div>
 
 
-    <div class="analyzers">
+<div class="panel">
 
-        <div class="panel">
+<div class="modes">
 
-            <div class="panel-title">
-                1,000 TICK ANALYZER
-            </div>
+<button id="over2Btn" class="mode-btn active">
+OVER 2
+</button>
 
-            <div id="window1000" class="window-size">
-                Loading latest 1,000...
-            </div>
+<button id="under7Btn" class="mode-btn">
+UNDER 7
+</button>
 
-            <div id="grid1000" class="digit-grid"></div>
+</div>
 
-        </div>
-
-
-        <div class="panel">
-
-            <div class="panel-title">
-                100 TICK ANALYZER
-            </div>
-
-            <div id="window100" class="window-size">
-                Loading latest 100...
-            </div>
-
-            <div id="grid100" class="digit-grid"></div>
-
-        </div>
-
-    </div>
+</div>
 
 
-    <div class="panel">
+<div class="analyzers">
 
-        <div class="recent-title">
-            Recent Digits
-        </div>
+<div class="panel">
 
-        <div id="recentGrid" class="recent-grid"></div>
+<div class="panel-title">
+1,000 TICK ANALYZER
+</div>
 
-        <div class="small">
-            Newest digit appears on the left.
-        </div>
+<div id="window1000" class="window-size">
+Loading latest 1,000...
+</div>
 
-    </div>
+<div id="grid1000" class="digit-grid"></div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-title">
+100 TICK ANALYZER
+</div>
+
+<div id="window100" class="window-size">
+Loading latest 100...
+</div>
+
+<div id="grid100" class="digit-grid"></div>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="recent-title">
+Recent Digits
+</div>
+
+<div id="recentGrid" class="recent-grid"></div>
+
+<div class="small">
+Newest digit appears on the left.
+</div>
+
+</div>
 
 </div>
 
 
 <script>
 
-/*
-===========================================================
-MANNUH TRADER
-LIVE DERIV DIGIT ANALYZER
-===========================================================
-
-IMPORTANT:
-Deriv's current WebSocket documentation uses:
-
-wss://ws.derivws.com/websockets/v3?app_id=...
-
-App ID 1089 is Deriv's documented testing App ID.
-
-This website:
-- Does NOT place trades.
-- Does NOT execute contracts.
-- Only reads public market data.
-===========================================================
-*/
-
-
-/* -------------------------------------------------------
-   CONNECTION
-------------------------------------------------------- */
-
 const APP_ID = null;
+
 const WS_URL =
-    "wss://api.derivws.com/trading/v1/options/ws/public";
-/* -------------------------------------------------------
-   CONFIGURATION
-------------------------------------------------------- */
+"wss://api.derivws.com/trading/v1/options/ws/public";
+
 
 const MAX_HISTORY = 3000;
+
 const WINDOW_1000 = 1000;
+
 const WINDOW_100 = 100;
 
 const RECENT_COUNT = 72;
 
-
-/* -------------------------------------------------------
-   STATE
-------------------------------------------------------- */
 
 let ws = null;
 
@@ -441,7 +198,7 @@ let reconnectTimer = null;
 let pingTimer = null;
 
 let selectedSymbol =
-    document.getElementById("marketSelect").value;
+document.getElementById("marketSelect").value;
 
 let pipSize = 2;
 
@@ -456,1273 +213,1073 @@ let reconnectAttempt = 0;
 let currentMode = "OVER2";
 
 
-/* -------------------------------------------------------
-   ELEMENTS
-------------------------------------------------------- */
-
 const marketSelect =
-    document.getElementById("marketSelect");
+document.getElementById("marketSelect");
 
 const statusDot =
-    document.getElementById("statusDot");
+document.getElementById("statusDot");
 
 const statusText =
-    document.getElementById("statusText");
+document.getElementById("statusText");
 
 const errorText =
-    document.getElementById("errorText");
+document.getElementById("errorText");
 
 const livePrice =
-    document.getElementById("livePrice");
+document.getElementById("livePrice");
 
 const lastDigit =
-    document.getElementById("lastDigit");
+document.getElementById("lastDigit");
 
 const marketName =
-    document.getElementById("marketName");
+document.getElementById("marketName");
 
 const grid1000 =
-    document.getElementById("grid1000");
+document.getElementById("grid1000");
 
 const grid100 =
-    document.getElementById("grid100");
+document.getElementById("grid100");
 
 const recentGrid =
-    document.getElementById("recentGrid");
+document.getElementById("recentGrid");
 
 const window1000 =
-    document.getElementById("window1000");
+document.getElementById("window1000");
 
 const window100 =
-    document.getElementById("window100");
+document.getElementById("window100");
 
 const over2Btn =
-    document.getElementById("over2Btn");
+document.getElementById("over2Btn");
 
 const under7Btn =
-    document.getElementById("under7Btn");
+document.getElementById("under7Btn");
 
-
-/* -------------------------------------------------------
-   MARKET NAMES
-------------------------------------------------------- */
 
 const MARKET_NAMES = {
 
-    "1HZ10V": "Volatility 10 (1s) Index",
+"1HZ10V":"Volatility 10 (1s) Index",
 
-    "1HZ25V": "Volatility 25 (1s) Index",
+"1HZ25V":"Volatility 25 (1s) Index",
 
-    "1HZ50V": "Volatility 50 (1s) Index",
+"1HZ50V":"Volatility 50 (1s) Index",
 
-    "1HZ75V": "Volatility 75 (1s) Index",
+"1HZ75V":"Volatility 75 (1s) Index",
 
-    "1HZ100V": "Volatility 100 (1s) Index",
+"1HZ100V":"Volatility 100 (1s) Index",
 
-    "R_10": "Volatility 10 Index",
+"R_10":"Volatility 10 Index",
 
-    "R_25": "Volatility 25 Index",
+"R_25":"Volatility 25 Index",
 
-    "R_50": "Volatility 50 Index",
+"R_50":"Volatility 50 Index",
 
-    "R_75": "Volatility 75 Index",
+"R_75":"Volatility 75 Index",
 
-    "R_100": "Volatility 100 Index"
+"R_100":"Volatility 100 Index"
 
 };
 
 
-/* -------------------------------------------------------
-   UI STATUS
-------------------------------------------------------- */
+function setStatus(type,text){
 
-function setStatus(type, text) {
+statusDot.className="dot";
 
-    statusDot.className = "dot";
+if(type==="green"){
+statusDot.classList.add("green");
+}
 
-    if (type === "green") {
-        statusDot.classList.add("green");
-    }
+if(type==="red"){
+statusDot.classList.add("red");
+}
 
-    if (type === "red") {
-        statusDot.classList.add("red");
-    }
+if(type==="yellow"){
+statusDot.classList.add("yellow");
+}
 
-    if (type === "yellow") {
-        statusDot.classList.add("yellow");
-    }
+statusText.textContent=text;
 
-    statusText.textContent = text;
 }
 
 
-/* -------------------------------------------------------
-   ERROR DISPLAY
-------------------------------------------------------- */
+function showError(message){
 
-function showError(message) {
+errorText.textContent=message||"";
 
-    errorText.textContent = message || "";
 }
 
 
-/* -------------------------------------------------------
-   MARKET DISPLAY
-------------------------------------------------------- */
+function updateMarketName(){
 
-function updateMarketName() {
+marketName.textContent=
+MARKET_NAMES[selectedSymbol]||
+selectedSymbol;
 
-    marketName.textContent =
-        MARKET_NAMES[selectedSymbol] ||
-        selectedSymbol;
 }
 
 
-/* -------------------------------------------------------
-   DIGIT EXTRACTION
-------------------------------------------------------- */
+function getLastDigit(price){
 
-function getLastDigit(price) {
+const numericPrice=Number(price);
 
-    const numericPrice = Number(price);
+if(!Number.isFinite(numericPrice)){
+return null;
+}
 
-    if (!Number.isFinite(numericPrice)) {
-        return null;
-    }
+const fixed=
+numericPrice.toFixed(pipSize);
 
-    const fixed =
-        numericPrice.toFixed(pipSize);
+const digits=
+fixed.replace(/\D/g,"");
 
-    const digits =
-        fixed.replace(/\D/g, "");
+if(!digits.length){
+return null;
+}
 
-    if (!digits.length) {
-        return null;
-    }
+return Number(
+digits[digits.length-1]
+);
 
-    return Number(digits[digits.length - 1]);
 }
 
 
-/* -------------------------------------------------------
-   COUNT DIGITS
-------------------------------------------------------- */
+function countDigits(digits){
 
-function countDigits(digits) {
+const counts=
+[0,0,0,0,0,0,0,0,0,0];
 
-    const counts = [0,0,0,0,0,0,0,0,0,0];
+for(const digit of digits){
 
-    for (const digit of digits) {
+if(
+Number.isInteger(digit)&&
+digit>=0&&
+digit<=9
+){
 
-        if (
-            Number.isInteger(digit) &&
-            digit >= 0 &&
-            digit <= 9
-        ) {
-            counts[digit]++;
-        }
+counts[digit]++;
 
-    }
+}
 
-    return counts;
+}
+
+return counts;
+
 }
 
 
-/* -------------------------------------------------------
-   RANKING
--------------------------------------------------------
+function getRankingClasses(counts){
 
-GREEN  = most appearing
-BLUE   = second most appearing
-RED    = least appearing
-YELLOW = second least appearing
+const descending=
+Array.from(
+{length:10},
+(_,i)=>i
+).sort((a,b)=>{
 
-Ranking is calculated independently
-inside each analyzer.
-------------------------------------------------------- */
-
-function getRankingClasses(counts) {
-
-    const descending =
-        Array.from({length: 10}, (_, i) => i)
-        .sort((a,b) => {
-
-            if (counts[b] !== counts[a]) {
-                return counts[b] - counts[a];
-            }
-
-            return a - b;
-        });
-
-    const ascending =
-        Array.from({length: 10}, (_, i) => i)
-        .sort((a,b) => {
-
-            if (counts[a] !== counts[b]) {
-                return counts[a] - counts[b];
-            }
-
-            return a - b;
-        });
-
-    const classes = Array(10).fill("");
-
-    classes[descending[0]] = "rank-green";
-
-    classes[descending[1]] = "rank-blue";
-
-    classes[ascending[0]] = "rank-red";
-
-    classes[ascending[1]] = "rank-yellow";
-
-    return classes;
+if(counts[b]!==counts[a]){
+return counts[b]-counts[a];
 }
 
+return a-b;
 
-/* -------------------------------------------------------
-   RENDER ANALYZER
-------------------------------------------------------- */
+});
+
+
+const ascending=
+Array.from(
+{length:10},
+(_,i)=>i
+).sort((a,b)=>{
+
+if(counts[a]!==counts[b]){
+return counts[a]-counts[b];
+}
+
+return a-b;
+
+});
+
+
+const classes=
+Array(10).fill("");
+
+classes[descending[0]]=
+"rank-green";
+
+classes[descending[1]]=
+"rank-blue";
+
+classes[ascending[0]]=
+"rank-red";
+
+classes[ascending[1]]=
+"rank-yellow";
+
+return classes;
+
+}
+
 
 function renderAnalyzer(
-    digits,
-    grid,
-    windowLabel,
-    expectedSize
-) {
+digits,
+grid,
+windowLabel,
+expectedSize
+){
 
-    if (digits.length < expectedSize) {
+if(digits.length<expectedSize){
 
-        windowLabel.textContent =
-            "Loading latest " +
-            expectedSize.toLocaleString() +
-            "...";
+windowLabel.textContent=
+"Loading latest "+
+expectedSize.toLocaleString()+
+"...";
 
-        grid.innerHTML = "";
+grid.innerHTML="";
 
-        return;
-    }
+return;
 
-
-    const windowDigits =
-        digits.slice(-expectedSize);
-
-
-    const counts =
-        countDigits(windowDigits);
-
-
-    const ranking =
-        getRankingClasses(counts);
-
-
-    grid.innerHTML = "";
-
-
-    for (let digit = 0; digit <= 9; digit++) {
-
-        const percentage =
-            (counts[digit] / expectedSize) * 100;
-
-
-        const card =
-            document.createElement("div");
-
-        card.className =
-            "digit-card " +
-            ranking[digit];
-
-
-        const number =
-            document.createElement("div");
-
-        number.className =
-            "digit-number";
-
-        number.textContent =
-            digit;
-
-
-        const percent =
-            document.createElement("div");
-
-        percent.className =
-            "digit-percent";
-
-        percent.textContent =
-            percentage.toFixed(1) + "%";
-
-
-        card.appendChild(number);
-
-        card.appendChild(percent);
-
-        grid.appendChild(card);
-    }
-
-
-    windowLabel.textContent =
-        expectedSize.toLocaleString() +
-        " / " +
-        expectedSize.toLocaleString() +
-        " ticks";
 }
 
 
-/* -------------------------------------------------------
-   RECENT DIGIT TARGET
-------------------------------------------------------- */
+const windowDigits=
+digits.slice(-expectedSize);
 
-function isTargetDigit(digit) {
+const counts=
+countDigits(windowDigits);
 
-    if (currentMode === "OVER2") {
+const ranking=
+getRankingClasses(counts);
 
-        return digit === 0 ||
-               digit === 1 ||
-               digit === 2;
-    }
+grid.innerHTML="";
 
 
-    return digit === 7 ||
-           digit === 8 ||
-           digit === 9;
+for(
+let digit=0;
+digit<=9;
+digit++
+){
+
+const percentage=
+(counts[digit]/
+expectedSize)*100;
+
+const card=
+document.createElement("div");
+
+card.className=
+"digit-card "+
+ranking[digit];
+
+const number=
+document.createElement("div");
+
+number.className=
+"digit-number";
+
+number.textContent=
+digit;
+
+const percent=
+document.createElement("div");
+
+percent.className=
+"digit-percent";
+
+percent.textContent=
+percentage.toFixed(1)+
+"%";
+
+card.appendChild(number);
+
+card.appendChild(percent);
+
+grid.appendChild(card);
+
 }
 
 
-/* -------------------------------------------------------
-   RENDER RECENT DIGITS
--------------------------------------------------------
+windowLabel.textContent=
+expectedSize.toLocaleString()+
+" / "+
+expectedSize.toLocaleString()+
+" ticks";
 
-Newest is LEFT.
-
-Example:
-
-7 5 8 2 4 ...
-
-The grid has:
-9 columns x 8 rows = 72 digits.
-------------------------------------------------------- */
-
-function renderRecentDigits() {
-
-    recentGrid.innerHTML = "";
-
-
-    const recent =
-        digitHistory
-            .slice(-RECENT_COUNT)
-            .reverse();
-
-
-    for (let i = 0; i < RECENT_COUNT; i++) {
-
-        const digit =
-            recent[i];
-
-
-        const box =
-            document.createElement("div");
-
-
-        box.className =
-            "recent-digit";
-
-
-        if (digit === undefined) {
-
-            box.textContent = "";
-
-            recentGrid.appendChild(box);
-
-            continue;
-        }
-
-
-        box.textContent =
-            digit;
-
-
-        if (isTargetDigit(digit)) {
-
-            box.classList.add("recent-target");
-
-        } else {
-
-            box.classList.add("recent-normal");
-
-        }
-
-
-        recentGrid.appendChild(box);
-    }
 }
 
 
-/* -------------------------------------------------------
-   RENDER EVERYTHING
-------------------------------------------------------- */
+function isTargetDigit(digit){
 
-function renderAll() {
+if(currentMode==="OVER2"){
 
-    renderAnalyzer(
-        digitHistory,
-        grid1000,
-        window1000,
-        WINDOW_1000
-    );
+return digit===0||
+digit===1||
+digit===2;
 
+}
 
-    renderAnalyzer(
-        digitHistory,
-        grid100,
-        window100,
-        WINDOW_100
-    );
+return digit===7||
+digit===8||
+digit===9;
 
-
-    renderRecentDigits();
 }
 
 
-/* -------------------------------------------------------
-   RESET DATA
-------------------------------------------------------- */
+function renderRecentDigits(){
 
-function resetData() {
+recentGrid.innerHTML="";
 
-    digitHistory = [];
+const recent=
+digitHistory
+.slice(-RECENT_COUNT)
+.reverse();
 
-    pendingLiveTicks = [];
+for(
+let i=0;
+i<RECENT_COUNT;
+i++
+){
 
-    historyLoaded = false;
+const digit=
+recent[i];
 
-    livePrice.textContent = "--";
+const box=
+document.createElement("div");
 
-    lastDigit.textContent = "--";
+box.className=
+"recent-digit";
 
-    grid1000.innerHTML = "";
+if(digit===undefined){
 
-    grid100.innerHTML = "";
+box.textContent="";
 
-    recentGrid.innerHTML = "";
+recentGrid.appendChild(box);
 
+continue;
 
-    window1000.textContent =
-        "Loading latest 1,000...";
+}
 
+box.textContent=digit;
 
-    window100.textContent =
-        "Loading latest 100...";
+if(isTargetDigit(digit)){
+
+box.classList.add(
+"recent-target"
+);
+
+}else{
+
+box.classList.add(
+"recent-normal"
+);
+
+}
+
+recentGrid.appendChild(box);
+
+}
+
 }
 
 
-/* -------------------------------------------------------
-   ADD DIGIT
-------------------------------------------------------- */
+function renderAll(){
 
-function addDigit(digit) {
+renderAnalyzer(
+digitHistory,
+grid1000,
+window1000,
+WINDOW_1000
+);
 
-    if (
-        !Number.isInteger(digit) ||
-        digit < 0 ||
-        digit > 9
-    ) {
-        return;
-    }
+renderAnalyzer(
+digitHistory,
+grid100,
+window100,
+WINDOW_100
+);
 
+renderRecentDigits();
 
-    digitHistory.push(digit);
-
-
-    /*
-       Background storage is always capped
-       at exactly 3,000 latest ticks.
-    */
-
-    if (digitHistory.length > MAX_HISTORY) {
-
-        digitHistory.splice(
-            0,
-            digitHistory.length - MAX_HISTORY
-        );
-    }
 }
 
 
-/* -------------------------------------------------------
-   PROCESS HISTORY
-------------------------------------------------------- */
+function resetData(){
 
-function processHistory(data) {
+digitHistory=[];
 
-    if (
-        !data.history ||
-        !Array.isArray(data.history.prices)
-    ) {
+pendingLiveTicks=[];
 
-        throw new Error(
-            "Deriv returned no tick history."
-        );
-    }
+historyLoaded=false;
 
+livePrice.textContent="--";
 
-    const prices =
-        data.history.prices;
+lastDigit.textContent="--";
 
+grid1000.innerHTML="";
 
-    /*
-       Deriv provides pip_size at the
-       top level of the history response.
-    */
+grid100.innerHTML="";
 
-    if (
-        Number.isInteger(Number(data.pip_size))
-    ) {
+recentGrid.innerHTML="";
 
-        pipSize =
-            Number(data.pip_size);
-    }
+window1000.textContent=
+"Loading latest 1,000...";
 
+window100.textContent=
+"Loading latest 100...";
 
-    /*
-       Convert the actual historical prices
-       directly into digits.
-    */
-
-    const historicalDigits = [];
-
-
-    for (const price of prices) {
-
-        const digit =
-            getLastDigit(price);
-
-
-        if (digit !== null) {
-
-            historicalDigits.push(digit);
-        }
-    }
-
-
-    /*
-       Keep only the latest 3,000.
-    */
-
-    digitHistory =
-        historicalDigits.slice(-MAX_HISTORY);
-
-
-    /*
-       We require at least 1,000 actual
-       historical ticks before declaring
-       the analyzers ready.
-    */
-
-    if (digitHistory.length < WINDOW_1000) {
-
-        throw new Error(
-            "Only " +
-            digitHistory.length +
-            " usable ticks were returned. Need at least 1,000."
-        );
-    }
-
-
-    historyLoaded = true;
-
-
-    /*
-       Render the real percentages immediately.
-       No artificial counting from zero.
-    */
-
-    renderAll();
-
-
-    /*
-       Apply any live ticks that arrived while
-       history was loading, but only if they are
-       newer than the latest historical tick.
-    */
-
-    if (
-        pendingLiveTicks.length &&
-        data.history.times &&
-        data.history.times.length
-    ) {
-
-        const lastHistoryTime =
-            Number(
-                data.history.times[
-                    data.history.times.length - 1
-                ]
-            );
-
-
-        const sortedPending =
-            pendingLiveTicks
-                .filter(item =>
-                    Number(item.epoch) >
-                    lastHistoryTime
-                )
-                .sort(
-                    (a,b) =>
-                        Number(a.epoch) -
-                        Number(b.epoch)
-                );
-
-
-        for (const item of sortedPending) {
-
-            applyLiveTick(
-                item.quote,
-                item.epoch
-            );
-        }
-    }
-
-
-    pendingLiveTicks = [];
-
-
-    setStatus(
-        "green",
-        "Connected to Deriv"
-    );
-
-
-    showError("");
 }
 
 
-/* -------------------------------------------------------
-   PROCESS LIVE TICK
-------------------------------------------------------- */
+function addDigit(digit){
+
+if(
+!Number.isInteger(digit)||
+digit<0||
+digit>9
+){
+
+return;
+
+}
+
+digitHistory.push(digit);
+
+if(
+digitHistory.length>
+MAX_HISTORY
+){
+
+digitHistory.splice(
+0,
+digitHistory.length-MAX_HISTORY
+);
+
+}
+
+}
+
+
+function processHistory(data){
+
+if(
+!data.history||
+!Array.isArray(
+data.history.prices
+)
+){
+
+throw new Error(
+"Deriv returned no tick history."
+);
+
+}
+
+const prices=
+data.history.prices;
+
+
+if(
+Number.isInteger(
+Number(data.pip_size)
+)
+){
+
+pipSize=
+Number(data.pip_size);
+
+}
+
+
+const historicalDigits=[];
+
+
+for(
+const price of prices
+){
+
+const digit=
+getLastDigit(price);
+
+if(digit!==null){
+
+historicalDigits.push(digit);
+
+}
+
+}
+
+
+digitHistory=
+historicalDigits.slice(
+-MAX_HISTORY
+);
+
+
+if(
+digitHistory.length<
+WINDOW_1000
+){
+
+throw new Error(
+"Only "+
+digitHistory.length+
+" usable ticks were returned. Need at least 1,000."
+);
+
+}
+
+
+historyLoaded=true;
+
+renderAll();
+
+
+if(
+pendingLiveTicks.length&&
+data.history.times&&
+data.history.times.length
+){
+
+const lastHistoryTime=
+Number(
+data.history.times[
+data.history.times.length-1
+]
+);
+
+
+const sortedPending=
+pendingLiveTicks
+.filter(
+item=>
+Number(item.epoch)>
+lastHistoryTime
+)
+.sort(
+(a,b)=>
+Number(a.epoch)-
+Number(b.epoch)
+);
+
+
+for(
+const item of sortedPending
+){
+
+applyLiveTick(
+item.quote,
+item.epoch
+);
+
+}
+
+}
+
+
+pendingLiveTicks=[];
+
+setStatus(
+"green",
+"Connected to Deriv"
+);
+
+showError("");
+
+}
+
 
 function applyLiveTick(
-    quote,
-    epoch
-) {
+quote,
+epoch
+){
 
-    const digit =
-        getLastDigit(quote);
+const digit=
+getLastDigit(quote);
 
+if(digit===null){
+return;
+}
 
-    if (digit === null) {
-        return;
-    }
+livePrice.textContent=
+Number(quote).toFixed(
+pipSize
+);
 
+lastDigit.textContent=
+digit;
 
-    livePrice.textContent =
-        Number(quote).toFixed(pipSize);
+addDigit(digit);
 
+renderAll();
 
-    lastDigit.textContent =
-        digit;
-
-
-    /*
-       Fixed-size rolling history.
-
-       Add newest tick.
-       If storage exceeds 3,000,
-       remove the oldest tick.
-    */
-
-    addDigit(digit);
-
-
-    /*
-       Both analyzers now automatically use:
-
-       last 1,000 ticks
-       last 100 ticks
-    */
-
-    renderAll();
 }
 
 
-/* -------------------------------------------------------
-   WEBSOCKET MESSAGE HANDLER
-------------------------------------------------------- */
+function handleMessage(event){
 
-function handleMessage(event) {
+let data;
 
-    let data;
+try{
 
+data=
+JSON.parse(event.data);
 
-    try {
+}catch(error){
 
-        data =
-            JSON.parse(event.data);
+return;
 
-    } catch (error) {
-
-        return;
-    }
-
-
-    /*
-       API-level error.
-    */
-
-    if (data.error) {
-
-        const message =
-            data.error.message ||
-            data.error.code ||
-            "Deriv API error";
-
-
-        showError(message);
-
-
-        /*
-           Do not immediately reconnect repeatedly
-           for an API validation error.
-        */
-
-        setStatus(
-            "red",
-            "Deriv API error"
-        );
-
-
-        return;
-    }
-
-
-    /*
-       Historical data.
-    */
-
-    if (
-        data.msg_type === "history" ||
-        data.msg_type === "ticks_history"
-    ) {
-
-        try {
-
-            processHistory(data);
-
-        } catch (error) {
-
-            showError(
-                error.message
-            );
-
-            setStatus(
-                "red",
-                "History error"
-            );
-        }
-
-        return;
-    }
-
-
-    /*
-       Live tick.
-    */
-
-    if (data.msg_type === "tick") {
-
-        const tick =
-            data.tick;
-
-
-        if (!tick) {
-            return;
-        }
-
-
-        /*
-           Keep the pip size if Deriv sends it.
-        */
-
-        if (
-            Number.isInteger(
-                Number(tick.pip_size)
-            )
-        ) {
-
-            pipSize =
-                Number(tick.pip_size);
-        }
-
-
-        /*
-           If history isn't ready yet,
-           temporarily hold the live tick.
-        */
-
-        if (!historyLoaded) {
-
-            pendingLiveTicks.push({
-
-                quote: tick.quote,
-
-                epoch: tick.epoch
-
-            });
-
-            return;
-        }
-
-
-        applyLiveTick(
-            tick.quote,
-            tick.epoch
-        );
-
-
-        return;
-    }
-
-
-    /*
-       Ping response.
-    */
-
-    if (data.msg_type === "ping") {
-
-        return;
-    }
 }
 
 
-/* -------------------------------------------------------
-   START PING
-------------------------------------------------------- */
+if(data.error){
 
-function startPing() {
+const message=
+data.error.message||
+data.error.code||
+"Deriv API error";
 
-    stopPing();
+showError(message);
 
+setStatus(
+"red",
+"Deriv API error"
+);
 
-    /*
-       Deriv recommends periodic pinging to keep
-       a WebSocket session alive.
-    */
+return;
 
-    pingTimer =
-        setInterval(() => {
-
-            if (
-                ws &&
-                ws.readyState === WebSocket.OPEN
-            ) {
-
-                ws.send(
-                    JSON.stringify({
-                        ping: 1
-                    })
-                );
-            }
-
-        }, 12000);
 }
 
 
-/* -------------------------------------------------------
-   STOP PING
-------------------------------------------------------- */
+if(
+data.msg_type==="history"||
+data.msg_type==="ticks_history"
+){
 
-function stopPing() {
+try{
 
-    if (pingTimer) {
+processHistory(data);
 
-        clearInterval(pingTimer);
+}catch(error){
 
-        pingTimer = null;
-    }
+showError(
+error.message
+);
+
+setStatus(
+"red",
+"History error"
+);
+
+}
+
+return;
+
 }
 
 
-/* -------------------------------------------------------
-   CONNECT
-------------------------------------------------------- */
+if(data.msg_type==="tick"){
 
-function connect() {
+const tick=
+data.tick;
 
-    if (reconnectTimer) {
+if(!tick){
+return;
+}
 
-        clearTimeout(
-            reconnectTimer
-        );
+if(
+Number.isInteger(
+Number(tick.pip_size)
+)
+){
 
-        reconnectTimer = null;
-    }
+pipSize=
+Number(tick.pip_size);
 
-
-    if (
-        ws &&
-        (
-            ws.readyState === WebSocket.OPEN ||
-            ws.readyState === WebSocket.CONNECTING
-        )
-    ) {
-
-        try {
-            ws.close();
-        } catch (e) {}
-
-    }
-
-
-    resetData();
-
-
-    selectedSymbol =
-        marketSelect.value;
-
-
-    updateMarketName();
-
-
-    setStatus(
-        "yellow",
-        "Connecting to Deriv..."
-    );
-
-
-    showError("");
-
-
-    /*
-       IMPORTANT:
-       This is the corrected endpoint.
-
-       The App ID is included in the URL.
-    */
-
-    const url =
-        WS_URL;
-
-
-    try {
-
-        ws =
-            new WebSocket(url);
-
-    } catch (error) {
-
-        handleConnectionFailure(
-            "Could not create WebSocket connection."
-        );
-
-        return;
-    }
-
-
-    ws.onopen = function() {
-
-        reconnectAttempt = 0;
-
-
-        setStatus(
-            "green",
-            "Connected — loading market history..."
-        );
-
-
-        showError("");
-
-
-        startPing();
-
-
-        ws.send(
-            JSON.stringify({
-
-                ticks_history:
-                    selectedSymbol,
-
-                count:
-                    MAX_HISTORY,
-
-                end:
-                    "latest",
-
-                style:
-                    "ticks",
-
-                subscribe:
-                    0,
-
-                req_id:
-                    1001
-
-            })
-        );
-
-
-        /*
-           Subscribe to the live stream.
-
-           We subscribe immediately so no new
-           ticks are unnecessarily missed.
-        */
-
-        ws.send(
-            JSON.stringify({
-
-                ticks:
-                    selectedSymbol,
-
-                subscribe:
-                    1,
-
-                req_id:
-                    1002
-
-            })
-        );
-
-    };
-
-
-    ws.onmessage =
-        handleMessage;
-
-
-    ws.onerror =
-        function() {
-
-            /*
-               The browser does not expose the useful
-               WebSocket error details here, so the
-               close handler gives the actual state.
-            */
-
-            setStatus(
-                "red",
-                "Connection error"
-            );
-        };
-
-
-    ws.onclose =
-        function(event) {
-
-            stopPing();
-
-
-            if (
-                historyLoaded
-            ) {
-
-                setStatus(
-                    "red",
-                    "Connection closed"
-                );
-
-            } else {
-
-                setStatus(
-                    "red",
-                    "Connection closed — reconnecting..."
-                );
-            }
-
-
-            /*
-               Give a useful close code in the UI
-               without exposing unnecessary details.
-            */
-
-            if (
-                event &&
-                event.code &&
-                event.code !== 1000
-            ) {
-
-                showError(
-                    "WebSocket closed (code " +
-                    event.code +
-                    "). Retrying..."
-                );
-            }
-
-
-            scheduleReconnect();
-        };
 }
 
 
-/* -------------------------------------------------------
-   CONNECTION FAILURE
-------------------------------------------------------- */
+if(!historyLoaded){
 
-function handleConnectionFailure(message) {
+pendingLiveTicks.push({
 
-    stopPing();
+quote:tick.quote,
 
+epoch:tick.epoch
 
-    setStatus(
-        "red",
-        "Connection error"
-    );
+});
 
+return;
 
-    showError(
-        message
-    );
-
-
-    scheduleReconnect();
 }
 
 
-/* -------------------------------------------------------
-   RECONNECT
-------------------------------------------------------- */
+applyLiveTick(
+tick.quote,
+tick.epoch
+);
 
-function scheduleReconnect() {
+return;
 
-    if (reconnectTimer) {
-        return;
-    }
-
-
-    reconnectAttempt++;
-
-
-    /*
-       Backoff:
-
-       1 sec
-       2 sec
-       4 sec
-       8 sec
-       then maximum 15 sec
-    */
-
-    const delay =
-        Math.min(
-            1000 *
-            Math.pow(
-                2,
-                Math.min(
-                    reconnectAttempt - 1,
-                    4
-                )
-            ),
-            15000
-        );
-
-
-    reconnectTimer =
-        setTimeout(() => {
-
-            reconnectTimer = null;
-
-            connect();
-
-        }, delay);
 }
 
 
-/* -------------------------------------------------------
-   MARKET CHANGE
-------------------------------------------------------- */
+if(data.msg_type==="ping"){
+
+return;
+
+}
+
+}
+
+
+function startPing(){
+
+stopPing();
+
+pingTimer=
+setInterval(
+()=>{
+
+if(
+ws&&
+ws.readyState===
+WebSocket.OPEN
+){
+
+ws.send(
+JSON.stringify({
+ping:1
+})
+);
+
+}
+
+},
+12000
+);
+
+}
+
+
+function stopPing(){
+
+if(pingTimer){
+
+clearInterval(
+pingTimer
+);
+
+pingTimer=null;
+
+}
+
+}
+
+
+function connect(){
+
+if(reconnectTimer){
+
+clearTimeout(
+reconnectTimer
+);
+
+reconnectTimer=null;
+
+}
+
+
+if(
+ws&&
+(
+ws.readyState===
+WebSocket.OPEN||
+ws.readyState===
+WebSocket.CONNECTING
+)
+){
+
+try{
+
+ws.close();
+
+}catch(e){}
+
+}
+
+
+resetData();
+
+selectedSymbol=
+marketSelect.value;
+
+updateMarketName();
+
+setStatus(
+"yellow",
+"Connecting to Deriv..."
+);
+
+showError("");
+
+
+const url=
+WS_URL;
+
+
+try{
+
+ws=
+new WebSocket(url);
+
+}catch(error){
+
+handleConnectionFailure(
+"Could not create WebSocket connection."
+);
+
+return;
+
+}
+
+
+ws.onopen=function(){
+
+reconnectAttempt=0;
+
+setStatus(
+"green",
+"Connected — loading market history..."
+);
+
+showError("");
+
+startPing();
+
+
+/*
+IMPORTANT FIX:
+No subscribe: 0 here.
+The history request loads the latest
+3,000 ticks, while the separate ticks
+request below handles the live stream.
+*/
+
+ws.send(
+JSON.stringify({
+
+ticks_history:
+selectedSymbol,
+
+count:
+MAX_HISTORY,
+
+end:
+"latest",
+
+style:
+"ticks",
+
+req_id:
+1001
+
+})
+);
+
+
+ws.send(
+JSON.stringify({
+
+ticks:
+selectedSymbol,
+
+subscribe:
+1,
+
+req_id:
+1002
+
+})
+);
+
+};
+
+
+ws.onmessage=
+handleMessage;
+
+
+ws.onerror=
+function(){
+
+setStatus(
+"red",
+"Connection error"
+);
+
+};
+
+
+ws.onclose=
+function(event){
+
+stopPing();
+
+
+if(historyLoaded){
+
+setStatus(
+"red",
+"Connection closed"
+);
+
+}else{
+
+setStatus(
+"red",
+"Connection closed — reconnecting..."
+);
+
+}
+
+
+if(
+event&&
+event.code&&
+event.code!==1000
+){
+
+showError(
+"WebSocket closed (code "+
+event.code+
+"). Retrying..."
+);
+
+}
+
+
+scheduleReconnect();
+
+};
+
+}
+
+
+function handleConnectionFailure(message){
+
+stopPing();
+
+setStatus(
+"red",
+"Connection error"
+);
+
+showError(message);
+
+scheduleReconnect();
+
+}
+
+
+function scheduleReconnect(){
+
+if(reconnectTimer){
+
+return;
+
+}
+
+reconnectAttempt++;
+
+const delay=
+Math.min(
+1000*
+Math.pow(
+2,
+Math.min(
+reconnectAttempt-1,
+4
+)
+),
+15000
+);
+
+
+reconnectTimer=
+setTimeout(
+()=>{
+
+reconnectTimer=null;
+
+connect();
+
+},
+delay
+);
+
+}
+
 
 marketSelect.addEventListener(
-    "change",
-    function() {
+"change",
+function(){
 
-        selectedSymbol =
-            this.value;
+selectedSymbol=
+this.value;
 
+updateMarketName();
 
-        updateMarketName();
+reconnectAttempt=0;
 
+connect();
 
-        reconnectAttempt = 0;
-
-
-        connect();
-    }
+}
 );
 
-
-/* -------------------------------------------------------
-   OVER 2 MODE
-------------------------------------------------------- */
 
 over2Btn.addEventListener(
-    "click",
-    function() {
+"click",
+function(){
 
-        currentMode =
-            "OVER2";
+currentMode=
+"OVER2";
 
-
-        over2Btn.classList.add(
-            "active"
-        );
-
-
-        under7Btn.classList.remove(
-            "active"
-        );
-
-
-        /*
-           Analyzer ranking is NOT changed.
-           Only recent digit target colors change.
-        */
-
-        renderRecentDigits();
-    }
+over2Btn.classList.add(
+"active"
 );
 
+under7Btn.classList.remove(
+"active"
+);
 
-/* -------------------------------------------------------
-   UNDER 7 MODE
-------------------------------------------------------- */
+renderRecentDigits();
+
+}
+);
+
 
 under7Btn.addEventListener(
-    "click",
-    function() {
+"click",
+function(){
 
-        currentMode =
-            "UNDER7";
+currentMode=
+"UNDER7";
 
-
-        under7Btn.classList.add(
-            "active"
-        );
-
-
-        over2Btn.classList.remove(
-            "active"
-        );
-
-
-        /*
-           Analyzer ranking is NOT changed.
-           Only recent digit target colors change.
-        */
-
-        renderRecentDigits();
-    }
+under7Btn.classList.add(
+"active"
 );
 
+over2Btn.classList.remove(
+"active"
+);
 
-/* -------------------------------------------------------
-   INITIAL DISPLAY
-------------------------------------------------------- */
+renderRecentDigits();
+
+}
+);
+
 
 updateMarketName();
 
 renderRecentDigits();
-
-
-/* -------------------------------------------------------
-   START
-------------------------------------------------------- */
 
 connect();
 
