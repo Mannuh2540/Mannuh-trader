@@ -318,13 +318,8 @@ Volatility 100 Index
 <div class="status-row">
 
 <div class="status">
-
 <span id="statusDot" class="dot yellow"></span>
-
-<span id="statusText">
-Connecting to Deriv...
-</span>
-
+<span id="statusText">Connecting to Deriv...</span>
 </div>
 
 <div>
@@ -346,10 +341,8 @@ Volatility 100 (1s) Index
 </div>
 
 <div class="last-digit">
-
 Last digit:
 <strong id="lastDigit">--</strong>
-
 </div>
 
 </div>
@@ -420,11 +413,12 @@ Newest digit appears on the left.
 
 </div>
 
+
 <script>
 
-/* =========================
+/* ================================
    DERIV CONNECTION
-========================= */
+================================ */
 
 const WS_URL =
 "wss://ws.binaryws.com/websockets/v3";
@@ -435,15 +429,17 @@ const WINDOW_100 = 100;
 const RECENT_COUNT = 72;
 
 
-/* =========================
+/* ================================
    VARIABLES
-========================= */
+================================ */
 
 let ws = null;
 
 let reconnectTimer = null;
 
 let pingTimer = null;
+
+let reconnectAttempt = 0;
 
 let selectedSymbol =
 document.getElementById("marketSelect").value;
@@ -456,22 +452,12 @@ let pendingLiveTicks = [];
 
 let historyLoaded = false;
 
-let reconnectAttempt = 0;
-
 let currentMode = "OVER2";
 
-/*
-   IMPORTANT:
-   This prevents a live tick that was already
-   included in the historical 3,000 ticks
-   from being counted again.
-*/
-let lastAppliedEpoch = 0;
 
-
-/* =========================
+/* ================================
    ELEMENTS
-========================= */
+================================ */
 
 const marketSelect =
 document.getElementById("marketSelect");
@@ -516,9 +502,9 @@ const under7Btn =
 document.getElementById("under7Btn");
 
 
-/* =========================
+/* ================================
    MARKET NAMES
-========================= */
+================================ */
 
 const MARKET_NAMES = {
 
@@ -555,46 +541,38 @@ const MARKET_NAMES = {
 };
 
 
-/* =========================
+/* ================================
    STATUS
-========================= */
+================================ */
 
-function setStatus(type, text){
+function setStatus(type,text){
 
 statusDot.className = "dot";
 
-if(type === "green"){
+if(type === "green")
 statusDot.classList.add("green");
-}
 
-if(type === "red"){
+if(type === "red")
 statusDot.classList.add("red");
-}
 
-if(type === "yellow"){
+if(type === "yellow")
 statusDot.classList.add("yellow");
-}
 
 statusText.textContent = text;
 
 }
 
 
-/* =========================
-   ERROR
-========================= */
-
 function showError(message){
 
-errorText.textContent =
-message || "";
+errorText.textContent = message || "";
 
 }
 
 
-/* =========================
+/* ================================
    MARKET NAME
-========================= */
+================================ */
 
 function updateMarketName(){
 
@@ -605,18 +583,23 @@ selectedSymbol;
 }
 
 
-/* =========================
+/* ================================
    LAST DIGIT
-========================= */
+================================ */
 
 function getLastDigit(price){
 
-const numericPrice =
-Number(price);
+const numericPrice = Number(price);
 
-if(!Number.isFinite(numericPrice)){
+if(!Number.isFinite(numericPrice))
 return null;
-}
+
+
+/*
+Use the known pip size when available.
+*/
+
+if(Number.isInteger(pipSize) && pipSize >= 0){
 
 const fixed =
 numericPrice.toFixed(pipSize);
@@ -624,24 +607,40 @@ numericPrice.toFixed(pipSize);
 const digits =
 fixed.replace(/\D/g,"");
 
-if(!digits.length){
-return null;
+if(digits.length)
+return Number(digits[digits.length - 1]);
+
 }
 
+
+/*
+Fallback if pip size is unavailable.
+*/
+
+const text =
+String(price);
+
+const cleaned =
+text.replace(/\D/g,"");
+
+if(!cleaned.length)
+return null;
+
 return Number(
-digits[digits.length - 1]
+cleaned[cleaned.length - 1]
 );
 
 }
 
 
-/* =========================
+/* ================================
    COUNT DIGITS
-========================= */
+================================ */
 
 function countDigits(digits){
 
-const counts = [
+const counts =
+[
 0,0,0,0,0,
 0,0,0,0,0
 ];
@@ -665,45 +664,40 @@ return counts;
 }
 
 
-/* =========================
-   RANKING COLORS
-========================= */
+/* ================================
+   RANKING
+================================ */
 
 function getRankingClasses(counts){
 
-const descending =
+const indexes =
 Array.from(
 {length:10},
 (_,i)=>i
-).sort((a,b)=>{
+);
 
-if(counts[b] !== counts[a]){
+const descending =
+[...indexes].sort((a,b)=>{
+
+if(counts[b] !== counts[a])
 return counts[b] - counts[a];
-}
 
 return a - b;
 
 });
-
 
 const ascending =
-Array.from(
-{length:10},
-(_,i)=>i
-).sort((a,b)=>{
+[...indexes].sort((a,b)=>{
 
-if(counts[a] !== counts[b]){
+if(counts[a] !== counts[b])
 return counts[a] - counts[b];
-}
 
 return a - b;
 
 });
-
 
 const classes =
 Array(10).fill("");
-
 
 classes[descending[0]] =
 "rank-green";
@@ -717,15 +711,14 @@ classes[ascending[0]] =
 classes[ascending[1]] =
 "rank-yellow";
 
-
 return classes;
 
 }
 
 
-/* =========================
+/* ================================
    ANALYZER
-========================= */
+================================ */
 
 function renderAnalyzer(
 digits,
@@ -747,7 +740,6 @@ return;
 
 }
 
-
 const windowDigits =
 digits.slice(-expectedSize);
 
@@ -759,12 +751,7 @@ getRankingClasses(counts);
 
 grid.innerHTML = "";
 
-
-for(
-let digit = 0;
-digit <= 9;
-digit++
-){
+for(let digit=0;digit<=9;digit++){
 
 const percentage =
 (counts[digit] / expectedSize) * 100;
@@ -776,16 +763,13 @@ card.className =
 "digit-card " +
 ranking[digit];
 
-
 const number =
 document.createElement("div");
 
 number.className =
 "digit-number";
 
-number.textContent =
-digit;
-
+number.textContent = digit;
 
 const percent =
 document.createElement("div");
@@ -794,9 +778,7 @@ percent.className =
 "digit-percent";
 
 percent.textContent =
-percentage.toFixed(1) +
-"%";
-
+percentage.toFixed(1) + "%";
 
 card.appendChild(number);
 
@@ -805,7 +787,6 @@ card.appendChild(percent);
 grid.appendChild(card);
 
 }
-
 
 windowLabel.textContent =
 expectedSize.toLocaleString() +
@@ -816,9 +797,9 @@ expectedSize.toLocaleString() +
 }
 
 
-/* =========================
-   TARGET DIGITS
-========================= */
+/* ================================
+   OVER / UNDER COLORS
+================================ */
 
 function isTargetDigit(digit){
 
@@ -841,9 +822,9 @@ digit === 9
 }
 
 
-/* =========================
+/* ================================
    RECENT DIGITS
-========================= */
+================================ */
 
 function renderRecentDigits(){
 
@@ -854,22 +835,15 @@ digitHistory
 .slice(-RECENT_COUNT)
 .reverse();
 
+for(let i=0;i<RECENT_COUNT;i++){
 
-for(
-let i = 0;
-i < RECENT_COUNT;
-i++
-){
-
-const digit =
-recent[i];
+const digit = recent[i];
 
 const box =
 document.createElement("div");
 
 box.className =
 "recent-digit";
-
 
 if(digit === undefined){
 
@@ -881,9 +855,7 @@ continue;
 
 }
 
-
 box.textContent = digit;
-
 
 if(isTargetDigit(digit)){
 
@@ -899,7 +871,6 @@ box.classList.add(
 
 }
 
-
 recentGrid.appendChild(box);
 
 }
@@ -907,9 +878,9 @@ recentGrid.appendChild(box);
 }
 
 
-/* =========================
+/* ================================
    RENDER EVERYTHING
-========================= */
+================================ */
 
 function renderAll(){
 
@@ -920,7 +891,6 @@ window1000,
 WINDOW_1000
 );
 
-
 renderAnalyzer(
 digitHistory,
 grid100,
@@ -928,15 +898,14 @@ window100,
 WINDOW_100
 );
 
-
 renderRecentDigits();
 
 }
 
 
-/* =========================
+/* ================================
    RESET
-========================= */
+================================ */
 
 function resetData(){
 
@@ -945,8 +914,6 @@ digitHistory = [];
 pendingLiveTicks = [];
 
 historyLoaded = false;
-
-lastAppliedEpoch = 0;
 
 livePrice.textContent = "--";
 
@@ -967,9 +934,9 @@ window100.textContent =
 }
 
 
-/* =========================
+/* ================================
    ADD DIGIT
-========================= */
+================================ */
 
 function addDigit(digit){
 
@@ -977,16 +944,12 @@ if(
 !Number.isInteger(digit) ||
 digit < 0 ||
 digit > 9
-){
+)
 return;
-}
 
 digitHistory.push(digit);
 
-
-if(
-digitHistory.length > MAX_HISTORY
-){
+if(digitHistory.length > MAX_HISTORY){
 
 digitHistory.splice(
 0,
@@ -998,25 +961,24 @@ digitHistory.length - MAX_HISTORY
 }
 
 
-/* =========================
+/* ================================
    REQUEST HISTORY
-========================= */
+================================ */
 
 function requestHistory(){
 
 if(
 !ws ||
 ws.readyState !== WebSocket.OPEN
-){
+)
 return;
-}
-
 
 setStatus(
 "yellow",
 "Loading latest 3,000 ticks..."
 );
 
+showError("");
 
 ws.send(
 JSON.stringify({
@@ -1042,19 +1004,17 @@ req_id:
 }
 
 
-/* =========================
-   SUBSCRIBE LIVE TICKS
-========================= */
+/* ================================
+   LIVE SUBSCRIPTION
+================================ */
 
 function subscribeTicks(){
 
 if(
 !ws ||
 ws.readyState !== WebSocket.OPEN
-){
+)
 return;
-}
-
 
 ws.send(
 JSON.stringify({
@@ -1074,9 +1034,9 @@ req_id:
 }
 
 
-/* =========================
+/* ================================
    PROCESS HISTORY
-========================= */
+================================ */
 
 function processHistory(data){
 
@@ -1093,26 +1053,12 @@ throw new Error(
 
 }
 
-
 const prices =
 data.history.prices;
 
 
-if(
-Number.isInteger(
-Number(data.history.pip_size)
-)
-){
-
-pipSize =
-Number(data.history.pip_size);
-
-}
-
-
 /*
-   Some Deriv responses provide
-   pip_size at the top level.
+Use pip_size when supplied.
 */
 
 if(
@@ -1127,8 +1073,12 @@ Number(data.pip_size);
 }
 
 
-const historicalDigits = [];
+/*
+Convert all historical prices
+to digits.
+*/
 
+const historicalDigits = [];
 
 for(const price of prices){
 
@@ -1158,29 +1108,7 @@ WINDOW_1000
 throw new Error(
 "Only " +
 digitHistory.length +
-" usable ticks were returned. Need at least 1,000."
-);
-
-}
-
-
-/*
-   IMPORTANT:
-   Remember the timestamp of the newest
-   historical tick so that the same tick
-   isn't added again by the live stream.
-*/
-
-if(
-data.history.times &&
-data.history.times.length
-){
-
-lastAppliedEpoch =
-Number(
-data.history.times[
-data.history.times.length - 1
-]
+" usable ticks returned. Need 1,000."
 );
 
 }
@@ -1192,31 +1120,20 @@ renderAll();
 
 
 /*
-   If live ticks arrived while history
-   was loading, only apply ticks newer
-   than the newest historical tick.
+Apply live ticks that arrived
+while history was loading.
 */
 
-if(
-pendingLiveTicks.length
-){
+if(pendingLiveTicks.length){
 
-const sortedPending =
-pendingLiveTicks
-.filter(item =>
-Number(item.epoch) >
-lastAppliedEpoch
-)
-.sort(
-(a,b) =>
+const sorted =
+[...pendingLiveTicks].sort(
+(a,b)=>
 Number(a.epoch) -
 Number(b.epoch)
 );
 
-
-for(
-const item of sortedPending
-){
+for(const item of sorted){
 
 applyLiveTick(
 item.quote,
@@ -1227,21 +1144,19 @@ item.epoch
 
 }
 
-
 pendingLiveTicks = [];
 
 
 /*
-   Subscribe only AFTER historical data
-   has been loaded.
+Start live stream after
+history is ready.
 */
 
 subscribeTicks();
 
-
 setStatus(
 "green",
-"Connected to Deriv"
+"LIVE — Connected to Deriv"
 );
 
 showError("");
@@ -1249,69 +1164,69 @@ showError("");
 }
 
 
-/* =========================
-   APPLY LIVE TICK
-========================= */
+/* ================================
+   LIVE TICK
+================================ */
 
 function applyLiveTick(
 quote,
 epoch
 ){
 
-const numericEpoch =
-Number(epoch);
-
-
-/*
-   Ignore duplicate/old ticks.
-*/
-
-if(
-Number.isFinite(numericEpoch) &&
-numericEpoch <= lastAppliedEpoch
-){
-
-return;
-
-}
-
-
 const digit =
 getLastDigit(quote);
 
-if(digit === null){
+if(digit === null)
 return;
-}
 
 
-if(
-Number.isFinite(numericEpoch)
-){
+/*
+Update price.
+*/
 
-lastAppliedEpoch =
-numericEpoch;
+const numericQuote =
+Number(quote);
 
-}
-
+if(Number.isFinite(numericQuote)){
 
 livePrice.textContent =
-Number(quote).toFixed(
-pipSize
-);
+numericQuote.toFixed(pipSize);
+
+}else{
+
+livePrice.textContent =
+String(quote);
+
+}
+
+
+/*
+Update last digit.
+*/
 
 lastDigit.textContent =
 digit;
 
+
+/*
+Rolling 3,000 history.
+*/
+
 addDigit(digit);
+
+
+/*
+Update analyzers.
+*/
 
 renderAll();
 
 }
 
 
-/* =========================
-   HANDLE MESSAGE
-========================= */
+/* ================================
+   MESSAGE HANDLER
+================================ */
 
 function handleMessage(event){
 
@@ -1329,9 +1244,9 @@ return;
 }
 
 
-/* =========================
-   DERIV ERROR
-========================= */
+/*
+API error.
+*/
 
 if(data.error){
 
@@ -1352,9 +1267,9 @@ return;
 }
 
 
-/* =========================
-   HISTORY
-========================= */
+/*
+Historical data.
+*/
 
 if(
 data.msg_type === "history" ||
@@ -1383,19 +1298,23 @@ return;
 }
 
 
-/* =========================
-   LIVE TICK
-========================= */
+/*
+Live tick.
+*/
 
 if(data.msg_type === "tick"){
 
 const tick =
 data.tick;
 
-if(!tick){
+if(!tick)
 return;
-}
 
+
+/*
+New API may not always
+include pip_size.
+*/
 
 if(
 Number.isInteger(
@@ -1408,11 +1327,6 @@ Number(tick.pip_size);
 
 }
 
-
-/*
-   While waiting for history,
-   temporarily hold live ticks.
-*/
 
 if(!historyLoaded){
 
@@ -1440,30 +1354,20 @@ return;
 
 }
 
-
-/* =========================
-   PING
-========================= */
-
-if(data.msg_type === "ping"){
-return;
-}
-
 }
 
 
-/* =========================
+/* ================================
    PING
-========================= */
+================================ */
 
 function startPing(){
 
 stopPing();
 
-
 pingTimer =
 setInterval(
-() => {
+()=>{
 
 if(
 ws &&
@@ -1501,9 +1405,48 @@ pingTimer = null;
 }
 
 
-/* =========================
+/* ================================
+   RECONNECT
+================================ */
+
+function scheduleReconnect(){
+
+if(reconnectTimer)
+return;
+
+reconnectAttempt++;
+
+const delay =
+Math.min(
+1000 *
+Math.pow(
+2,
+Math.min(
+reconnectAttempt - 1,
+4
+)
+),
+15000
+);
+
+reconnectTimer =
+setTimeout(
+()=>{
+
+reconnectTimer = null;
+
+connect();
+
+},
+delay
+);
+
+}
+
+
+/* ================================
    CONNECT
-========================= */
+================================ */
 
 function connect(){
 
@@ -1537,10 +1480,6 @@ ws.close();
 }
 
 
-/*
-   Start clean for the selected market.
-*/
-
 resetData();
 
 selectedSymbol =
@@ -1565,26 +1504,33 @@ WS_URL
 
 }catch(error){
 
-handleConnectionFailure(
+setStatus(
+"red",
+"Connection error"
+);
+
+showError(
 "Could not create WebSocket connection."
 );
+
+scheduleReconnect();
 
 return;
 
 }
 
 
-/* =========================
-   OPEN
-========================= */
+/*
+CONNECTED
+*/
 
 ws.onopen = function(){
 
 reconnectAttempt = 0;
 
 setStatus(
-"yellow",
-"Connected — loading latest ticks..."
+"green",
+"Connected — loading ticks..."
 );
 
 showError("");
@@ -1593,26 +1539,32 @@ startPing();
 
 
 /*
-   Request the latest 3,000 historical
-   ticks immediately.
+IMPORTANT:
+Request history and live ticks
+immediately.
+
+We no longer wait for
+active_symbols.
 */
 
 requestHistory();
 
+subscribeTicks();
+
 };
 
 
-/* =========================
-   MESSAGE
-========================= */
+/*
+MESSAGES
+*/
 
 ws.onmessage =
 handleMessage;
 
 
-/* =========================
-   ERROR
-========================= */
+/*
+ERROR
+*/
 
 ws.onerror = function(){
 
@@ -1624,31 +1576,19 @@ setStatus(
 };
 
 
-/* =========================
-   CLOSE
-========================= */
+/*
+CLOSED
+*/
 
-ws.onclose = function(event){
+ws.onclose =
+function(event){
 
 stopPing();
 
-
-if(historyLoaded){
-
 setStatus(
 "red",
-"Connection closed"
+"Connection closed — retrying..."
 );
-
-}else{
-
-setStatus(
-"red",
-"Connection closed — reconnecting..."
-);
-
-}
-
 
 if(
 event &&
@@ -1664,7 +1604,6 @@ event.code +
 
 }
 
-
 scheduleReconnect();
 
 };
@@ -1672,72 +1611,9 @@ scheduleReconnect();
 }
 
 
-/* =========================
-   CONNECTION FAILURE
-========================= */
-
-function handleConnectionFailure(message){
-
-stopPing();
-
-setStatus(
-"red",
-"Connection error"
-);
-
-showError(message);
-
-scheduleReconnect();
-
-}
-
-
-/* =========================
-   RECONNECT
-========================= */
-
-function scheduleReconnect(){
-
-if(reconnectTimer){
-return;
-}
-
-
-reconnectAttempt++;
-
-
-const delay =
-Math.min(
-1000 *
-Math.pow(
-2,
-Math.min(
-reconnectAttempt - 1,
-4
-)
-),
-15000
-);
-
-
-reconnectTimer =
-setTimeout(
-() => {
-
-reconnectTimer = null;
-
-connect();
-
-},
-delay
-);
-
-}
-
-
-/* =========================
+/* ================================
    MARKET CHANGE
-========================= */
+================================ */
 
 marketSelect.addEventListener(
 "change",
@@ -1756,9 +1632,9 @@ connect();
 );
 
 
-/* =========================
+/* ================================
    OVER 2
-========================= */
+================================ */
 
 over2Btn.addEventListener(
 "click",
@@ -1780,9 +1656,9 @@ renderRecentDigits();
 );
 
 
-/* =========================
+/* ================================
    UNDER 7
-========================= */
+================================ */
 
 under7Btn.addEventListener(
 "click",
@@ -1804,9 +1680,9 @@ renderRecentDigits();
 );
 
 
-/* =========================
+/* ================================
    START
-========================= */
+================================ */
 
 updateMarketName();
 
