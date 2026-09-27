@@ -4,1441 +4,1270 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mannuh Trader</title>
-
 <style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    background: #0b0f14;
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-}
-
-.container {
-    width: 100%;
-    max-width: 1100px;
-    margin: auto;
-    padding: 16px;
-}
-
-h1 {
-    margin: 0 0 15px;
-    font-size: 28px;
-}
-
-.panel {
-    background: #121820;
-    border: 1px solid #26313d;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    color: #9aa7b4;
-    font-size: 13px;
-    margin-bottom: 6px;
-}
-
-select,
-button {
-    border: 1px solid #33404d;
-    background: #1a222c;
-    color: #ffffff;
-    border-radius: 8px;
-    padding: 10px 13px;
-    font-size: 14px;
-}
-
-select {
-    width: 100%;
-}
-
-button {
-    cursor: pointer;
-}
-
-button:hover {
-    background: #26313d;
-}
-
-.mode-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.mode-btn.active {
-    background: #ffffff;
-    color: #000000;
-}
-
-.status-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-
-.stat {
-    background: #0d131a;
-    border-radius: 8px;
-    padding: 10px;
-}
-
-.stat-title {
-    color: #8995a2;
-    font-size: 12px;
-}
-
-.stat-value {
-    font-size: 17px;
-    margin-top: 5px;
-    font-weight: bold;
-}
-
-.analyzer-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-.analyzer-title h2 {
-    margin: 0;
-    font-size: 19px;
-}
-
-.bars {
-    display: flex;
-    align-items: flex-end;
-    gap: 7px;
-    height: 260px;
-    padding: 10px 5px 0;
-}
-
-.bar-column {
-    flex: 1;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    min-width: 0;
-}
-
-.bar-value {
-    font-size: 12px;
-    margin-bottom: 5px;
-    white-space: nowrap;
-}
-
-.bar {
-    width: 100%;
-    max-width: 60px;
-    min-height: 2px;
-    border-radius: 5px 5px 0 0;
-}
-
-.digit-label {
-    margin-top: 7px;
-    font-weight: bold;
-}
-
-.green {
-    background: #16c784;
-}
-
-.blue {
-    background: #3b82f6;
-}
-
-.red {
-    background: #ef4444;
-}
-
-.yellow {
-    background: #eab308;
-}
-
-.recent-title {
-    margin-bottom: 10px;
-    font-size: 18px;
-}
-
-.recent-grid {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    gap: 7px;
-}
-
-.recent-digit {
-    height: 38px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 7px;
-    font-weight: bold;
-    background: #1a222c;
-}
-
-.recent-digit.target {
-    background: #ef4444;
-}
-
-.recent-digit.safe {
-    background: #16c784;
-}
-
-.small {
-    color: #8995a2;
-    font-size: 12px;
-}
-
-.connection {
-    font-weight: bold;
-}
-
-.connected {
-    color: #16c784;
-}
-
-.disconnected {
-    color: #ef4444;
-}
-
-.waiting {
-    color: #eab308;
-}
-
-@media (max-width: 700px) {
-    .status-row {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .bars {
-        height: 220px;
-        gap: 3px;
-    }
-
-    .bar-value {
-        font-size: 10px;
-    }
-
-    .recent-grid {
-        grid-template-columns: repeat(8, 1fr);
-    }
-}
+*{box-sizing:border-box}
+body{margin:0;background:#05070b;color:#f2f2f2;font-family:Arial,Helvetica,sans-serif}
+.container{width:100%;max-width:1100px;margin:auto;padding:15px}
+h1{text-align:center;margin:5px 0 15px;font-size:27px}
+.top-panel,.panel{background:#0d1118;border:1px solid #202734;border-radius:12px;padding:15px;margin-bottom:14px}
+.market-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+select{background:#151b24;color:white;border:1px solid #303947;border-radius:8px;padding:10px;font-size:15px;flex:1;min-width:180px}
+.status-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:14px}
+.status{display:flex;align-items:center;gap:7px}
+.dot{width:10px;height:10px;border-radius:50%;background:#777}
+.dot.green{background:#00d084;box-shadow:0 0 8px #00d084}
+.dot.red{background:#ff3b30;box-shadow:0 0 8px #ff3b30}
+.dot.yellow{background:#ffd60a;box-shadow:0 0 8px #ffd60a}
+.market-info{text-align:center;padding:10px 0}
+.market-name{font-size:15px;color:#9aa4b2}
+.price{font-size:30px;font-weight:bold;margin-top:5px}
+.last-digit{margin-top:3px;font-size:16px;color:#9aa4b2}
+.modes{display:flex;gap:10px;margin-bottom:15px}
+.mode-btn{flex:1;padding:11px;border-radius:8px;border:1px solid #343d4d;background:#141a23;color:#ddd;font-weight:bold;cursor:pointer}
+.mode-btn.active{background:#222b38;border-color:#7d8796;color:white}
+.analyzers{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:750px){.analyzers{grid-template-columns:1fr}}
+.panel-title{font-size:18px;font-weight:bold;margin-bottom:4px}
+.window-size{color:#8993a3;font-size:13px;margin-bottom:12px}
+.digit-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.digit-card{background:#151a22;border:1px solid #252d39;border-radius:9px;padding:9px 4px;text-align:center}
+.digit-number{font-size:18px;font-weight:bold}
+.digit-percent{margin-top:4px;font-size:14px;color:#b9c1cc}
+.rank-green{border-color:#00d084;box-shadow:inset 0 0 0 1px #00d084}
+.rank-blue{border-color:#2196f3;box-shadow:inset 0 0 0 1px #2196f3}
+.rank-red{border-color:#ff3b30;box-shadow:inset 0 0 0 1px #ff3b30}
+.rank-yellow{border-color:#ffd60a;box-shadow:inset 0 0 0 1px #ffd60a}
+.recent-title{font-size:18px;font-weight:bold;margin-bottom:10px}
+.recent-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:6px}
+@media(max-width:700px){.recent-grid{grid-template-columns:repeat(9,1fr);gap:4px}}
+.recent-digit{background:#151a22;border:1px solid #252d39;border-radius:7px;text-align:center;padding:7px 2px;font-size:15px;font-weight:bold}
+.recent-target{background:#39171b;border-color:#ff3b30;color:#ff6259}
+.recent-normal{color:#00d084}
+.small{color:#7f8997;font-size:12px;margin-top:8px}
+.error-text{color:#ff6259;font-size:13px;margin-top:7px;word-break:break-word}
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
-    <h1>Mannuh Trader</h1>
+<h1>MANNUH TRADER</h1>
 
-    <div class="panel">
-        <label for="market">Market</label>
+<div class="top-panel">
 
-        <select id="market">
-            <option value="1HZ10V">Volatility 10 (1s)</option>
-            <option value="1HZ25V">Volatility 25 (1s)</option>
-            <option value="1HZ50V">Volatility 50 (1s)</option>
-            <option value="1HZ75V">Volatility 75 (1s)</option>
-            <option value="1HZ100V" selected>Volatility 100 (1s)</option>
+<div class="market-row">
 
-            <option value="R_10">Volatility 10</option>
-            <option value="R_25">Volatility 25</option>
-            <option value="R_50">Volatility 50</option>
-            <option value="R_75">Volatility 75</option>
-            <option value="R_100">Volatility 100</option>
-        </select>
-    </div>
+<select id="marketSelect">
+<option value="1HZ10V">Volatility 10 (1s) Index</option>
+<option value="1HZ25V">Volatility 25 (1s) Index</option>
+<option value="1HZ50V">Volatility 50 (1s) Index</option>
+<option value="1HZ75V">Volatility 75 (1s) Index</option>
+<option value="1HZ100V" selected>Volatility 100 (1s) Index</option>
+<option value="R_10">Volatility 10 Index</option>
+<option value="R_25">Volatility 25 Index</option>
+<option value="R_50">Volatility 50 Index</option>
+<option value="R_75">Volatility 75 Index</option>
+<option value="R_100">Volatility 100 Index</option>
+</select>
 
-    <div class="panel">
+</div>
 
-        <div class="status-row">
+<div class="status-row">
 
-            <div class="stat">
-                <div class="stat-title">Connection</div>
-                <div id="connection" class="stat-value connection waiting">
-                    Connecting...
-                </div>
-            </div>
+<div class="status">
+<span id="statusDot" class="dot yellow"></span>
+<span id="statusText">Connecting to Deriv...</span>
+</div>
 
-            <div class="stat">
-                <div class="stat-title">Stored ticks</div>
-                <div id="stored" class="stat-value">0</div>
-            </div>
+<div>Stored ticks: <strong>3,000</strong></div>
 
-            <div class="stat">
-                <div class="stat-title">Price</div>
-                <div id="price" class="stat-value">---</div>
-            </div>
+</div>
 
-            <div class="stat">
-                <div class="stat-title">Last digit</div>
-                <div id="lastDigit" class="stat-value">---</div>
-            </div>
+<div id="errorText" class="error-text"></div>
 
-        </div>
+<div class="market-info">
 
-    </div>
+<div class="market-name" id="marketName">
+Volatility 100 (1s) Index
+</div>
 
-    <div class="panel">
+<div class="price" id="livePrice">--</div>
 
-        <div class="small" style="margin-bottom:10px;">
-            Active analysis mode
-        </div>
+<div class="last-digit">
+Last digit: <strong id="lastDigit">--</strong>
+</div>
 
-        <div class="mode-buttons">
+</div>
 
-            <button
-                id="over2Btn"
-                class="mode-btn active"
-                onclick="setMode('over2')">
-                OVER 2
-            </button>
+</div>
 
-            <button
-                id="under7Btn"
-                class="mode-btn"
-                onclick="setMode('under7')">
-                UNDER 7
-            </button>
+<div class="panel">
 
-        </div>
+<div class="modes">
 
-    </div>
+<button id="over2Btn" class="mode-btn active">
+OVER 2
+</button>
 
-    <div class="panel">
+<button id="under7Btn" class="mode-btn">
+UNDER 7
+</button>
 
-        <div class="analyzer-title">
-            <h2>1,000 Tick Analyzer</h2>
-            <span class="small">Rolling 1,000 ticks</span>
-        </div>
+</div>
 
-        <div id="bars1000" class="bars"></div>
+</div>
 
-    </div>
+<div class="analyzers">
 
-    <div class="panel">
+<div class="panel">
 
-        <div class="analyzer-title">
-            <h2>100 Tick Analyzer</h2>
-            <span class="small">Rolling 100 ticks</span>
-        </div>
+<div class="panel-title">
+1,000 TICK ANALYZER
+</div>
 
-        <div id="bars100" class="bars"></div>
+<div id="window1000" class="window-size">
+Loading latest 1,000...
+</div>
 
-    </div>
+<div id="grid1000" class="digit-grid"></div>
 
-    <div class="panel">
+</div>
 
-        <div class="recent-title">
-            Recent Digits
-        </div>
+<div class="panel">
 
-        <div class="small" style="margin-bottom:10px;">
-            Newest digit is on the left
-        </div>
+<div class="panel-title">
+100 TICK ANALYZER
+</div>
 
-        <div id="recentDigits" class="recent-grid"></div>
+<div id="window100" class="window-size">
+Loading latest 100...
+</div>
 
-    </div>
+<div id="grid100" class="digit-grid"></div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<div class="recent-title">
+Recent Digits
+</div>
+
+<div id="recentGrid" class="recent-grid"></div>
+
+<div class="small">
+Newest digit appears on the left.
+</div>
+
+</div>
 
 </div>
 
 <script>
 
-/* =========================================================
-   MANNuh TRADER
-   ========================================================= */
+const WS_URL="wss://ws.binaryws.com/websockets/v3";
 
-const WS_URL =
-    "wss://api.derivws.com/trading/v1/options/ws/public";
+const MAX_HISTORY=3000;
+const WINDOW_1000=1000;
+const WINDOW_100=100;
+const RECENT_COUNT=72;
 
-const MAX_HISTORY = 3000;
-const WINDOW_1000 = 1000;
-const WINDOW_100 = 100;
-const RECENT_COUNT = 72;
+let ws=null;
+let reconnectTimer=null;
+let pingTimer=null;
 
-let ws = null;
+let selectedSymbol=
+document.getElementById("marketSelect").value;
 
-let selectedSymbol =
-    document.getElementById("market").value;
+let pipSize=2;
 
-let mode = "over2";
+let digitHistory=[];
 
-let tickHistory = [];
+let pendingLiveTicks=[];
 
-let pendingTicks = [];
+let historyLoaded=false;
 
-let lastHistoryEpoch = 0;
+let reconnectAttempt=0;
 
-let reconnectTimer = null;
+let currentMode="OVER2";
 
-let reconnectDelay = 1000;
 
-let pingTimer = null;
+const marketSelect=
+document.getElementById("marketSelect");
 
-let historyLoaded = false;
+const statusDot=
+document.getElementById("statusDot");
 
-let pipSize = 2;
+const statusText=
+document.getElementById("statusText");
 
+const errorText=
+document.getElementById("errorText");
 
-/* =========================================================
-   MARKET CHANGE
-   ========================================================= */
+const livePrice=
+document.getElementById("livePrice");
 
-document
-    .getElementById("market")
-    .addEventListener("change", function () {
+const lastDigit=
+document.getElementById("lastDigit");
 
-        selectedSymbol = this.value;
+const marketName=
+document.getElementById("marketName");
 
-        resetAnalyzer();
+const grid1000=
+document.getElementById("grid1000");
 
-        connect();
+const grid100=
+document.getElementById("grid100");
 
-    });
+const recentGrid=
+document.getElementById("recentGrid");
 
+const window1000=
+document.getElementById("window1000");
 
-/* =========================================================
-   MODE
-   ========================================================= */
+const window100=
+document.getElementById("window100");
 
-function setMode(newMode) {
+const over2Btn=
+document.getElementById("over2Btn");
 
-    mode = newMode;
+const under7Btn=
+document.getElementById("under7Btn");
 
-    document
-        .getElementById("over2Btn")
-        .classList.toggle(
-            "active",
-            mode === "over2"
-        );
 
-    document
-        .getElementById("under7Btn")
-        .classList.toggle(
-            "active",
-            mode === "under7"
-        );
+const MARKET_NAMES={
 
-    renderRecent();
+"1HZ10V":"Volatility 10 (1s) Index",
+"1HZ25V":"Volatility 25 (1s) Index",
+"1HZ50V":"Volatility 50 (1s) Index",
+"1HZ75V":"Volatility 75 (1s) Index",
+"1HZ100V":"Volatility 100 (1s) Index",
+"R_10":"Volatility 10 Index",
+"R_25":"Volatility 25 Index",
+"R_50":"Volatility 50 Index",
+"R_75":"Volatility 75 Index",
+"R_100":"Volatility 100 Index"
 
-    renderAnalyzer(
-        tickHistory.slice(-WINDOW_1000),
-        "bars1000"
-    );
+};
 
-    renderAnalyzer(
-        tickHistory.slice(-WINDOW_100),
-        "bars100"
-    );
-}
 
+function setStatus(type,text){
 
-/* =========================================================
-   RESET
-   ========================================================= */
+statusDot.className="dot";
 
-function resetAnalyzer() {
+if(type==="green")
+statusDot.classList.add("green");
 
-    tickHistory = [];
+if(type==="red")
+statusDot.classList.add("red");
 
-    pendingTicks = [];
+if(type==="yellow")
+statusDot.classList.add("yellow");
 
-    lastHistoryEpoch = 0;
-
-    historyLoaded = false;
-
-    document.getElementById("stored").textContent = "0";
-
-    document.getElementById("price").textContent = "---";
-
-    document.getElementById("lastDigit").textContent = "---";
-
-    document.getElementById("bars1000").innerHTML = "";
-
-    document.getElementById("bars100").innerHTML = "";
-
-    document.getElementById("recentDigits").innerHTML = "";
-}
-
-
-/* =========================================================
-   CONNECTION
-   ========================================================= */
-
-function connect() {
-
-    if (reconnectTimer) {
-
-        clearTimeout(reconnectTimer);
-
-        reconnectTimer = null;
-    }
-
-    if (ws) {
-
-        try {
-            ws.close();
-        } catch (e) {}
-
-        ws = null;
-    }
-
-    historyLoaded = false;
-
-    setConnection(
-        "Connecting...",
-        "waiting"
-    );
-
-    try {
-
-        ws = new WebSocket(WS_URL);
-
-    } catch (error) {
-
-        setConnection(
-            "Connection error",
-            "disconnected"
-        );
-
-        scheduleReconnect();
-
-        return;
-    }
-
-
-    ws.onopen = function () {
-
-        reconnectDelay = 1000;
-
-        setConnection(
-            "Connected",
-            "connected"
-        );
-
-        startPing();
-
-        requestActiveSymbols();
-
-    };
-
-
-    ws.onmessage = function (event) {
-
-        let data;
-
-        try {
-
-            data = JSON.parse(event.data);
-
-        } catch (error) {
-
-            return;
-        }
-
-        handleMessage(data);
-
-    };
-
-
-    ws.onerror = function () {
-
-        setConnection(
-            "Connection error",
-            "disconnected"
-        );
-
-    };
-
-
-    ws.onclose = function () {
-
-        stopPing();
-
-        setConnection(
-            "Disconnected",
-            "disconnected"
-        );
-
-        scheduleReconnect();
-
-    };
-}
-
-
-/* =========================================================
-   ACTIVE SYMBOLS
-   ========================================================= */
-
-function requestActiveSymbols() {
-
-    if (!ws || ws.readyState !== WebSocket.OPEN) {
-        return;
-    }
-
-    ws.send(
-        JSON.stringify({
-            active_symbols: "brief",
-            req_id: 1
-        })
-    );
-}
-
-
-/* =========================================================
-   HISTORY
-   ========================================================= */
-
-function requestHistory() {
-
-    if (!ws || ws.readyState !== WebSocket.OPEN) {
-        return;
-    }
-
-    setConnection(
-        "Loading history...",
-        "waiting"
-    );
-
-    ws.send(
-        JSON.stringify({
-
-            ticks_history: selectedSymbol,
-
-            count: MAX_HISTORY,
-
-            end: "latest",
-
-            style: "ticks",
-
-            subscribe: 0,
-
-            req_id: 1001
-
-        })
-    );
-}
-
-
-/* =========================================================
-   LIVE SUBSCRIPTION
-   ========================================================= */
-
-function subscribeTicks() {
-
-    if (!ws || ws.readyState !== WebSocket.OPEN) {
-        return;
-    }
-
-    ws.send(
-        JSON.stringify({
-
-            ticks: selectedSymbol,
-
-            subscribe: 1,
-
-            req_id: 1002
-
-        })
-    );
-}
-
-
-/* =========================================================
-   MESSAGE HANDLER
-   ========================================================= */
-
-function handleMessage(data) {
-
-    if (data.error) {
-
-        console.error(
-            "Deriv error:",
-            data.error
-        );
-
-        setConnection(
-            data.error.message || "API error",
-            "disconnected"
-        );
-
-        return;
-    }
-
-
-    if (data.msg_type === "active_symbols") {
-
-        requestHistory();
-
-        return;
-    }
-
-
-    if (data.msg_type === "history") {
-
-        processHistory(data);
-
-        return;
-    }
-
-
-    if (data.msg_type === "tick") {
-
-        processLiveTick(data);
-
-        return;
-    }
+statusText.textContent=text;
 
 }
 
 
-/* =========================================================
-   PROCESS HISTORY
-   ========================================================= */
+function showError(message){
 
-function processHistory(data) {
-
-    if (!data.history) {
-
-        setConnection(
-            "No history received",
-            "disconnected"
-        );
-
-        return;
-    }
-
-
-    const prices = data.history.prices || [];
-
-    const times = data.history.times || [];
-
-
-    if (!prices.length) {
-
-        setConnection(
-            "No ticks received",
-            "disconnected"
-        );
-
-        return;
-    }
-
-
-    tickHistory = [];
-
-
-    for (
-        let i = 0;
-        i < prices.length;
-        i++
-    ) {
-
-        const price = Number(prices[i]);
-
-        const epoch =
-            Number(times[i] || 0);
-
-        if (!Number.isFinite(price)) {
-            continue;
-        }
-
-        tickHistory.push({
-
-            price: price,
-
-            epoch: epoch,
-
-            digit: getLastDigit(
-                price,
-                pipSize
-            )
-
-        });
-
-    }
-
-
-    if (tickHistory.length > MAX_HISTORY) {
-
-        tickHistory =
-            tickHistory.slice(-MAX_HISTORY);
-
-    }
-
-
-    if (tickHistory.length) {
-
-        lastHistoryEpoch =
-            tickHistory[tickHistory.length - 1].epoch;
-
-        const latest =
-            tickHistory[tickHistory.length - 1];
-
-        updatePriceDisplay(latest);
-
-    }
-
-
-    historyLoaded = true;
-
-
-    renderAll();
-
-
-    setConnection(
-        "Live",
-        "connected"
-    );
-
-
-    /*
-       Apply any live ticks that arrived while
-       the historical data was loading.
-    */
-
-    if (pendingTicks.length) {
-
-        const queued =
-            pendingTicks.slice();
-
-        pendingTicks = [];
-
-        queued.forEach(function (tick) {
-
-            processLiveTick({
-                tick: tick
-            });
-
-        });
-
-    }
-
-
-    subscribeTicks();
+errorText.textContent=message||"";
 
 }
 
 
-/* =========================================================
-   PROCESS LIVE TICK
-   ========================================================= */
+function updateMarketName(){
 
-function processLiveTick(data) {
-
-    if (!data.tick) {
-        return;
-    }
-
-
-    const tick = data.tick;
-
-
-    const symbol =
-        tick.symbol || selectedSymbol;
-
-
-    if (symbol !== selectedSymbol) {
-        return;
-    }
-
-
-    const price = Number(tick.quote);
-
-
-    if (!Number.isFinite(price)) {
-        return;
-    }
-
-
-    const epoch =
-        Number(tick.epoch || 0);
-
-
-    if (!historyLoaded) {
-
-        pendingTicks.push(tick);
-
-        return;
-    }
-
-
-    if (
-        epoch &&
-        lastHistoryEpoch &&
-        epoch < lastHistoryEpoch
-    ) {
-
-        return;
-    }
-
-
-    if (tick.pip_size !== undefined) {
-
-        const detectedPip =
-            Number(tick.pip_size);
-
-        if (
-            Number.isFinite(detectedPip) &&
-            detectedPip >= 0
-        ) {
-
-            pipSize = detectedPip;
-
-        }
-
-    }
-
-
-    const digit =
-        getLastDigit(
-            price,
-            pipSize
-        );
-
-
-    const item = {
-
-        price: price,
-
-        epoch: epoch,
-
-        digit: digit
-
-    };
-
-
-    tickHistory.push(item);
-
-
-    if (epoch) {
-        lastHistoryEpoch = epoch;
-    }
-
-
-    if (tickHistory.length > MAX_HISTORY) {
-
-        tickHistory.shift();
-
-    }
-
-
-    updatePriceDisplay(item);
-
-    renderAll();
+marketName.textContent=
+MARKET_NAMES[selectedSymbol]||
+selectedSymbol;
 
 }
 
 
-/* =========================================================
-   LAST DIGIT
-   ========================================================= */
+function getLastDigit(price){
 
-function getLastDigit(price, decimals) {
+const numericPrice=Number(price);
 
-    let fixed;
+if(!Number.isFinite(numericPrice))
+return null;
 
-    try {
+const fixed=
+numericPrice.toFixed(pipSize);
 
-        fixed =
-            Number(price).toFixed(decimals);
+const digits=
+fixed.replace(/\D/g,"");
 
-    } catch (error) {
+if(!digits.length)
+return null;
 
-        fixed =
-            String(price);
-    }
-
-
-    const digits =
-        fixed.replace(
-            /[^0-9]/g,
-            ""
-        );
-
-
-    if (!digits.length) {
-        return 0;
-    }
-
-
-    return Number(
-        digits.charAt(
-            digits.length - 1
-        )
-    );
+return Number(
+digits[digits.length-1]
+);
 
 }
 
 
-/* =========================================================
-   PRICE DISPLAY
-   ========================================================= */
+function countDigits(digits){
 
-function updatePriceDisplay(item) {
+const counts=[
+0,0,0,0,0,
+0,0,0,0,0
+];
 
-    document.getElementById(
-        "price"
-    ).textContent =
-        Number(item.price).toFixed(
-            pipSize
-        );
+for(const digit of digits){
 
+if(
+Number.isInteger(digit)&&
+digit>=0&&
+digit<=9
+){
 
-    document.getElementById(
-        "lastDigit"
-    ).textContent =
-        item.digit;
+counts[digit]++;
+
+}
+
+}
+
+return counts;
 
 }
 
 
-/* =========================================================
-   RENDER ALL
-   ========================================================= */
+function getRankingClasses(counts){
 
-function renderAll() {
+const descending=
+Array.from(
+{length:10},
+(_,i)=>i
+).sort((a,b)=>{
 
-    document.getElementById(
-        "stored"
-    ).textContent =
-        tickHistory.length.toLocaleString();
+if(counts[b]!==counts[a])
+return counts[b]-counts[a];
 
+return a-b;
 
-    renderAnalyzer(
-        tickHistory.slice(-WINDOW_1000),
-        "bars1000"
-    );
+});
 
 
-    renderAnalyzer(
-        tickHistory.slice(-WINDOW_100),
-        "bars100"
-    );
+const ascending=
+Array.from(
+{length:10},
+(_,i)=>i
+).sort((a,b)=>{
+
+if(counts[a]!==counts[b])
+return counts[a]-counts[b];
+
+return a-b;
+
+});
 
 
-    renderRecent();
-
-}
-
-
-/* =========================================================
-   COUNT DIGITS
-   ========================================================= */
-
-function countDigits(ticks) {
-
-    const counts =
-        Array(10).fill(0);
+const classes=
+Array(10).fill("");
 
 
-    ticks.forEach(function (tick) {
+classes[descending[0]]=
+"rank-green";
 
-        const d =
-            Number(tick.digit);
+classes[descending[1]]=
+"rank-blue";
 
-        if (
-            Number.isInteger(d) &&
-            d >= 0 &&
-            d <= 9
-        ) {
+classes[ascending[0]]=
+"rank-red";
 
-            counts[d]++;
-
-        }
-
-    });
+classes[ascending[1]]=
+"rank-yellow";
 
 
-    return counts;
+return classes;
 
 }
 
-
-/* =========================================================
-   BAR CLASS
-   ========================================================= */
-
-function getRankingClasses(counts) {
-
-    const indexes =
-        Array.from(
-            {
-                length: 10
-            },
-            (_, i) => i
-        );
-
-
-    indexes.sort(
-        (a, b) =>
-            counts[a] - counts[b]
-    );
-
-
-    const classes =
-        Array(10).fill("");
-
-
-    const least =
-        indexes[0];
-
-    const secondLeast =
-        indexes[1];
-
-    const most =
-        indexes[9];
-
-    const secondMost =
-        indexes[8];
-
-
-    classes[most] = "green";
-
-    classes[secondMost] = "blue";
-
-    classes[least] = "red";
-
-    classes[secondLeast] = "yellow";
-
-
-    return classes;
-
-}
-
-
-/* =========================================================
-   ANALYZER
-   ========================================================= */
 
 function renderAnalyzer(
-    ticks,
-    elementId
-) {
+digits,
+grid,
+windowLabel,
+expectedSize
+){
 
-    const container =
-        document.getElementById(
-            elementId
-        );
+if(digits.length<expectedSize){
 
+windowLabel.textContent=
+"Loading latest "+
+expectedSize.toLocaleString()+
+"...";
 
-    if (!ticks.length) {
+grid.innerHTML="";
 
-        container.innerHTML = "";
-
-        return;
-    }
-
-
-    const counts =
-        countDigits(ticks);
-
-
-    const classes =
-        getRankingClasses(counts);
-
-
-    const total =
-        ticks.length;
-
-
-    const maxCount =
-        Math.max(
-            ...counts,
-            1
-        );
-
-
-    container.innerHTML = "";
-
-
-    for (
-        let digit = 0;
-        digit <= 9;
-        digit++
-    ) {
-
-        const count =
-            counts[digit];
-
-
-        const percent =
-            total
-                ? (count / total) * 100
-                : 0;
-
-
-        const height =
-            (count / maxCount) * 100;
-
-
-        const column =
-            document.createElement(
-                "div"
-            );
-
-        column.className =
-            "bar-column";
-
-
-        const value =
-            document.createElement(
-                "div"
-            );
-
-        value.className =
-            "bar-value";
-
-        value.textContent =
-            percent.toFixed(1) + "%";
-
-
-        const bar =
-            document.createElement(
-                "div"
-            );
-
-        bar.className =
-            "bar " + classes[digit];
-
-
-        bar.style.height =
-            Math.max(
-                height,
-                1
-            ) + "%";
-
-
-        const label =
-            document.createElement(
-                "div"
-            );
-
-        label.className =
-            "digit-label";
-
-        label.textContent =
-            digit;
-
-
-        column.appendChild(value);
-
-        column.appendChild(bar);
-
-        column.appendChild(label);
-
-        container.appendChild(column);
-
-    }
+return;
 
 }
 
 
-/* =========================================================
-   RECENT DIGITS
-   ========================================================= */
+const windowDigits=
+digits.slice(-expectedSize);
 
-function renderRecent() {
+const counts=
+countDigits(windowDigits);
 
-    const container =
-        document.getElementById(
-            "recentDigits"
-        );
+const ranking=
+getRankingClasses(counts);
 
-
-    container.innerHTML = "";
+grid.innerHTML="";
 
 
-    const recent =
-        tickHistory
-            .slice(-RECENT_COUNT)
-            .reverse();
+for(
+let digit=0;
+digit<=9;
+digit++
+){
+
+const percentage=
+(counts[digit]/expectedSize)*100;
+
+const card=
+document.createElement("div");
+
+card.className=
+"digit-card "+
+ranking[digit];
 
 
-    recent.forEach(function (tick) {
+const number=
+document.createElement("div");
 
-        const digit =
-            Number(tick.digit);
+number.className=
+"digit-number";
 
-
-        const item =
-            document.createElement(
-                "div"
-            );
+number.textContent=digit;
 
 
-        item.className =
-            "recent-digit";
+const percent=
+document.createElement("div");
+
+percent.className=
+"digit-percent";
+
+percent.textContent=
+percentage.toFixed(1)+"%";
 
 
-        const isOverTarget =
-            mode === "over2" &&
-            digit <= 2;
+card.appendChild(number);
 
+card.appendChild(percent);
 
-        const isUnderTarget =
-            mode === "under7" &&
-            digit >= 7;
-
-
-        if (
-            isOverTarget ||
-            isUnderTarget
-        ) {
-
-            item.classList.add(
-                "target"
-            );
-
-        } else {
-
-            item.classList.add(
-                "safe"
-            );
-
-        }
-
-
-        item.textContent =
-            digit;
-
-
-        container.appendChild(item);
-
-    });
+grid.appendChild(card);
 
 }
 
 
-/* =========================================================
-   CONNECTION DISPLAY
-   ========================================================= */
-
-function setConnection(
-    text,
-    state
-) {
-
-    const element =
-        document.getElementById(
-            "connection"
-        );
-
-
-    element.textContent =
-        text;
-
-
-    element.className =
-        "stat-value connection " +
-        state;
+windowLabel.textContent=
+expectedSize.toLocaleString()+
+" / "+
+expectedSize.toLocaleString()+
+" ticks";
 
 }
 
 
-/* =========================================================
-   RECONNECT
-   ========================================================= */
+function isTargetDigit(digit){
 
-function scheduleReconnect() {
+if(currentMode==="OVER2")
 
-    if (reconnectTimer) {
-        return;
-    }
+return digit===0||
+digit===1||
+digit===2;
 
-
-    reconnectTimer =
-        setTimeout(
-            function () {
-
-                reconnectTimer = null;
-
-                connect();
-
-                reconnectDelay =
-                    Math.min(
-                        reconnectDelay * 2,
-                        15000
-                    );
-
-            },
-            reconnectDelay
-        );
+return digit===7||
+digit===8||
+digit===9;
 
 }
 
 
-/* =========================================================
-   PING
-   ========================================================= */
+function renderRecentDigits(){
 
-function startPing() {
+recentGrid.innerHTML="";
 
-    stopPing();
+const recent=
+digitHistory
+.slice(-RECENT_COUNT)
+.reverse();
 
 
-    pingTimer =
-        setInterval(
-            function () {
+for(
+let i=0;
+i<RECENT_COUNT;
+i++
+){
 
-                if (
-                    ws &&
-                    ws.readyState ===
-                    WebSocket.OPEN
-                ) {
+const digit=recent[i];
 
-                    try {
+const box=
+document.createElement("div");
 
-                        ws.send(
-                            JSON.stringify({
-                                ping: 1
-                            })
-                        );
+box.className=
+"recent-digit";
 
-                    } catch (error) {}
 
-                }
+if(digit===undefined){
 
-            },
-            12000
-        );
+box.textContent="";
+
+recentGrid.appendChild(box);
+
+continue;
 
 }
 
 
-/* =========================================================
-   STOP PING
-   ========================================================= */
+box.textContent=digit;
 
-function stopPing() {
 
-    if (pingTimer) {
+if(isTargetDigit(digit))
 
-        clearInterval(
-            pingTimer
-        );
+box.classList.add(
+"recent-target"
+);
 
-        pingTimer = null;
+else
 
-    }
+box.classList.add(
+"recent-normal"
+);
+
+
+recentGrid.appendChild(box);
+
+}
 
 }
 
 
-/* =========================================================
-   START
-   ========================================================= */
+function renderAll(){
+
+renderAnalyzer(
+digitHistory,
+grid1000,
+window1000,
+WINDOW_1000
+);
+
+
+renderAnalyzer(
+digitHistory,
+grid100,
+window100,
+WINDOW_100
+);
+
+
+renderRecentDigits();
+
+}
+
+
+function resetData(){
+
+digitHistory=[];
+
+pendingLiveTicks=[];
+
+historyLoaded=false;
+
+livePrice.textContent="--";
+
+lastDigit.textContent="--";
+
+grid1000.innerHTML="";
+
+grid100.innerHTML="";
+
+recentGrid.innerHTML="";
+
+window1000.textContent=
+"Loading latest 1,000...";
+
+window100.textContent=
+"Loading latest 100...";
+
+}
+
+
+function addDigit(digit){
+
+if(
+!Number.isInteger(digit)||
+digit<0||
+digit>9
+)
+return;
+
+digitHistory.push(digit);
+
+
+if(digitHistory.length>MAX_HISTORY){
+
+digitHistory.splice(
+0,
+digitHistory.length-MAX_HISTORY
+);
+
+}
+
+}
+
+
+function requestHistory(){
+
+if(
+!ws||
+ws.readyState!==WebSocket.OPEN
+)
+return;
+
+
+setStatus(
+"yellow",
+"Loading latest 3,000 ticks..."
+);
+
+
+ws.send(
+JSON.stringify({
+
+ticks_history:selectedSymbol,
+
+count:MAX_HISTORY,
+
+end:"latest",
+
+style:"ticks",
+
+req_id:1001
+
+})
+);
+
+}
+
+
+function subscribeTicks(){
+
+if(
+!ws||
+ws.readyState!==WebSocket.OPEN
+)
+return;
+
+
+ws.send(
+JSON.stringify({
+
+ticks:selectedSymbol,
+
+subscribe:1,
+
+req_id:1002
+
+})
+);
+
+}
+
+
+function processHistory(data){
+
+if(
+!data.history||
+!Array.isArray(
+data.history.prices
+)
+){
+
+throw new Error(
+"Deriv returned no tick history."
+);
+
+}
+
+
+const prices=
+data.history.prices;
+
+
+if(
+Number.isInteger(
+Number(data.pip_size)
+)
+){
+
+pipSize=
+Number(data.pip_size);
+
+}
+
+
+const historicalDigits=[];
+
+
+for(const price of prices){
+
+const digit=
+getLastDigit(price);
+
+if(digit!==null)
+
+historicalDigits.push(digit);
+
+}
+
+
+digitHistory=
+historicalDigits.slice(
+-MAX_HISTORY
+);
+
+
+if(
+digitHistory.length<
+WINDOW_1000
+){
+
+throw new Error(
+"Only "+
+digitHistory.length+
+" usable ticks were returned. Need at least 1,000."
+);
+
+}
+
+
+historyLoaded=true;
+
+renderAll();
+
+
+if(
+pendingLiveTicks.length&&
+data.history.times&&
+data.history.times.length
+){
+
+const lastHistoryTime=
+Number(
+data.history.times[
+data.history.times.length-1
+]
+);
+
+
+const sortedPending=
+pendingLiveTicks
+.filter(
+item=>
+Number(item.epoch)>
+lastHistoryTime
+)
+.sort(
+(a,b)=>
+Number(a.epoch)-
+Number(b.epoch)
+);
+
+
+for(
+const item of sortedPending
+){
+
+applyLiveTick(
+item.quote,
+item.epoch
+);
+
+}
+
+}
+
+
+pendingLiveTicks=[];
+
+subscribeTicks();
+
+setStatus(
+"green",
+"Connected to Deriv"
+);
+
+showError("");
+
+}
+
+
+function applyLiveTick(
+quote,
+epoch
+){
+
+const digit=
+getLastDigit(quote);
+
+if(digit===null)
+return;
+
+
+livePrice.textContent=
+Number(quote).toFixed(
+pipSize
+);
+
+
+lastDigit.textContent=digit;
+
+addDigit(digit);
+
+renderAll();
+
+}
+
+
+function handleMessage(event){
+
+let data;
+
+try{
+
+data=
+JSON.parse(event.data);
+
+}catch(error){
+
+return;
+
+}
+
+
+if(data.error){
+
+const message=
+data.error.message||
+data.error.code||
+"Deriv API error";
+
+showError(message);
+
+setStatus(
+"red",
+"Deriv API error"
+);
+
+return;
+
+}
+
+
+if(
+data.msg_type==="active_symbols"
+){
+
+if(!historyLoaded)
+
+requestHistory();
+
+return;
+
+}
+
+
+if(
+data.msg_type==="history"||
+data.msg_type==="ticks_history"
+){
+
+try{
+
+processHistory(data);
+
+}catch(error){
+
+showError(
+error.message
+);
+
+setStatus(
+"red",
+"History error"
+);
+
+}
+
+return;
+
+}
+
+
+if(data.msg_type==="tick"){
+
+const tick=data.tick;
+
+if(!tick)
+return;
+
+
+if(
+Number.isInteger(
+Number(tick.pip_size)
+)
+){
+
+pipSize=
+Number(tick.pip_size);
+
+}
+
+
+if(!historyLoaded){
+
+pendingLiveTicks.push({
+
+quote:tick.quote,
+
+epoch:tick.epoch
+
+});
+
+return;
+
+}
+
+
+applyLiveTick(
+tick.quote,
+tick.epoch
+);
+
+return;
+
+}
+
+
+if(data.msg_type==="ping")
+return;
+
+}
+
+
+function startPing(){
+
+stopPing();
+
+
+pingTimer=
+setInterval(
+()=>{
+
+if(
+ws&&
+ws.readyState===
+WebSocket.OPEN
+){
+
+ws.send(
+JSON.stringify({
+ping:1
+})
+);
+
+}
+
+},
+12000
+);
+
+}
+
+
+function stopPing(){
+
+if(pingTimer){
+
+clearInterval(
+pingTimer
+);
+
+pingTimer=null;
+
+}
+
+}
+
+
+function connect(){
+
+if(reconnectTimer){
+
+clearTimeout(
+reconnectTimer
+);
+
+reconnectTimer=null;
+
+}
+
+
+if(
+ws&&
+(
+ws.readyState===
+WebSocket.OPEN||
+ws.readyState===
+WebSocket.CONNECTING
+)
+){
+
+try{
+
+ws.close();
+
+}catch(e){}
+
+}
+
+
+resetData();
+
+selectedSymbol=
+marketSelect.value;
+
+updateMarketName();
+
+setStatus(
+"yellow",
+"Connecting to Deriv..."
+);
+
+showError("");
+
+
+try{
+
+ws=
+new WebSocket(WS_URL);
+
+}catch(error){
+
+handleConnectionFailure(
+"Could not create WebSocket connection."
+);
+
+return;
+
+}
+
+
+ws.onopen=function(){
+
+reconnectAttempt=0;
+
+setStatus(
+"green",
+"Connected — preparing market data..."
+);
+
+showError("");
+
+startPing();
+
+
+ws.send(
+JSON.stringify({
+
+active_symbols:"brief",
+
+req_id:1
+
+})
+);
+
+};
+
+
+ws.onmessage=
+handleMessage;
+
+
+ws.onerror=function(){
+
+setStatus(
+"red",
+"Connection error"
+);
+
+};
+
+
+ws.onclose=function(event){
+
+stopPing();
+
+
+if(historyLoaded){
+
+setStatus(
+"red",
+"Connection closed"
+);
+
+}else{
+
+setStatus(
+"red",
+"Connection closed — reconnecting..."
+);
+
+}
+
+
+if(
+event&&
+event.code&&
+event.code!==1000
+){
+
+showError(
+"WebSocket closed (code "+
+event.code+
+"). Retrying..."
+);
+
+}
+
+
+scheduleReconnect();
+
+};
+
+}
+
+
+function handleConnectionFailure(message){
+
+stopPing();
+
+setStatus(
+"red",
+"Connection error"
+);
+
+showError(message);
+
+scheduleReconnect();
+
+}
+
+
+function scheduleReconnect(){
+
+if(reconnectTimer)
+return;
+
+
+reconnectAttempt++;
+
+
+const delay=
+Math.min(
+1000*
+Math.pow(
+2,
+Math.min(
+reconnectAttempt-1,
+4
+)
+),
+15000
+);
+
+
+reconnectTimer=
+setTimeout(
+()=>{
+
+reconnectTimer=null;
+
+connect();
+
+},
+delay
+);
+
+}
+
+
+marketSelect.addEventListener(
+"change",
+function(){
+
+selectedSymbol=this.value;
+
+updateMarketName();
+
+reconnectAttempt=0;
+
+connect();
+
+}
+);
+
+
+over2Btn.addEventListener(
+"click",
+function(){
+
+currentMode="OVER2";
+
+over2Btn.classList.add(
+"active"
+);
+
+under7Btn.classList.remove(
+"active"
+);
+
+renderRecentDigits();
+
+}
+);
+
+
+under7Btn.addEventListener(
+"click",
+function(){
+
+currentMode="UNDER7";
+
+under7Btn.classList.add(
+"active"
+);
+
+over2Btn.classList.remove(
+"active"
+);
+
+renderRecentDigits();
+
+}
+);
+
+
+updateMarketName();
+
+renderRecentDigits();
 
 connect();
 
