@@ -4,51 +4,263 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mannuh Trader</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#05070b;color:#f2f2f2;font-family:Arial,Helvetica,sans-serif}
-.container{width:100%;max-width:1100px;margin:auto;padding:15px}
-h1{text-align:center;margin:5px 0 15px;font-size:27px}
-.top-panel,.panel{background:#0d1118;border:1px solid #202734;border-radius:12px;padding:15px;margin-bottom:14px}
-.market-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-select{background:#151b24;color:white;border:1px solid #303947;border-radius:8px;padding:10px;font-size:15px;flex:1;min-width:180px}
-.status-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:14px}
-.status{display:flex;align-items:center;gap:7px}
-.dot{width:10px;height:10px;border-radius:50%;background:#777}
-.dot.green{background:#00d084;box-shadow:0 0 8px #00d084}
-.dot.red{background:#ff3b30;box-shadow:0 0 8px #ff3b30}
-.dot.yellow{background:#ffd60a;box-shadow:0 0 8px #ffd60a}
-.market-info{text-align:center;padding:10px 0}
-.market-name{font-size:15px;color:#9aa4b2}
-.price{font-size:30px;font-weight:bold;margin-top:5px}
-.last-digit{margin-top:3px;font-size:16px;color:#9aa4b2}
-.modes{display:flex;gap:10px;margin-bottom:15px}
-.mode-btn{flex:1;padding:11px;border-radius:8px;border:1px solid #343d4d;background:#141a23;color:#ddd;font-weight:bold;cursor:pointer}
-.mode-btn.active{background:#222b38;border-color:#7d8796;color:white}
-.analyzers{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:750px){.analyzers{grid-template-columns:1fr}}
-.panel-title{font-size:18px;font-weight:bold;margin-bottom:4px}
-.window-size{color:#8993a3;font-size:13px;margin-bottom:12px}
-.digit-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.digit-card{background:#151a22;border:1px solid #252d39;border-radius:9px;padding:9px 4px;text-align:center}
-.digit-number{font-size:18px;font-weight:bold}
-.digit-percent{margin-top:4px;font-size:14px;color:#b9c1cc}
-.rank-green{border-color:#00d084;box-shadow:inset 0 0 0 1px #00d084}
-.rank-blue{border-color:#2196f3;box-shadow:inset 0 0 0 1px #2196f3}
-.rank-red{border-color:#ff3b30;box-shadow:inset 0 0 0 1px #ff3b30}
-.rank-yellow{border-color:#ffd60a;box-shadow:inset 0 0 0 1px #ffd60a}
-.recent-title{font-size:18px;font-weight:bold;margin-bottom:10px}
-.recent-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:6px}
-@media(max-width:700px){.recent-grid{grid-template-columns:repeat(9,1fr);gap:4px}}
-.recent-digit{background:#151a22;border:1px solid #252d39;border-radius:7px;text-align:center;padding:7px 2px;font-size:15px;font-weight:bold}
-.recent-target{background:#39171b;border-color:#ff3b30;color:#ff6259}
-.recent-normal{color:#00d084}
-.small{color:#7f8997;font-size:12px;margin-top:8px}
-.error-text{color:#ff6259;font-size:13px;margin-top:7px;word-break:break-word}
+
+body{
+margin:0;
+background:#05070b;
+color:#f2f2f2;
+font-family:Arial,Helvetica,sans-serif
+}
+
+.container{
+width:100%;
+max-width:1100px;
+margin:auto;
+padding:15px
+}
+
+h1{
+text-align:center;
+margin:5px 0 15px;
+font-size:27px
+}
+
+.top-panel,.panel{
+background:#0d1118;
+border:1px solid #202734;
+border-radius:12px;
+padding:15px;
+margin-bottom:14px
+}
+
+.market-row{
+display:flex;
+gap:10px;
+align-items:center;
+flex-wrap:wrap
+}
+
+select{
+background:#151b24;
+color:white;
+border:1px solid #303947;
+border-radius:8px;
+padding:10px;
+font-size:15px;
+flex:1;
+min-width:180px
+}
+
+.status-row{
+display:flex;
+justify-content:space-between;
+gap:10px;
+flex-wrap:wrap;
+margin-top:12px;
+font-size:14px
+}
+
+.status{
+display:flex;
+align-items:center;
+gap:7px
+}
+
+.dot{
+width:10px;
+height:10px;
+border-radius:50%;
+background:#777
+}
+
+.dot.green{
+background:#00d084;
+box-shadow:0 0 8px #00d084
+}
+
+.dot.red{
+background:#ff3b30;
+box-shadow:0 0 8px #ff3b30
+}
+
+.dot.yellow{
+background:#ffd60a;
+box-shadow:0 0 8px #ffd60a
+}
+
+.market-info{
+text-align:center;
+padding:10px 0
+}
+
+.market-name{
+font-size:15px;
+color:#9aa4b2
+}
+
+.price{
+font-size:30px;
+font-weight:bold;
+margin-top:5px
+}
+
+.last-digit{
+margin-top:3px;
+font-size:16px;
+color:#9aa4b2
+}
+
+.modes{
+display:flex;
+gap:10px;
+margin-bottom:15px
+}
+
+.mode-btn{
+flex:1;
+padding:11px;
+border-radius:8px;
+border:1px solid #343d4d;
+background:#141a23;
+color:#ddd;
+font-weight:bold;
+cursor:pointer
+}
+
+.mode-btn.active{
+background:#222b38;
+border-color:#7d8796;
+color:white
+}
+
+.analyzers{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px
+}
+
+@media(max-width:750px){
+.analyzers{
+grid-template-columns:1fr
+}
+}
+
+.panel-title{
+font-size:18px;
+font-weight:bold;
+margin-bottom:4px
+}
+
+.window-size{
+color:#8993a3;
+font-size:13px;
+margin-bottom:12px
+}
+
+.digit-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:8px
+}
+
+.digit-card{
+background:#151a22;
+border:1px solid #252d39;
+border-radius:9px;
+padding:9px 4px;
+text-align:center
+}
+
+.digit-number{
+font-size:18px;
+font-weight:bold
+}
+
+.digit-percent{
+margin-top:4px;
+font-size:14px;
+color:#b9c1cc
+}
+
+.rank-green{
+border-color:#00d084;
+box-shadow:inset 0 0 0 1px #00d084
+}
+
+.rank-blue{
+border-color:#2196f3;
+box-shadow:inset 0 0 0 1px #2196f3
+}
+
+.rank-red{
+border-color:#ff3b30;
+box-shadow:inset 0 0 0 1px #ff3b30
+}
+
+.rank-yellow{
+border-color:#ffd60a;
+box-shadow:inset 0 0 0 1px #ffd60a
+}
+
+.recent-title{
+font-size:18px;
+font-weight:bold;
+margin-bottom:10px
+}
+
+.recent-grid{
+display:grid;
+grid-template-columns:repeat(9,1fr);
+gap:6px
+}
+
+@media(max-width:700px){
+.recent-grid{
+grid-template-columns:repeat(9,1fr);
+gap:4px
+}
+}
+
+.recent-digit{
+background:#151a22;
+border:1px solid #252d39;
+border-radius:7px;
+text-align:center;
+padding:7px 2px;
+font-size:15px;
+font-weight:bold
+}
+
+.recent-target{
+background:#39171b;
+border-color:#ff3b30;
+color:#ff6259
+}
+
+.recent-normal{
+color:#00d084
+}
+
+.small{
+color:#7f8997;
+font-size:12px;
+margin-top:8px
+}
+
+.error-text{
+color:#ff6259;
+font-size:13px;
+margin-top:7px;
+word-break:break-word
+}
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
 <h1>MANNUH TRADER</h1>
@@ -58,16 +270,47 @@ select{background:#151b24;color:white;border:1px solid #303947;border-radius:8px
 <div class="market-row">
 
 <select id="marketSelect">
-<option value="1HZ10V">Volatility 10 (1s) Index</option>
-<option value="1HZ25V">Volatility 25 (1s) Index</option>
-<option value="1HZ50V">Volatility 50 (1s) Index</option>
-<option value="1HZ75V">Volatility 75 (1s) Index</option>
-<option value="1HZ100V" selected>Volatility 100 (1s) Index</option>
-<option value="R_10">Volatility 10 Index</option>
-<option value="R_25">Volatility 25 Index</option>
-<option value="R_50">Volatility 50 Index</option>
-<option value="R_75">Volatility 75 Index</option>
-<option value="R_100">Volatility 100 Index</option>
+
+<option value="1HZ10V">
+Volatility 10 (1s) Index
+</option>
+
+<option value="1HZ25V">
+Volatility 25 (1s) Index
+</option>
+
+<option value="1HZ50V">
+Volatility 50 (1s) Index
+</option>
+
+<option value="1HZ75V">
+Volatility 75 (1s) Index
+</option>
+
+<option value="1HZ100V" selected>
+Volatility 100 (1s) Index
+</option>
+
+<option value="R_10">
+Volatility 10 Index
+</option>
+
+<option value="R_25">
+Volatility 25 Index
+</option>
+
+<option value="R_50">
+Volatility 50 Index
+</option>
+
+<option value="R_75">
+Volatility 75 Index
+</option>
+
+<option value="R_100">
+Volatility 100 Index
+</option>
+
 </select>
 
 </div>
@@ -75,11 +318,18 @@ select{background:#151b24;color:white;border:1px solid #303947;border-radius:8px
 <div class="status-row">
 
 <div class="status">
+
 <span id="statusDot" class="dot yellow"></span>
-<span id="statusText">Connecting to Deriv...</span>
+
+<span id="statusText">
+Connecting to Deriv...
+</span>
+
 </div>
 
-<div>Stored ticks: <strong>3,000</strong></div>
+<div>
+Stored ticks: <strong>3,000</strong>
+</div>
 
 </div>
 
@@ -91,10 +341,15 @@ select{background:#151b24;color:white;border:1px solid #303947;border-radius:8px
 Volatility 100 (1s) Index
 </div>
 
-<div class="price" id="livePrice">--</div>
+<div class="price" id="livePrice">
+--
+</div>
 
 <div class="last-digit">
-Last digit: <strong id="lastDigit">--</strong>
+
+Last digit:
+<strong id="lastDigit">--</strong>
+
 </div>
 
 </div>
@@ -167,152 +422,226 @@ Newest digit appears on the left.
 
 <script>
 
-const WS_URL="wss://ws.binaryws.com/websockets/v3";
+/* =========================
+   DERIV CONNECTION
+========================= */
 
-const MAX_HISTORY=3000;
-const WINDOW_1000=1000;
-const WINDOW_100=100;
-const RECENT_COUNT=72;
+const WS_URL =
+"wss://ws.binaryws.com/websockets/v3";
 
-let ws=null;
-let reconnectTimer=null;
-let pingTimer=null;
+const MAX_HISTORY = 3000;
+const WINDOW_1000 = 1000;
+const WINDOW_100 = 100;
+const RECENT_COUNT = 72;
 
-let selectedSymbol=
+
+/* =========================
+   VARIABLES
+========================= */
+
+let ws = null;
+
+let reconnectTimer = null;
+
+let pingTimer = null;
+
+let selectedSymbol =
 document.getElementById("marketSelect").value;
 
-let pipSize=2;
+let pipSize = 2;
 
-let digitHistory=[];
+let digitHistory = [];
 
-let pendingLiveTicks=[];
+let pendingLiveTicks = [];
 
-let historyLoaded=false;
+let historyLoaded = false;
 
-let reconnectAttempt=0;
+let reconnectAttempt = 0;
 
-let currentMode="OVER2";
+let currentMode = "OVER2";
+
+/*
+   IMPORTANT:
+   This prevents a live tick that was already
+   included in the historical 3,000 ticks
+   from being counted again.
+*/
+let lastAppliedEpoch = 0;
 
 
-const marketSelect=
+/* =========================
+   ELEMENTS
+========================= */
+
+const marketSelect =
 document.getElementById("marketSelect");
 
-const statusDot=
+const statusDot =
 document.getElementById("statusDot");
 
-const statusText=
+const statusText =
 document.getElementById("statusText");
 
-const errorText=
+const errorText =
 document.getElementById("errorText");
 
-const livePrice=
+const livePrice =
 document.getElementById("livePrice");
 
-const lastDigit=
+const lastDigit =
 document.getElementById("lastDigit");
 
-const marketName=
+const marketName =
 document.getElementById("marketName");
 
-const grid1000=
+const grid1000 =
 document.getElementById("grid1000");
 
-const grid100=
+const grid100 =
 document.getElementById("grid100");
 
-const recentGrid=
+const recentGrid =
 document.getElementById("recentGrid");
 
-const window1000=
+const window1000 =
 document.getElementById("window1000");
 
-const window100=
+const window100 =
 document.getElementById("window100");
 
-const over2Btn=
+const over2Btn =
 document.getElementById("over2Btn");
 
-const under7Btn=
+const under7Btn =
 document.getElementById("under7Btn");
 
 
-const MARKET_NAMES={
+/* =========================
+   MARKET NAMES
+========================= */
 
-"1HZ10V":"Volatility 10 (1s) Index",
-"1HZ25V":"Volatility 25 (1s) Index",
-"1HZ50V":"Volatility 50 (1s) Index",
-"1HZ75V":"Volatility 75 (1s) Index",
-"1HZ100V":"Volatility 100 (1s) Index",
-"R_10":"Volatility 10 Index",
-"R_25":"Volatility 25 Index",
-"R_50":"Volatility 50 Index",
-"R_75":"Volatility 75 Index",
-"R_100":"Volatility 100 Index"
+const MARKET_NAMES = {
+
+"1HZ10V":
+"Volatility 10 (1s) Index",
+
+"1HZ25V":
+"Volatility 25 (1s) Index",
+
+"1HZ50V":
+"Volatility 50 (1s) Index",
+
+"1HZ75V":
+"Volatility 75 (1s) Index",
+
+"1HZ100V":
+"Volatility 100 (1s) Index",
+
+"R_10":
+"Volatility 10 Index",
+
+"R_25":
+"Volatility 25 Index",
+
+"R_50":
+"Volatility 50 Index",
+
+"R_75":
+"Volatility 75 Index",
+
+"R_100":
+"Volatility 100 Index"
 
 };
 
 
-function setStatus(type,text){
+/* =========================
+   STATUS
+========================= */
 
-statusDot.className="dot";
+function setStatus(type, text){
 
-if(type==="green")
+statusDot.className = "dot";
+
+if(type === "green"){
 statusDot.classList.add("green");
+}
 
-if(type==="red")
+if(type === "red"){
 statusDot.classList.add("red");
+}
 
-if(type==="yellow")
+if(type === "yellow"){
 statusDot.classList.add("yellow");
+}
 
-statusText.textContent=text;
+statusText.textContent = text;
 
 }
 
+
+/* =========================
+   ERROR
+========================= */
 
 function showError(message){
 
-errorText.textContent=message||"";
+errorText.textContent =
+message || "";
 
 }
 
 
+/* =========================
+   MARKET NAME
+========================= */
+
 function updateMarketName(){
 
-marketName.textContent=
-MARKET_NAMES[selectedSymbol]||
+marketName.textContent =
+MARKET_NAMES[selectedSymbol] ||
 selectedSymbol;
 
 }
 
 
+/* =========================
+   LAST DIGIT
+========================= */
+
 function getLastDigit(price){
 
-const numericPrice=Number(price);
+const numericPrice =
+Number(price);
 
-if(!Number.isFinite(numericPrice))
+if(!Number.isFinite(numericPrice)){
 return null;
+}
 
-const fixed=
+const fixed =
 numericPrice.toFixed(pipSize);
 
-const digits=
+const digits =
 fixed.replace(/\D/g,"");
 
-if(!digits.length)
+if(!digits.length){
 return null;
+}
 
 return Number(
-digits[digits.length-1]
+digits[digits.length - 1]
 );
 
 }
 
 
+/* =========================
+   COUNT DIGITS
+========================= */
+
 function countDigits(digits){
 
-const counts=[
+const counts = [
 0,0,0,0,0,
 0,0,0,0,0
 ];
@@ -320,9 +649,9 @@ const counts=[
 for(const digit of digits){
 
 if(
-Number.isInteger(digit)&&
-digit>=0&&
-digit<=9
+Number.isInteger(digit) &&
+digit >= 0 &&
+digit <= 9
 ){
 
 counts[digit]++;
@@ -336,50 +665,56 @@ return counts;
 }
 
 
+/* =========================
+   RANKING COLORS
+========================= */
+
 function getRankingClasses(counts){
 
-const descending=
+const descending =
 Array.from(
 {length:10},
 (_,i)=>i
 ).sort((a,b)=>{
 
-if(counts[b]!==counts[a])
-return counts[b]-counts[a];
+if(counts[b] !== counts[a]){
+return counts[b] - counts[a];
+}
 
-return a-b;
+return a - b;
 
 });
 
 
-const ascending=
+const ascending =
 Array.from(
 {length:10},
 (_,i)=>i
 ).sort((a,b)=>{
 
-if(counts[a]!==counts[b])
-return counts[a]-counts[b];
+if(counts[a] !== counts[b]){
+return counts[a] - counts[b];
+}
 
-return a-b;
+return a - b;
 
 });
 
 
-const classes=
+const classes =
 Array(10).fill("");
 
 
-classes[descending[0]]=
+classes[descending[0]] =
 "rank-green";
 
-classes[descending[1]]=
+classes[descending[1]] =
 "rank-blue";
 
-classes[ascending[0]]=
+classes[ascending[0]] =
 "rank-red";
 
-classes[ascending[1]]=
+classes[ascending[1]] =
 "rank-yellow";
 
 
@@ -388,6 +723,10 @@ return classes;
 }
 
 
+/* =========================
+   ANALYZER
+========================= */
+
 function renderAnalyzer(
 digits,
 grid,
@@ -395,66 +734,68 @@ windowLabel,
 expectedSize
 ){
 
-if(digits.length<expectedSize){
+if(digits.length < expectedSize){
 
-windowLabel.textContent=
-"Loading latest "+
-expectedSize.toLocaleString()+
+windowLabel.textContent =
+"Loading latest " +
+expectedSize.toLocaleString() +
 "...";
 
-grid.innerHTML="";
+grid.innerHTML = "";
 
 return;
 
 }
 
 
-const windowDigits=
+const windowDigits =
 digits.slice(-expectedSize);
 
-const counts=
+const counts =
 countDigits(windowDigits);
 
-const ranking=
+const ranking =
 getRankingClasses(counts);
 
-grid.innerHTML="";
+grid.innerHTML = "";
 
 
 for(
-let digit=0;
-digit<=9;
+let digit = 0;
+digit <= 9;
 digit++
 ){
 
-const percentage=
-(counts[digit]/expectedSize)*100;
+const percentage =
+(counts[digit] / expectedSize) * 100;
 
-const card=
+const card =
 document.createElement("div");
 
-card.className=
-"digit-card "+
+card.className =
+"digit-card " +
 ranking[digit];
 
 
-const number=
+const number =
 document.createElement("div");
 
-number.className=
+number.className =
 "digit-number";
 
-number.textContent=digit;
+number.textContent =
+digit;
 
 
-const percent=
+const percent =
 document.createElement("div");
 
-percent.className=
+percent.className =
 "digit-percent";
 
-percent.textContent=
-percentage.toFixed(1)+"%";
+percent.textContent =
+percentage.toFixed(1) +
+"%";
 
 
 card.appendChild(number);
@@ -466,58 +807,73 @@ grid.appendChild(card);
 }
 
 
-windowLabel.textContent=
-expectedSize.toLocaleString()+
-" / "+
-expectedSize.toLocaleString()+
+windowLabel.textContent =
+expectedSize.toLocaleString() +
+" / " +
+expectedSize.toLocaleString() +
 " ticks";
 
 }
 
 
+/* =========================
+   TARGET DIGITS
+========================= */
+
 function isTargetDigit(digit){
 
-if(currentMode==="OVER2")
+if(currentMode === "OVER2"){
 
-return digit===0||
-digit===1||
-digit===2;
+return (
+digit === 0 ||
+digit === 1 ||
+digit === 2
+);
 
-return digit===7||
-digit===8||
-digit===9;
+}
+
+return (
+digit === 7 ||
+digit === 8 ||
+digit === 9
+);
 
 }
 
 
+/* =========================
+   RECENT DIGITS
+========================= */
+
 function renderRecentDigits(){
 
-recentGrid.innerHTML="";
+recentGrid.innerHTML = "";
 
-const recent=
+const recent =
 digitHistory
 .slice(-RECENT_COUNT)
 .reverse();
 
 
 for(
-let i=0;
-i<RECENT_COUNT;
+let i = 0;
+i < RECENT_COUNT;
 i++
 ){
 
-const digit=recent[i];
+const digit =
+recent[i];
 
-const box=
+const box =
 document.createElement("div");
 
-box.className=
+box.className =
 "recent-digit";
 
 
-if(digit===undefined){
+if(digit === undefined){
 
-box.textContent="";
+box.textContent = "";
 
 recentGrid.appendChild(box);
 
@@ -526,20 +882,22 @@ continue;
 }
 
 
-box.textContent=digit;
+box.textContent = digit;
 
 
-if(isTargetDigit(digit))
+if(isTargetDigit(digit)){
 
 box.classList.add(
 "recent-target"
 );
 
-else
+}else{
 
 box.classList.add(
 "recent-normal"
 );
+
+}
 
 
 recentGrid.appendChild(box);
@@ -548,6 +906,10 @@ recentGrid.appendChild(box);
 
 }
 
+
+/* =========================
+   RENDER EVERYTHING
+========================= */
 
 function renderAll(){
 
@@ -572,50 +934,63 @@ renderRecentDigits();
 }
 
 
+/* =========================
+   RESET
+========================= */
+
 function resetData(){
 
-digitHistory=[];
+digitHistory = [];
 
-pendingLiveTicks=[];
+pendingLiveTicks = [];
 
-historyLoaded=false;
+historyLoaded = false;
 
-livePrice.textContent="--";
+lastAppliedEpoch = 0;
 
-lastDigit.textContent="--";
+livePrice.textContent = "--";
 
-grid1000.innerHTML="";
+lastDigit.textContent = "--";
 
-grid100.innerHTML="";
+grid1000.innerHTML = "";
 
-recentGrid.innerHTML="";
+grid100.innerHTML = "";
 
-window1000.textContent=
+recentGrid.innerHTML = "";
+
+window1000.textContent =
 "Loading latest 1,000...";
 
-window100.textContent=
+window100.textContent =
 "Loading latest 100...";
 
 }
 
 
+/* =========================
+   ADD DIGIT
+========================= */
+
 function addDigit(digit){
 
 if(
-!Number.isInteger(digit)||
-digit<0||
-digit>9
-)
+!Number.isInteger(digit) ||
+digit < 0 ||
+digit > 9
+){
 return;
+}
 
 digitHistory.push(digit);
 
 
-if(digitHistory.length>MAX_HISTORY){
+if(
+digitHistory.length > MAX_HISTORY
+){
 
 digitHistory.splice(
 0,
-digitHistory.length-MAX_HISTORY
+digitHistory.length - MAX_HISTORY
 );
 
 }
@@ -623,13 +998,18 @@ digitHistory.length-MAX_HISTORY
 }
 
 
+/* =========================
+   REQUEST HISTORY
+========================= */
+
 function requestHistory(){
 
 if(
-!ws||
-ws.readyState!==WebSocket.OPEN
-)
+!ws ||
+ws.readyState !== WebSocket.OPEN
+){
 return;
+}
 
 
 setStatus(
@@ -641,15 +1021,20 @@ setStatus(
 ws.send(
 JSON.stringify({
 
-ticks_history:selectedSymbol,
+ticks_history:
+selectedSymbol,
 
-count:MAX_HISTORY,
+count:
+MAX_HISTORY,
 
-end:"latest",
+end:
+"latest",
 
-style:"ticks",
+style:
+"ticks",
 
-req_id:1001
+req_id:
+1001
 
 })
 );
@@ -657,23 +1042,31 @@ req_id:1001
 }
 
 
+/* =========================
+   SUBSCRIBE LIVE TICKS
+========================= */
+
 function subscribeTicks(){
 
 if(
-!ws||
-ws.readyState!==WebSocket.OPEN
-)
+!ws ||
+ws.readyState !== WebSocket.OPEN
+){
 return;
+}
 
 
 ws.send(
 JSON.stringify({
 
-ticks:selectedSymbol,
+ticks:
+selectedSymbol,
 
-subscribe:1,
+subscribe:
+1,
 
-req_id:1002
+req_id:
+1002
 
 })
 );
@@ -681,10 +1074,14 @@ req_id:1002
 }
 
 
+/* =========================
+   PROCESS HISTORY
+========================= */
+
 function processHistory(data){
 
 if(
-!data.history||
+!data.history ||
 !Array.isArray(
 data.history.prices
 )
@@ -697,9 +1094,26 @@ throw new Error(
 }
 
 
-const prices=
+const prices =
 data.history.prices;
 
+
+if(
+Number.isInteger(
+Number(data.history.pip_size)
+)
+){
+
+pipSize =
+Number(data.history.pip_size);
+
+}
+
+
+/*
+   Some Deriv responses provide
+   pip_size at the top level.
+*/
 
 if(
 Number.isInteger(
@@ -707,76 +1121,95 @@ Number(data.pip_size)
 )
 ){
 
-pipSize=
+pipSize =
 Number(data.pip_size);
 
 }
 
 
-const historicalDigits=[];
+const historicalDigits = [];
 
 
 for(const price of prices){
 
-const digit=
+const digit =
 getLastDigit(price);
 
-if(digit!==null)
+if(digit !== null){
 
 historicalDigits.push(digit);
 
 }
 
+}
 
-digitHistory=
+
+digitHistory =
 historicalDigits.slice(
 -MAX_HISTORY
 );
 
 
 if(
-digitHistory.length<
+digitHistory.length <
 WINDOW_1000
 ){
 
 throw new Error(
-"Only "+
-digitHistory.length+
+"Only " +
+digitHistory.length +
 " usable ticks were returned. Need at least 1,000."
 );
 
 }
 
 
-historyLoaded=true;
+/*
+   IMPORTANT:
+   Remember the timestamp of the newest
+   historical tick so that the same tick
+   isn't added again by the live stream.
+*/
+
+if(
+data.history.times &&
+data.history.times.length
+){
+
+lastAppliedEpoch =
+Number(
+data.history.times[
+data.history.times.length - 1
+]
+);
+
+}
+
+
+historyLoaded = true;
 
 renderAll();
 
 
+/*
+   If live ticks arrived while history
+   was loading, only apply ticks newer
+   than the newest historical tick.
+*/
+
 if(
-pendingLiveTicks.length&&
-data.history.times&&
-data.history.times.length
+pendingLiveTicks.length
 ){
 
-const lastHistoryTime=
-Number(
-data.history.times[
-data.history.times.length-1
-]
-);
-
-
-const sortedPending=
+const sortedPending =
 pendingLiveTicks
-.filter(
-item=>
-Number(item.epoch)>
-lastHistoryTime
+.filter(item =>
+Number(item.epoch) >
+lastAppliedEpoch
 )
 .sort(
-(a,b)=>
-Number(a.epoch)-
+(a,b) =>
+Number(a.epoch) -
 Number(b.epoch)
 );
 
@@ -795,9 +1228,16 @@ item.epoch
 }
 
 
-pendingLiveTicks=[];
+pendingLiveTicks = [];
+
+
+/*
+   Subscribe only AFTER historical data
+   has been loaded.
+*/
 
 subscribeTicks();
+
 
 setStatus(
 "green",
@@ -809,25 +1249,58 @@ showError("");
 }
 
 
+/* =========================
+   APPLY LIVE TICK
+========================= */
+
 function applyLiveTick(
 quote,
 epoch
 ){
 
-const digit=
-getLastDigit(quote);
+const numericEpoch =
+Number(epoch);
 
-if(digit===null)
+
+/*
+   Ignore duplicate/old ticks.
+*/
+
+if(
+Number.isFinite(numericEpoch) &&
+numericEpoch <= lastAppliedEpoch
+){
+
 return;
 
+}
 
-livePrice.textContent=
+
+const digit =
+getLastDigit(quote);
+
+if(digit === null){
+return;
+}
+
+
+if(
+Number.isFinite(numericEpoch)
+){
+
+lastAppliedEpoch =
+numericEpoch;
+
+}
+
+
+livePrice.textContent =
 Number(quote).toFixed(
 pipSize
 );
 
-
-lastDigit.textContent=digit;
+lastDigit.textContent =
+digit;
 
 addDigit(digit);
 
@@ -836,13 +1309,17 @@ renderAll();
 }
 
 
+/* =========================
+   HANDLE MESSAGE
+========================= */
+
 function handleMessage(event){
 
 let data;
 
 try{
 
-data=
+data =
 JSON.parse(event.data);
 
 }catch(error){
@@ -852,11 +1329,15 @@ return;
 }
 
 
+/* =========================
+   DERIV ERROR
+========================= */
+
 if(data.error){
 
-const message=
-data.error.message||
-data.error.code||
+const message =
+data.error.message ||
+data.error.code ||
 "Deriv API error";
 
 showError(message);
@@ -871,22 +1352,13 @@ return;
 }
 
 
-if(
-data.msg_type==="active_symbols"
-){
-
-if(!historyLoaded)
-
-requestHistory();
-
-return;
-
-}
-
+/* =========================
+   HISTORY
+========================= */
 
 if(
-data.msg_type==="history"||
-data.msg_type==="ticks_history"
+data.msg_type === "history" ||
+data.msg_type === "ticks_history"
 ){
 
 try{
@@ -911,12 +1383,18 @@ return;
 }
 
 
-if(data.msg_type==="tick"){
+/* =========================
+   LIVE TICK
+========================= */
 
-const tick=data.tick;
+if(data.msg_type === "tick"){
 
-if(!tick)
+const tick =
+data.tick;
+
+if(!tick){
 return;
+}
 
 
 if(
@@ -925,19 +1403,26 @@ Number(tick.pip_size)
 )
 ){
 
-pipSize=
+pipSize =
 Number(tick.pip_size);
 
 }
 
 
+/*
+   While waiting for history,
+   temporarily hold live ticks.
+*/
+
 if(!historyLoaded){
 
 pendingLiveTicks.push({
 
-quote:tick.quote,
+quote:
+tick.quote,
 
-epoch:tick.epoch
+epoch:
+tick.epoch
 
 });
 
@@ -956,24 +1441,33 @@ return;
 }
 
 
-if(data.msg_type==="ping")
+/* =========================
+   PING
+========================= */
+
+if(data.msg_type === "ping"){
 return;
+}
 
 }
 
+
+/* =========================
+   PING
+========================= */
 
 function startPing(){
 
 stopPing();
 
 
-pingTimer=
+pingTimer =
 setInterval(
-()=>{
+() => {
 
 if(
-ws&&
-ws.readyState===
+ws &&
+ws.readyState ===
 WebSocket.OPEN
 ){
 
@@ -1000,12 +1494,16 @@ clearInterval(
 pingTimer
 );
 
-pingTimer=null;
+pingTimer = null;
 
 }
 
 }
 
+
+/* =========================
+   CONNECT
+========================= */
 
 function connect(){
 
@@ -1015,17 +1513,17 @@ clearTimeout(
 reconnectTimer
 );
 
-reconnectTimer=null;
+reconnectTimer = null;
 
 }
 
 
 if(
-ws&&
+ws &&
 (
-ws.readyState===
-WebSocket.OPEN||
-ws.readyState===
+ws.readyState ===
+WebSocket.OPEN ||
+ws.readyState ===
 WebSocket.CONNECTING
 )
 ){
@@ -1039,9 +1537,13 @@ ws.close();
 }
 
 
+/*
+   Start clean for the selected market.
+*/
+
 resetData();
 
-selectedSymbol=
+selectedSymbol =
 marketSelect.value;
 
 updateMarketName();
@@ -1056,8 +1558,10 @@ showError("");
 
 try{
 
-ws=
-new WebSocket(WS_URL);
+ws =
+new WebSocket(
+WS_URL
+);
 
 }catch(error){
 
@@ -1070,13 +1574,17 @@ return;
 }
 
 
-ws.onopen=function(){
+/* =========================
+   OPEN
+========================= */
 
-reconnectAttempt=0;
+ws.onopen = function(){
+
+reconnectAttempt = 0;
 
 setStatus(
-"green",
-"Connected — preparing market data..."
+"yellow",
+"Connected — loading latest ticks..."
 );
 
 showError("");
@@ -1084,24 +1592,29 @@ showError("");
 startPing();
 
 
-ws.send(
-JSON.stringify({
+/*
+   Request the latest 3,000 historical
+   ticks immediately.
+*/
 
-active_symbols:"brief",
-
-req_id:1
-
-})
-);
+requestHistory();
 
 };
 
 
-ws.onmessage=
+/* =========================
+   MESSAGE
+========================= */
+
+ws.onmessage =
 handleMessage;
 
 
-ws.onerror=function(){
+/* =========================
+   ERROR
+========================= */
+
+ws.onerror = function(){
 
 setStatus(
 "red",
@@ -1111,7 +1624,11 @@ setStatus(
 };
 
 
-ws.onclose=function(event){
+/* =========================
+   CLOSE
+========================= */
+
+ws.onclose = function(event){
 
 stopPing();
 
@@ -1134,14 +1651,14 @@ setStatus(
 
 
 if(
-event&&
-event.code&&
-event.code!==1000
+event &&
+event.code &&
+event.code !== 1000
 ){
 
 showError(
-"WebSocket closed (code "+
-event.code+
+"WebSocket closed (code " +
+event.code +
 "). Retrying..."
 );
 
@@ -1154,6 +1671,10 @@ scheduleReconnect();
 
 }
 
+
+/* =========================
+   CONNECTION FAILURE
+========================= */
 
 function handleConnectionFailure(message){
 
@@ -1171,22 +1692,27 @@ scheduleReconnect();
 }
 
 
+/* =========================
+   RECONNECT
+========================= */
+
 function scheduleReconnect(){
 
-if(reconnectTimer)
+if(reconnectTimer){
 return;
+}
 
 
 reconnectAttempt++;
 
 
-const delay=
+const delay =
 Math.min(
-1000*
+1000 *
 Math.pow(
 2,
 Math.min(
-reconnectAttempt-1,
+reconnectAttempt - 1,
 4
 )
 ),
@@ -1194,11 +1720,11 @@ reconnectAttempt-1,
 );
 
 
-reconnectTimer=
+reconnectTimer =
 setTimeout(
-()=>{
+() => {
 
-reconnectTimer=null;
+reconnectTimer = null;
 
 connect();
 
@@ -1209,15 +1735,20 @@ delay
 }
 
 
+/* =========================
+   MARKET CHANGE
+========================= */
+
 marketSelect.addEventListener(
 "change",
 function(){
 
-selectedSymbol=this.value;
+selectedSymbol =
+this.value;
 
 updateMarketName();
 
-reconnectAttempt=0;
+reconnectAttempt = 0;
 
 connect();
 
@@ -1225,11 +1756,15 @@ connect();
 );
 
 
+/* =========================
+   OVER 2
+========================= */
+
 over2Btn.addEventListener(
 "click",
 function(){
 
-currentMode="OVER2";
+currentMode = "OVER2";
 
 over2Btn.classList.add(
 "active"
@@ -1245,11 +1780,15 @@ renderRecentDigits();
 );
 
 
+/* =========================
+   UNDER 7
+========================= */
+
 under7Btn.addEventListener(
 "click",
 function(){
 
-currentMode="UNDER7";
+currentMode = "UNDER7";
 
 under7Btn.classList.add(
 "active"
@@ -1264,6 +1803,10 @@ renderRecentDigits();
 }
 );
 
+
+/* =========================
+   START
+========================= */
 
 updateMarketName();
 
