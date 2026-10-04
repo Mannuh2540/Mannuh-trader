@@ -1,48 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
 <title>Mannuh Trader</title>
 
 <style>
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
 *{
-  box-sizing:border-box
+  box-sizing:border-box;
 }
 
 body{
   margin:0;
   background:#05070b;
   color:#f2f2f2;
-  font-family:Arial,Helvetica,sans-serif
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 .container{
   width:100%;
   max-width:1100px;
   margin:auto;
-  padding:15px
+  padding:15px;
 }
 
 h1{
   text-align:center;
   margin:5px 0 15px;
-  font-size:27px
+  font-size:27px;
 }
 
-.top-panel,.panel{
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+
+.top-panel,
+.panel{
   background:#0d1118;
   border:1px solid #202734;
   border-radius:12px;
   padding:15px;
-  margin-bottom:14px
+  margin-bottom:14px;
 }
+
+
+/* =========================================================
+   MARKET
+   ========================================================= */
 
 .market-row{
   display:flex;
   gap:10px;
   align-items:center;
-  flex-wrap:wrap
+  flex-wrap:wrap;
 }
 
 select{
@@ -52,9 +74,14 @@ select{
   border-radius:8px;
   padding:10px;
   font-size:15px;
-  flex:1;
-  min-width:180px
+  width:100%;
+  min-width:180px;
 }
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
 
 .status-row{
   display:flex;
@@ -62,63 +89,74 @@ select{
   gap:10px;
   flex-wrap:wrap;
   margin-top:12px;
-  font-size:14px
+  font-size:14px;
 }
 
 .status{
   display:flex;
   align-items:center;
-  gap:7px
+  gap:7px;
 }
 
 .dot{
   width:10px;
   height:10px;
   border-radius:50%;
-  background:#777
+  background:#777;
+  flex-shrink:0;
 }
 
 .dot.green{
   background:#00d084;
-  box-shadow:0 0 8px #00d084
+  box-shadow:0 0 8px #00d084;
 }
 
 .dot.red{
   background:#ff3b30;
-  box-shadow:0 0 8px #ff3b30
+  box-shadow:0 0 8px #ff3b30;
 }
 
 .dot.yellow{
   background:#ffd60a;
-  box-shadow:0 0 8px #ffd60a
+  box-shadow:0 0 8px #ffd60a;
 }
+
+
+/* =========================================================
+   MARKET INFORMATION
+   ========================================================= */
 
 .market-info{
   text-align:center;
-  padding:10px 0
+  padding:10px 0;
 }
 
 .market-name{
   font-size:15px;
-  color:#9aa4b2
+  color:#9aa4b2;
 }
 
 .price{
   font-size:30px;
   font-weight:bold;
-  margin-top:5px
+  margin-top:5px;
 }
 
 .last-digit{
   margin-top:3px;
   font-size:16px;
-  color:#9aa4b2
+  color:#9aa4b2;
 }
+
+
+/* =========================================================
+   MODE BUTTONS
+   ========================================================= */
 
 .modes{
   display:flex;
   gap:10px;
-  margin-bottom:15px
+  margin-bottom:0;
 }
 
 .mode-btn{
@@ -129,37 +167,47 @@ select{
   background:#141a23;
   color:#ddd;
   font-weight:bold;
-  cursor:pointer
+  cursor:pointer;
 }
 
 .mode-btn.active{
   background:#222b38;
   border-color:#7d8796;
-  color:white
+  color:white;
 }
+
+
+/* =========================================================
+   ANALYZERS
+   ========================================================= */
 
 .analyzers{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:14px
+  gap:14px;
 }
 
 .panel-title{
   font-size:18px;
   font-weight:bold;
-  margin-bottom:4px
+  margin-bottom:4px;
 }
 
 .window-size{
   color:#8993a3;
   font-size:13px;
-  margin-bottom:12px
+  margin-bottom:12px;
 }
+
+
+/* =========================================================
+   DIGIT GRID
+   ========================================================= */
 
 .digit-grid{
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  gap:8px
+  gap:8px;
 }
 
 .digit-card{
@@ -167,50 +215,61 @@ select{
   border:1px solid #252d39;
   border-radius:9px;
   padding:9px 4px;
-  text-align:center
+  text-align:center;
+  min-width:0;
 }
 
 .digit-number{
   font-size:18px;
-  font-weight:bold
+  font-weight:bold;
 }
 
 .digit-percent{
   margin-top:4px;
   font-size:14px;
-  color:#b9c1cc
+  color:#b9c1cc;
 }
+
+
+/* =========================================================
+   RANKING COLORS
+   ========================================================= */
 
 .rank-green{
   border-color:#00d084;
-  box-shadow:inset 0 0 0 1px #00d084
+  box-shadow:inset 0 0 0 1px #00d084;
 }
 
 .rank-blue{
   border-color:#2196f3;
-  box-shadow:inset 0 0 0 1px #2196f3
+  box-shadow:inset 0 0 0 1px #2196f3;
 }
 
 .rank-red{
   border-color:#ff3b30;
-  box-shadow:inset 0 0 0 1px #ff3b30
+  box-shadow:inset 0 0 0 1px #ff3b30;
 }
 
 .rank-yellow{
   border-color:#ffd60a;
-  box-shadow:inset 0 0 0 1px #ffd60a
+  box-shadow:inset 0 0 0 1px #ffd60a;
 }
+
+
+/* =========================================================
+   RECENT DIGITS
+   ========================================================= */
 
 .recent-title{
   font-size:18px;
   font-weight:bold;
-  margin-bottom:10px
+  margin-bottom:10px;
 }
 
 .recent-grid{
   display:grid;
   grid-template-columns:repeat(9,1fr);
-  gap:6px
+  gap:6px;
 }
 
 .recent-digit{
@@ -220,118 +279,215 @@ select{
   text-align:center;
   padding:7px 2px;
   font-size:15px;
-  font-weight:bold
+  font-weight:bold;
+  min-width:0;
 }
 
 .recent-target{
   background:#39171b;
   border-color:#ff3b30;
-  color:#ff6259
+  color:#ff6259;
 }
 
 .recent-normal{
-  color:#00d084
+  color:#00d084;
 }
 
 .small{
   color:#7f8997;
   font-size:12px;
-  margin-top:8px
+  margin-top:8px;
 }
 
 .error-text{
   color:#ff6259;
   font-size:13px;
   margin-top:7px;
-  word-break:break-word
+  word-break:break-word;
 }
 
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media(max-width:750px){
+
   .analyzers{
-    grid-template-columns:1fr
+    grid-template-columns:1fr;
   }
+
 }
 
 @media(max-width:700px){
+
   .recent-grid{
     grid-template-columns:repeat(9,1fr);
-    gap:4px
+    gap:4px;
   }
+
+  .recent-digit{
+    padding:7px 1px;
+    font-size:14px;
+  }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
 <div class="container">
 
+
+<!-- =======================================================
+     TITLE
+     ======================================================= -->
+
 <h1>MANNUH TRADER</h1>
 
+
+<!-- =======================================================
+     TOP / MARKET PANEL
+     ======================================================= -->
+
 <div class="top-panel">
+
 
 <div class="market-row">
 
 <select id="marketSelect">
 
-<option value="1HZ10V">Volatility 10 (1s) Index</option>
-<option value="1HZ25V">Volatility 25 (1s) Index</option>
-<option value="1HZ50V">Volatility 50 (1s) Index</option>
-<option value="1HZ75V">Volatility 75 (1s) Index</option>
-<option value="1HZ100V" selected>Volatility 100 (1s) Index</option>
+<option value="1HZ10V">
+Volatility 10 (1s) Index
+</option>
 
-<option value="R_10">Volatility 10 Index</option>
-<option value="R_25">Volatility 25 Index</option>
-<option value="R_50">Volatility 50 Index</option>
-<option value="R_75">Volatility 75 Index</option>
-<option value="R_100">Volatility 100 Index</option>
+<option value="1HZ25V">
+Volatility 25 (1s) Index
+</option>
+
+<option value="1HZ50V">
+Volatility 50 (1s) Index
+</option>
+
+<option value="1HZ75V">
+Volatility 75 (1s) Index
+</option>
+
+<option value="1HZ100V" selected>
+Volatility 100 (1s) Index
+</option>
+
+
+<option value="R_10">
+Volatility 10 Index
+</option>
+
+<option value="R_25">
+Volatility 25 Index
+</option>
+
+<option value="R_50">
+Volatility 50 Index
+</option>
+
+<option value="R_75">
+Volatility 75 Index
+</option>
+
+<option value="R_100">
+Volatility 100 Index
+</option>
 
 </select>
 
 </div>
 
+
+<!-- STATUS -->
+
 <div class="status-row">
 
 <div class="status">
-<span id="statusDot" class="dot yellow"></span>
-<span id="statusText">Connecting to Deriv...</span>
+
+<span
+  id="statusDot"
+  class="dot yellow">
+</span>
+
+<span id="statusText">
+Connecting to Deriv...
+</span>
+
 </div>
+
 
 <div>
-Stored ticks: <strong>3,000</strong>
+Stored ticks:
+<strong>3,000</strong>
 </div>
 
 </div>
 
-<div id="errorText" class="error-text"></div>
+
+<div
+  id="errorText"
+  class="error-text">
+</div>
+
+
+<!-- MARKET INFORMATION -->
 
 <div class="market-info">
 
-<div class="market-name" id="marketName">
+<div
+  class="market-name"
+  id="marketName">
 Volatility 100 (1s) Index
 </div>
 
-<div class="price" id="livePrice">
+
+<div
+  class="price"
+  id="livePrice">
 --
 </div>
 
+
 <div class="last-digit">
-Last digit: <strong id="lastDigit">--</strong>
-</div>
+
+Last digit:
+<strong id="lastDigit">
+--
+</strong>
 
 </div>
 
 </div>
 
+</div>
+
+
+<!-- =======================================================
+     ONE ANALYSIS LEG
+     ======================================================= -->
 
 <div class="panel">
 
 <div class="modes">
 
-<button id="over2Btn" class="mode-btn active">
+<button
+  id="over2Btn"
+  class="mode-btn active">
 OVER 2
 </button>
 
-<button id="under7Btn" class="mode-btn">
+<button
+  id="under7Btn"
+  class="mode-btn">
 UNDER 7
 </button>
 
@@ -340,7 +496,14 @@ UNDER 7
 </div>
 
 
+<!-- =======================================================
+     ANALYZERS
+     ======================================================= -->
+
 <div class="analyzers">
+
+
+<!-- 1000 -->
 
 <div class="panel">
 
@@ -348,14 +511,21 @@ UNDER 7
 1,000 TICK ANALYZER
 </div>
 
-<div id="window1000" class="window-size">
+<div
+  id="window1000"
+  class="window-size">
 Loading latest 1,000...
 </div>
 
-<div id="grid1000" class="digit-grid"></div>
+<div
+  id="grid1000"
+  class="digit-grid">
+</div>
 
 </div>
 
+
+<!-- 100 -->
 
 <div class="panel">
 
@@ -363,16 +533,25 @@ Loading latest 1,000...
 100 TICK ANALYZER
 </div>
 
-<div id="window100" class="window-size">
+<div
+  id="window100"
+  class="window-size">
 Loading latest 100...
 </div>
 
-<div id="grid100" class="digit-grid"></div>
-
+<div
+  id="grid100"
+  class="digit-grid">
 </div>
 
 </div>
 
+</div>
+
+
+<!-- =======================================================
+     RECENT DIGITS
+     ======================================================= -->
 
 <div class="panel">
 
@@ -380,7 +559,10 @@ Loading latest 100...
 Recent Digits
 </div>
 
-<div id="recentGrid" class="recent-grid"></div>
+<div
+  id="recentGrid"
+  class="recent-grid">
+</div>
 
 <div class="small">
 Newest digit appears on the left.
@@ -388,13 +570,21 @@ Newest digit appears on the left.
 
 </div>
 
+
 </div>
 
 
 <script>
 
 /* =========================================================
-   DERIV MARKET DATA WEBSOCKET
+   MANNUH TRADER
+   SINGLE LEG
+   DERIV PUBLIC MARKET DATA
+   ========================================================= */
+
+
+/* =========================================================
+   WEBSOCKET
    ========================================================= */
 
 const WS_URL =
@@ -426,6 +616,8 @@ let pingTimer = null;
 
 let reconnectAttempt = 0;
 
+let connectionGeneration = 0;
+
 let selectedSymbol =
   document.getElementById("marketSelect").value;
 
@@ -443,52 +635,82 @@ let currentMode = "OVER2";
 
 let liveSubscriptionId = null;
 
+let lastTickKey = "";
+
 
 /* =========================================================
    DOM
    ========================================================= */
 
 const marketSelect =
-  document.getElementById("marketSelect");
+  document.getElementById(
+    "marketSelect"
+  );
 
 const statusDot =
-  document.getElementById("statusDot");
+  document.getElementById(
+    "statusDot"
+  );
 
 const statusText =
-  document.getElementById("statusText");
+  document.getElementById(
+    "statusText"
+  );
 
 const errorText =
-  document.getElementById("errorText");
+  document.getElementById(
+    "errorText"
+  );
 
 const livePrice =
-  document.getElementById("livePrice");
+  document.getElementById(
+    "livePrice"
+  );
 
 const lastDigit =
-  document.getElementById("lastDigit");
+  document.getElementById(
+    "lastDigit"
+  );
 
 const marketName =
-  document.getElementById("marketName");
+  document.getElementById(
+    "marketName"
+  );
 
 const grid1000 =
-  document.getElementById("grid1000");
+  document.getElementById(
+    "grid1000"
+  );
 
 const grid100 =
-  document.getElementById("grid100");
+  document.getElementById(
+    "grid100"
+  );
 
 const recentGrid =
-  document.getElementById("recentGrid");
+  document.getElementById(
+    "recentGrid"
+  );
 
 const window1000 =
-  document.getElementById("window1000");
+  document.getElementById(
+    "window1000"
+  );
 
 const window100 =
-  document.getElementById("window100");
+  document.getElementById(
+    "window100"
+  );
 
 const over2Btn =
-  document.getElementById("over2Btn");
+  document.getElementById(
+    "over2Btn"
+  );
 
 const under7Btn =
-  document.getElementById("under7Btn");
+  document.getElementById(
+    "under7Btn"
+  );
 
 
 /* =========================================================
@@ -534,28 +756,53 @@ const MARKET_NAMES = {
    STATUS
    ========================================================= */
 
-function setStatus(type, text){
+function setStatus(
+  type,
+  text
+){
 
-  statusDot.className = "dot";
+  statusDot.className =
+    "dot";
 
-  if(type === "green"){
-    statusDot.classList.add("green");
+  if(
+    type === "green"
+  ){
+
+    statusDot.classList.add(
+      "green"
+    );
+
   }
 
-  if(type === "red"){
-    statusDot.classList.add("red");
+  if(
+    type === "red"
+  ){
+
+    statusDot.classList.add(
+      "red"
+    );
+
   }
 
-  if(type === "yellow"){
-    statusDot.classList.add("yellow");
+  if(
+    type === "yellow"
+  ){
+
+    statusDot.classList.add(
+      "yellow"
+    );
+
   }
 
-  statusText.textContent = text;
+  statusText.textContent =
+    text;
 
 }
 
 
-function showError(message){
+function showError(
+  message
+){
 
   errorText.textContent =
     message || "";
@@ -570,7 +817,9 @@ function showError(message){
 function updateMarketName(){
 
   marketName.textContent =
-    MARKET_NAMES[selectedSymbol] ||
+    MARKET_NAMES[
+      selectedSymbol
+    ] ||
     selectedSymbol;
 
 }
@@ -580,27 +829,59 @@ function updateMarketName(){
    LAST DIGIT
    ========================================================= */
 
-function getLastDigit(price){
+function getLastDigit(
+  price
+){
 
   const number =
     Number(price);
 
-  if(!Number.isFinite(number)){
+  if(
+    !Number.isFinite(number)
+  ){
+
     return null;
+
   }
 
-  const fixed =
-    number.toFixed(pipSize);
+
+  let fixed;
+
+  try{
+
+    fixed =
+      number.toFixed(
+        pipSize
+      );
+
+  }catch(error){
+
+    fixed =
+      String(number);
+
+  }
+
 
   const digits =
-    fixed.replace(/\D/g, "");
+    fixed.replace(
+      /\D/g,
+      ""
+    );
 
-  if(!digits.length){
+
+  if(
+    !digits.length
+  ){
+
     return null;
+
   }
 
+
   return Number(
-    digits[digits.length - 1]
+    digits[
+      digits.length - 1
+    ]
   );
 
 }
@@ -610,12 +891,17 @@ function getLastDigit(price){
    COUNT DIGITS
    ========================================================= */
 
-function countDigits(digits){
+function countDigits(
+  digits
+){
 
   const counts =
     Array(10).fill(0);
 
-  for(const digit of digits){
+
+  for(
+    const digit of digits
+  ){
 
     if(
       Number.isInteger(digit) &&
@@ -629,6 +915,7 @@ function countDigits(digits){
 
   }
 
+
   return counts;
 
 }
@@ -638,7 +925,9 @@ function countDigits(digits){
    RANKING
    ========================================================= */
 
-function getRankingClasses(counts){
+function getRankingClasses(
+  counts
+){
 
   const indexes =
     Array.from(
@@ -697,22 +986,26 @@ function getRankingClasses(counts){
 
   classes[
     descending[0]
-  ] = "rank-green";
+  ] =
+    "rank-green";
 
 
   classes[
     descending[1]
-  ] = "rank-blue";
+  ] =
+    "rank-blue";
 
 
   classes[
     ascending[0]
-  ] = "rank-red";
+  ] =
+    "rank-red";
 
 
   classes[
     ascending[1]
-  ] = "rank-yellow";
+  ] =
+    "rank-yellow";
 
 
   return classes;
@@ -731,7 +1024,8 @@ function renderAnalyzer(
   expectedSize
 ){
 
-  grid.innerHTML = "";
+  grid.innerHTML =
+    "";
 
 
   if(
@@ -777,7 +1071,8 @@ function renderAnalyzer(
       (
         counts[digit] /
         expectedSize
-      ) * 100;
+      ) *
+      100;
 
 
     const card =
@@ -820,11 +1115,17 @@ function renderAnalyzer(
       "%";
 
 
-    card.appendChild(number);
+    card.appendChild(
+      number
+    );
 
-    card.appendChild(percent);
+    card.appendChild(
+      percent
+    );
 
-    grid.appendChild(card);
+    grid.appendChild(
+      card
+    );
 
   }
 
@@ -842,7 +1143,9 @@ function renderAnalyzer(
    TARGET DIGITS
    ========================================================= */
 
-function isTargetDigit(digit){
+function isTargetDigit(
+  digit
+){
 
   if(
     currentMode ===
@@ -883,12 +1186,15 @@ function isTargetDigit(digit){
 
 function renderRecentDigits(){
 
-  recentGrid.innerHTML = "";
+  recentGrid.innerHTML =
+    "";
 
 
   const recent =
     digitHistory
-      .slice(-RECENT_COUNT)
+      .slice(
+        -RECENT_COUNT
+      )
       .reverse();
 
 
@@ -933,7 +1239,9 @@ function renderRecentDigits(){
 
 
     if(
-      isTargetDigit(digit)
+      isTargetDigit(
+        digit
+      )
     ){
 
       box.classList.add(
@@ -986,7 +1294,7 @@ function renderAll(){
 
 
 /* =========================================================
-   RESET DISPLAY
+   RESET DATA
    ========================================================= */
 
 function resetData(){
@@ -1000,6 +1308,8 @@ function resetData(){
   historyLoaded = false;
 
   liveSubscriptionId = null;
+
+  lastTickKey = "";
 
 
   livePrice.textContent =
@@ -1022,7 +1332,6 @@ function resetData(){
   window1000.textContent =
     "Loading latest 1,000...";
 
-
   window100.textContent =
     "Loading latest 100...";
 
@@ -1030,7 +1339,7 @@ function resetData(){
 
 
 /* =========================================================
-   ADD TICK TO ROLLING 3,000
+   ADD TICK TO 3,000 HISTORY
    ========================================================= */
 
 function addTickToHistory(
@@ -1074,10 +1383,96 @@ function addTickToHistory(
 
 
 /* =========================================================
-   PROCESS HISTORICAL DATA
+   TICK KEY
    ========================================================= */
 
-function processHistory(data){
+function makeTickKey(
+  quote,
+  epoch
+){
+
+  return (
+    String(quote) +
+    "|" +
+    String(epoch)
+  );
+
+}
+
+
+/* =========================================================
+   APPLY LIVE TICK
+   ========================================================= */
+
+function applyLiveTick(
+  quote,
+  epoch
+){
+
+  const digit =
+    getLastDigit(
+      quote
+    );
+
+
+  if(
+    digit === null
+  ){
+
+    return;
+
+  }
+
+
+  const tickKey =
+    makeTickKey(
+      quote,
+      epoch
+    );
+
+
+  if(
+    tickKey ===
+    lastTickKey
+  ){
+
+    return;
+
+  }
+
+
+  lastTickKey =
+    tickKey;
+
+
+  livePrice.textContent =
+    Number(quote).toFixed(
+      pipSize
+    );
+
+
+  lastDigit.textContent =
+    digit;
+
+
+  addTickToHistory(
+    digit,
+    epoch
+  );
+
+
+  renderAll();
+
+}
+
+
+/* =========================================================
+   PROCESS HISTORY
+   ========================================================= */
+
+function processHistory(
+  data
+){
 
   if(
     !data.history ||
@@ -1112,7 +1507,9 @@ function processHistory(data){
   ){
 
     pipSize =
-      Number(data.pip_size);
+      Number(
+        data.pip_size
+      );
 
   }
 
@@ -1157,9 +1554,9 @@ function processHistory(data){
   ){
 
     throw new Error(
-      "Deriv returned only " +
+      "Only " +
       digitHistory.length +
-      " usable ticks. The analyzer needs at least 1,000."
+      " usable ticks were received. 1,000 ticks are required."
     );
 
   }
@@ -1182,8 +1579,8 @@ function processHistory(data){
 
 
   /*
-    Process any live ticks that arrived
-    while the 3,000-tick history loaded.
+     Process ticks that arrived
+     while history was loading.
   */
 
   if(
@@ -1204,27 +1601,10 @@ function processHistory(data){
       const item of pending
     ){
 
-      const lastHistoryTime =
-        historyTimes.length
-          ? Number(
-              historyTimes[
-                historyTimes.length - 1
-              ]
-            )
-          : 0;
-
-
-      if(
-        Number(item.epoch) >
-        lastHistoryTime
-      ){
-
-        applyLiveTick(
-          item.quote,
-          item.epoch
-        );
-
-      }
+      applyLiveTick(
+        item.quote,
+        item.epoch
+      );
 
     }
 
@@ -1237,22 +1617,15 @@ function processHistory(data){
 
 
 /* =========================================================
-   PROCESS LIVE TICK
+   SEND HISTORY REQUEST
    ========================================================= */
 
-function applyLiveTick(
-  quote,
-  epoch
-){
-
-  const digit =
-    getLastDigit(
-      quote
-    );
-
+function requestHistory(){
 
   if(
-    digit === null
+    !ws ||
+    ws.readyState !==
+    WebSocket.OPEN
   ){
 
     return;
@@ -1260,23 +1633,91 @@ function applyLiveTick(
   }
 
 
-  livePrice.textContent =
-    Number(quote).toFixed(
-      pipSize
+  const request = {
+
+    ticks_history:
+      selectedSymbol,
+
+    end:
+      "latest",
+
+    count:
+      MAX_HISTORY,
+
+    style:
+      "ticks",
+
+    req_id:
+      1001
+
+  };
+
+
+  try{
+
+    ws.send(
+      JSON.stringify(
+        request
+      )
     );
 
+  }catch(error){
 
-  lastDigit.textContent =
-    digit;
+    showError(
+      "Could not request tick history."
+    );
+
+  }
+
+}
 
 
-  addTickToHistory(
-    digit,
-    epoch
-  );
+/* =========================================================
+   SUBSCRIBE TO LIVE TICKS
+   ========================================================= */
+
+function subscribeLiveTicks(){
+
+  if(
+    !ws ||
+    ws.readyState !==
+    WebSocket.OPEN
+  ){
+
+    return;
+
+  }
 
 
-  renderAll();
+  const request = {
+
+    ticks:
+      selectedSymbol,
+
+    subscribe:
+      1,
+
+    req_id:
+      1002
+
+  };
+
+
+  try{
+
+    ws.send(
+      JSON.stringify(
+        request
+      )
+    );
+
+  }catch(error){
+
+    showError(
+      "Could not subscribe to live ticks."
+    );
+
+  }
 
 }
 
@@ -1285,7 +1726,9 @@ function applyLiveTick(
    MESSAGE HANDLER
    ========================================================= */
 
-function handleMessage(event){
+function handleMessage(
+  event
+){
 
   let data;
 
@@ -1304,9 +1747,9 @@ function handleMessage(event){
   }
 
 
-  /*
-    API ERROR
-  */
+  /* =======================================================
+     API ERROR
+     ======================================================= */
 
   if(
     data.error
@@ -1334,9 +1777,9 @@ function handleMessage(event){
   }
 
 
-  /*
-    HISTORY
-  */
+  /* =======================================================
+     HISTORY
+     ======================================================= */
 
   if(
     data.msg_type ===
@@ -1373,9 +1816,9 @@ function handleMessage(event){
   }
 
 
-  /*
-    LIVE TICK
-  */
+  /* =======================================================
+     LIVE TICK
+     ======================================================= */
 
   if(
     data.msg_type ===
@@ -1397,7 +1840,9 @@ function handleMessage(event){
 
     if(
       Number.isFinite(
-        Number(tick.pip_size)
+        Number(
+          tick.pip_size
+        )
       )
     ){
 
@@ -1451,9 +1896,9 @@ function handleMessage(event){
   }
 
 
-  /*
-    SUBSCRIPTION CONFIRMATION
-  */
+  /* =======================================================
+     SUBSCRIPTION CONFIRMATION
+     ======================================================= */
 
   if(
     data.subscription &&
@@ -1469,7 +1914,7 @@ function handleMessage(event){
 
 
 /* =========================================================
-   KEEP CONNECTION ALIVE
+   PING
    ========================================================= */
 
 function startPing(){
@@ -1526,10 +1971,267 @@ function stopPing(){
 
 
 /* =========================================================
+   CLOSE OLD SUBSCRIPTION
+   ========================================================= */
+
+function forgetCurrentSubscription(){
+
+  if(
+    ws &&
+    ws.readyState ===
+    WebSocket.OPEN &&
+    liveSubscriptionId
+  ){
+
+    try{
+
+      ws.send(
+        JSON.stringify({
+
+          forget:
+            liveSubscriptionId,
+
+          req_id:
+            3001
+
+        })
+      );
+
+    }catch(error){}
+
+  }
+
+}
+
+
+/* =========================================================
+   CONNECT
+   ========================================================= */
+
+function connect(){
+
+  connectionGeneration++;
+
+  const thisGeneration =
+    connectionGeneration;
+
+
+  if(
+    reconnectTimer
+  ){
+
+    clearTimeout(
+      reconnectTimer
+    );
+
+    reconnectTimer =
+      null;
+
+  }
+
+
+  if(
+    ws
+  ){
+
+    try{
+
+      forgetCurrentSubscription();
+
+    }catch(error){}
+
+
+    try{
+
+      ws.close();
+
+    }catch(error){}
+
+  }
+
+
+  stopPing();
+
+
+  resetData();
+
+
+  setStatus(
+    "yellow",
+    "Connecting to Deriv..."
+  );
+
+
+  showError("");
+
+
+  updateMarketName();
+
+
+  try{
+
+    ws =
+      new WebSocket(
+        WS_URL
+      );
+
+  }catch(error){
+
+    setStatus(
+      "red",
+      "Connection error"
+    );
+
+    showError(
+      error.message
+    );
+
+    scheduleReconnect(
+      thisGeneration
+    );
+
+    return;
+
+  }
+
+
+  ws.onopen =
+    function(){
+
+      if(
+        thisGeneration !==
+        connectionGeneration
+      ){
+
+        return;
+
+      }
+
+
+      reconnectAttempt =
+        0;
+
+
+      setStatus(
+        "yellow",
+        "Connected — loading latest 3,000 ticks..."
+      );
+
+
+      showError("");
+
+
+      startPing();
+
+
+      /*
+        Subscribe first so live ticks are not
+        missed while the historical request loads.
+      */
+
+      subscribeLiveTicks();
+
+
+      requestHistory();
+
+    };
+
+
+  ws.onmessage =
+    function(event){
+
+      if(
+        thisGeneration !==
+        connectionGeneration
+      ){
+
+        return;
+
+      }
+
+
+      handleMessage(
+        event
+      );
+
+    };
+
+
+  ws.onerror =
+    function(){
+
+      if(
+        thisGeneration !==
+        connectionGeneration
+      ){
+
+        return;
+
+      }
+
+
+      setStatus(
+        "red",
+        "Connection error"
+      );
+
+    };
+
+
+  ws.onclose =
+    function(){
+
+      if(
+        thisGeneration !==
+        connectionGeneration
+      ){
+
+        return;
+
+      }
+
+
+      stopPing();
+
+      liveSubscriptionId =
+        null;
+
+      historyLoaded =
+        false;
+
+
+      setStatus(
+        "yellow",
+        "Disconnected — reconnecting..."
+      );
+
+
+      scheduleReconnect(
+        thisGeneration
+      );
+
+    };
+
+}
+
+
+/* =========================================================
    RECONNECT
    ========================================================= */
 
-function scheduleReconnect(){
+function scheduleReconnect(
+  generation
+){
+
+  if(
+    generation !==
+    connectionGeneration
+  ){
+
+    return;
+
+  }
+
 
   if(
     reconnectTimer
@@ -1548,11 +2250,8 @@ function scheduleReconnect(){
       15000,
       1000 *
       Math.pow(
-        2,
-        Math.min(
-          reconnectAttempt - 1,
-          4
-        )
+        1.5,
+        reconnectAttempt - 1
       )
     );
 
@@ -1564,6 +2263,17 @@ function scheduleReconnect(){
         reconnectTimer =
           null;
 
+
+        if(
+          generation !==
+          connectionGeneration
+        ){
+
+          return;
+
+        }
+
+
         connect();
 
       },
@@ -1574,258 +2284,7 @@ function scheduleReconnect(){
 
 
 /* =========================================================
-   CONNECT
-   ========================================================= */
-
-function connect(){
-
-  if(
-    reconnectTimer
-  ){
-
-    clearTimeout(
-      reconnectTimer
-    );
-
-    reconnectTimer =
-      null;
-
-  }
-
-
-  stopPing();
-
-
-  /*
-    Close old connection.
-  */
-
-  if(ws){
-
-    try{
-
-      ws.onclose =
-        null;
-
-      ws.close();
-
-    }catch(error){}
-
-  }
-
-
-  resetData();
-
-
-  selectedSymbol =
-    marketSelect.value;
-
-
-  updateMarketName();
-
-
-  setStatus(
-    "yellow",
-    "Connecting to Deriv..."
-  );
-
-
-  showError("");
-
-
-  try{
-
-    ws =
-      new WebSocket(
-        WS_URL
-      );
-
-  }catch(error){
-
-    setStatus(
-      "red",
-      "Connection error"
-    );
-
-
-    showError(
-      error.message ||
-      "Could not create WebSocket."
-    );
-
-
-    scheduleReconnect();
-
-    return;
-
-  }
-
-
-  /*
-    SOCKET OPEN
-  */
-
-  ws.onopen =
-    function(){
-
-      reconnectAttempt =
-        0;
-
-
-      setStatus(
-        "green",
-        "Connected — loading latest 3,000 ticks..."
-      );
-
-
-      showError("");
-
-
-      startPing();
-
-
-      /*
-        FIRST:
-        Get exactly the latest
-        3,000 historical ticks.
-      */
-
-      ws.send(
-        JSON.stringify({
-
-          ticks_history:
-            selectedSymbol,
-
-          end:
-            "latest",
-
-          count:
-            MAX_HISTORY,
-
-          style:
-            "ticks",
-
-          adjust_start_time:
-            1,
-
-          subscribe:
-            0,
-
-          req_id:
-            1001
-
-        })
-      );
-
-
-      /*
-        SECOND:
-        Subscribe to the live stream.
-      */
-
-      ws.send(
-        JSON.stringify({
-
-          ticks:
-            selectedSymbol,
-
-          subscribe:
-            1,
-
-          req_id:
-            1002
-
-        })
-      );
-
-    };
-
-
-  /*
-    SOCKET MESSAGE
-  */
-
-  ws.onmessage =
-    handleMessage;
-
-
-  /*
-    SOCKET ERROR
-  */
-
-  ws.onerror =
-    function(){
-
-      setStatus(
-        "red",
-        "WebSocket connection error"
-      );
-
-
-      showError(
-        "The browser could not establish the Deriv market-data connection. Retrying..."
-      );
-
-    };
-
-
-  /*
-    SOCKET CLOSED
-  */
-
-  ws.onclose =
-    function(event){
-
-      stopPing();
-
-
-      liveSubscriptionId =
-        null;
-
-
-      if(
-        event &&
-        event.code === 1000
-      ){
-
-        setStatus(
-          "yellow",
-          "Connection closed"
-        );
-
-      }else{
-
-        setStatus(
-          "red",
-          "Disconnected — reconnecting..."
-        );
-
-
-        if(
-          event &&
-          event.code
-        ){
-
-          showError(
-            "WebSocket closed with code " +
-            event.code +
-            ". Retrying..."
-          );
-
-        }
-
-      }
-
-
-      scheduleReconnect();
-
-    };
-
-}
-
-
-/* =========================================================
-   MARKET CHANGE
+   CHANGE MARKET
    ========================================================= */
 
 marketSelect.addEventListener(
@@ -1837,10 +2296,6 @@ marketSelect.addEventListener(
 
 
     updateMarketName();
-
-
-    reconnectAttempt =
-      0;
 
 
     connect();
@@ -1906,20 +2361,43 @@ under7Btn.addEventListener(
 
 
 /* =========================================================
-   START APPLICATION
+   INITIALIZE
    ========================================================= */
-
-selectedSymbol =
-  marketSelect.value;
-
 
 updateMarketName();
 
-
 renderAll();
 
-
 connect();
+
+
+/* =========================================================
+   PAGE VISIBILITY
+   ========================================================= */
+
+document.addEventListener(
+  "visibilitychange",
+  function(){
+
+    if(
+      document.visibilityState ===
+      "visible"
+    ){
+
+      if(
+        !ws ||
+        ws.readyState !==
+        WebSocket.OPEN
+      ){
+
+        connect();
+
+      }
+
+    }
+
+  }
+);
 
 </script>
 
